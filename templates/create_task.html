@@ -1,0 +1,317 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>doBase</title>
+	<meta name="description" content="">
+
+	<link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}" type="image/x-icon">
+	<link rel="apple-touch-icon" href="{% static 'img/favicon/apple-touch-icon.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/favicon/apple-touch-icon-72x72.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/favicon/apple-touch-icon-114x114.png' %}">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+	<script src="https://kit.fontawesome.com/8682e796b5.js" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="{% static 'libs/bootstrap4/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'libs/bootstrap4/css/bootstrap-grid.min.css' %}">
+
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{% static 'libs/animate/animate.css' %}">
+
+
+<!--	<link rel="stylesheet" href="css/main.min.css">-->
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+
+	<script src="{% static 'libs/modernizr/modernizr.js' %}"></script>
+
+</head>
+
+<body class="h-100 hide-scroll" id="hide-scroll">
+	<div id="main-container" class="top-stick">
+		<div class="side-bar-wrapper">
+			<div id="side-bar" class="side-bar-block">
+				<div class="top-block">
+					<a href="index.html" class="hero-title black-color fw-700">doBase</a>
+				</div>
+				<ul class="nav-menu">
+					<li><a class="standard-description" href="tasks.html"><span class="icon"><i class="fas fa-user"></i></span>Me</a></li>
+					<li><a class="standard-description" href="#"><span class="icon"><i class="fas fa-users"></i></span>Others</a></li>
+					<li><a class="standard-description" href="#"><span class="icon"><i class="fas fa-calendar-alt"></i></span>Date</a></li>
+				</ul>
+				<div class="bottom-block text-center">
+					<a href="#" class="medium-description fw-700">Log Out</a>
+				</div>
+			</div>
+		</div>
+		<div class="container hero-content">
+			<div class="row">
+				<div class="col-12">
+					<div class="width-wrapper">
+						<div class="control-width d-flex flex-column align-items-center">
+							<ul class="nav nav-tabs" id="hero-content-tabs" role="tablist">
+								<li class="nav-item" role="presentation">
+									<a class="nav-link standard-description button fw-500 high active" id="work-tab" data-toggle="tab" href="#work" role="tab" aria-controls="work" aria-selected="true">Work</a>
+								</li>
+								<li class="nav-item" role="presentation">
+									<a class="nav-link standard-description button fw-500 high" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="false">Personal</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="tab-content" id="">
+						<div class="tab-pane fade show active" id="work" role="tabpanel" aria-labelledby="work-tab">
+							<div class="width-wrapper">
+								<form action="" class="hero-form control-width">
+									<div class="standard-form-search" id="search-wrp">
+										<input type="search" id="search1" class="standard-form-input" placeholder="Project">
+									</div>
+									<div class="standard-form-search" id="search-wrp2">
+										<input type="search" id="search2" class="standard-form-input" placeholder="Goal">
+									</div>
+									<textarea class="standard-form-textarea" placeholder="Task"></textarea>
+									<div class="standard-form-search" id="search-wrp5">
+										<input type="search" id="search5" class="standard-form-input" placeholder="Who (Default to me)">
+									</div>
+									<div class="button-wrapper">
+										<button type="submit" class="w-100 fw-500 standard-description button black-button high">Add</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+							<div class="width-wrapper">
+								<form action="" class="hero-form control-width">
+									<div class="standard-form-search" id="search-wrp3">
+										<input type="search" id="search3" class="standard-form-input" placeholder="Project">
+									</div>
+									<div class="standard-form-search" id="search-wrp4">
+										<input type="search" id="search4" class="standard-form-input" placeholder="Goal">
+									</div>
+									<textarea class="standard-form-textarea" placeholder="Task"></textarea>
+									<div class="standard-form-search" id="search-wrp6">
+										<input type="search" id="search6" class="standard-form-input" placeholder="Who (Default to me)">
+									</div>
+									<div class="button-wrapper">
+										<button type="submit" class="w-100 fw-500 standard-description button black-button high">Add</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-menu">
+		<ul>
+
+			<li><a href="#">
+				<span class="icon"><i class="fas fa-user" aria-hidden="true"></i></span>
+				<span class="text">Me</span>
+			</a></li>
+			<li><a href="#">
+				<span class="icon">
+					<i class="fas fa-users" aria-hidden="true"></i>
+				</span>
+				<span class="text">Other</span>
+			</a></li>
+			<li><a href="#">
+				<span class="icon">
+					<i class="fas fa-calendar-alt" aria-hidden="true"></i>
+				</span>
+				<span class="text">Date</span>
+			</a></li>
+			<li><a href="#" class="add added-active">
+				<span class="icon hide"><i class="fas fa-plus" aria-hidden="true"></i></span>
+				<span class="icon show"><i class="fas fa-check"></i></span>
+				<span class="text">Add</span></a></li>
+		</ul>
+	</div>
+
+
+	<div class="loader">
+		<div class="loader_inner"></div>
+	</div>
+
+	<!--[if lt IE 9]>
+	<script src="libs/html5shiv/es5-shim.min.js"></script>
+	<script src="libs/html5shiv/html5shiv.min.js"></script>
+	<script src="libs/html5shiv/html5shiv-printshiv.min.js"></script>
+	<script src="libs/respond/respond.min.js"></script>
+	<![endif]-->
+	
+	<script src="{% static 'libs/jquery/jquery-1.11.2.min.js' %}"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="{% static 'libs/waypoints/waypoints.min.js' %}"></script>
+	<script src="{% static 'libs/animate/animate-css.js' %}"></script>
+	<script src="{% static 'libs/bootstrap4/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'libs/plugins-scroll/plugins-scroll.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	
+	<script src="{% static 'js/common.js' %}"></script>
+
+	<script>
+		$(document).ready(function() {
+
+
+			$('.add').click(function (e) {
+				e.preventDefault();
+				$(this).toggleClass('added-active');
+			})
+
+			var availableTags = [
+				"ActionScript",
+				"AppleScript",
+				"Asp",
+				"BASIC",
+				"C",
+				"C++",
+				"Clojure",
+				"COBOL",
+				"ColdFusion",
+				"Erlang",
+				"Fortran",
+				"Groovy",
+				"Haskell",
+				"Java",
+				"JavaScript",
+				"Lisp",
+				"Perl",
+				"PHP",
+				"Python",
+				"Ruby",
+				"Scala",
+				"Scheme"
+			];
+			$("input#search1").autocomplete({
+				source: availableTags,
+				appendTo: "#search-wrp",
+				open: function( event, ui ) {
+					$('#search-wrp').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp').removeClass('open');
+				}
+			});
+			$("input#search2").autocomplete({
+				source: availableTags,
+				appendTo: "#search-wrp2",
+				open: function( event, ui ) {
+					$('#search-wrp2').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp2').removeClass('open');
+				}
+			});
+			$("input#search3").autocomplete({
+				source: availableTags,
+				appendTo: "#search-wrp3",
+				open: function( event, ui ) {
+					$('#search-wrp3').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp3').removeClass('open');
+				}
+			});
+			$("input#search4").autocomplete({
+				source: availableTags,
+				appendTo: "#search-wrp4",
+				open: function( event, ui ) {
+					$('#search-wrp4').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp4').removeClass('open');
+				}
+			});
+			$("input#search5").autocomplete({
+				source: availableTags,
+				appendTo: "#search-wrp5",
+				open: function( event, ui ) {
+					$('#search-wrp5').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp5').removeClass('open');
+				}
+			});
+			$("input#search6").autocomplete({
+				source: availableTags,
+				appendTo: "#search-wrp6",
+				open: function( event, ui ) {
+					$('#search-wrp6').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp6').removeClass('open');
+				}
+			});
+
+
+			var parent = document.getElementById('hide-scroll');
+			var child = document.getElementById('main-container');
+			child.style.paddingRight = child.offsetWidth - child.clientWidth + "px";
+
+
+			$('.basic-multiple').select2({
+				dropdownParent: $('#basic-multiple-wrp1'),
+				minimumResultsForSearch: Infinity,
+				placeholder: "Project",
+				// tags: true,
+				selectionCssClass: 'custom-standard-select',
+				dropdownAutoWidth: true,
+				width: "100%",
+				sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+			});
+			$('.basic-multiple-2').select2({
+				dropdownParent: $('#basic-multiple-wrp2'),
+				minimumResultsForSearch: Infinity,
+				placeholder: "Goal",
+				tags: true,
+				selectionCssClass: 'custom-standard-select',
+				dropdownAutoWidth: true,
+				width: "100%",
+				sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+			});
+			$('.basic-multiple-3').select2({
+				dropdownParent: $('#basic-multiple-wrp3'),
+				minimumResultsForSearch: Infinity,
+				placeholder: "Project",
+				tags: true,
+				selectionCssClass: 'custom-standard-select',
+				dropdownAutoWidth: true,
+				width: "100%",
+				sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+			});
+			$('.basic-multiple-4').select2({
+				dropdownParent: $('#basic-multiple-wrp4'),
+				minimumResultsForSearch: Infinity,
+				placeholder: "Goal",
+				tags: true,
+				selectionCssClass: 'custom-standard-select',
+				dropdownAutoWidth: true,
+				width: "100%",
+				sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+			});
+
+
+
+		});
+	</script>
+	
+</body>
+</html>

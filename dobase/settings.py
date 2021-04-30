@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2zslxwahg^(j-d_yp8axw0fox=c$-mdee-q%q8l5=wgpp$$oqx'
+SECRET_KEY = os.environ.get('DOBASE_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DOBASE_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -31,6 +31,15 @@ ALLOWED_HOSTS = [
 
 # Tell Django to use our custom user model with email as username
 AUTH_USER_MODEL = 'users.AppUser'
+
+# Code for forwarding http to https
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', False)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Recommended security settings
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', False)
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', False)
+SECURE_REFERRER_POLICY = 'same-origin'
 
 # Application definition
 
@@ -60,7 +69,9 @@ ROOT_URLCONF = 'dobase.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
