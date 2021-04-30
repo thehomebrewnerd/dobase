@@ -27,6 +27,7 @@ DEBUG = os.environ.get('DOBASE_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = [
     'localhost',
+    'dobase.herokuapp.com',
 ]
 
 # Tell Django to use our custom user model with email as username
