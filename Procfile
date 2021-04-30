@@ -1,1 +1,1 @@
-web: gunicorn socialize.wsgi --log-file -
+web: gunicorn dobase.wsgi --log-file -
