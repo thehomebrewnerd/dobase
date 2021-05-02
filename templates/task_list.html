@@ -43,7 +43,7 @@
 		<div class="side-bar-wrapper">
 			<div id="side-bar" class="side-bar-block with-indent">
 				<div class="top-block">
-					<a href="index.html" class="hero-title black-color fw-700">doBase</a>
+					<a href="{% url 'home' %}" class="hero-title black-color fw-700">doBase</a>
 					<ul class="nav nav-tabs" id="side-bar-tabs" role="tablist">
 						<li class="nav-item" role="presentation">
 							<a class="nav-link standard-description button fw-500 high active" id="work-tab" data-toggle="tab" href="#work" role="tab" aria-controls="work" aria-selected="true">Work</a>
@@ -59,8 +59,8 @@
 					<li><a class="standard-description" href="#"><span class="icon"><i class="fas fa-calendar-alt"></i></span>Date</a></li>
 				</ul>
 				<div class="bottom-block text-center">
-					<a href="#" class="button black-button standard-description fw-500 high"><span class="icon mr-2"><i class="fas fa-plus"></i></span> Add</a>
-					<a href="#" class="medium-description fw-700">Log Out</a>
+					<a href="{% url 'home' %}" class="button black-button standard-description fw-500 high"><span class="icon mr-2"><i class="fas fa-plus"></i></span> Add</a>
+					<a href="{% url 'logout' %}?next=/accounts/login/" class="medium-description fw-700">Log Out</a>
 				</div>
 			</div>
 		</div>

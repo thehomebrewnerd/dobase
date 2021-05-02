@@ -45,7 +45,7 @@
 		<div class="side-bar-wrapper">
 			<div id="side-bar" class="side-bar-block">
 				<div class="top-block">
-					<a href="index.html" class="hero-title black-color fw-700">doBase</a>
+					<a href="{% url 'home' %}" class="hero-title black-color fw-700">doBase</a>
 				</div>
 				<ul class="nav-menu">
 					<li><a class="standard-description" href="tasks.html"><span class="icon"><i class="fas fa-user"></i></span>Me</a></li>
@@ -53,7 +53,7 @@
 					<li><a class="standard-description" href="#"><span class="icon"><i class="fas fa-calendar-alt"></i></span>Date</a></li>
 				</ul>
 				<div class="bottom-block text-center">
-					<a href="#" class="medium-description fw-700">Log Out</a>
+					<a href="{% url 'logout' %}?next=/accounts/login/" class="medium-description fw-700">Log Out</a>
 				</div>
 			</div>
 		</div>

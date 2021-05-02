@@ -9,7 +9,7 @@
 
 	<meta charset="utf-8">
 
-	<title>doBase | Login</title>
+	<title>doBase | Create Account</title>
 	<meta name="description" content="">
 
 	<link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}" type="image/x-icon">
@@ -53,23 +53,48 @@
 					<div class="tab-content" id="">
 							<div class="width-wrapper">
 								{% if form.errors %}
-									<p>Your username and password didn't match. Please try again.</p>
-							  	{% endif %}
-								<form method="post" action="{% url 'login' %}" class="hero-form control-width">
+									{% for error in form.non_field_errors %}
+										<div class="alert alert-danger">
+											<strong>{{ error|escape }}</strong>
+										</div>
+									{% endfor %}
+								{% endif %}
+
+								<form method="POST" action="{% url 'signup' %}" class="hero-form control-width">
 									{% csrf_token %}
-									{% for field in form %}
-										{% if field.html_name == 'username' %}
+									{% for field in form.visible_fields %}
+										{% if field.html_name == 'email' %}
+											{% if field.errors %}
+												{% for error in field.errors %}
+													<div class="alert alert-danger">
+														<strong>{{ error|escape }}</strong>
+													</div>
+												{% endfor %}
+											{% endif %}
 											<input type="email" class="standard-form-input" placeholder="Email" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
-										{% else %}
+										{% elif field.html_name == 'password1' %}
+											{% if field.errors %}
+												{% for error in field.errors %}
+													<div class="alert alert-danger">
+														<strong>{{ error|escape }}</strong>
+													</div>
+												{% endfor %}
+											{% endif %}
 											<input type="password" class="standard-form-input" placeholder="Password" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
+										{% else %}
+											{% if field.errors %}
+												{% for error in field.errors %}
+													<div class="alert alert-danger">
+														<strong>{{ error|escape }}</strong>
+													</div>
+												{% endfor %}
+											{% endif %}
+											<input type="password" class="standard-form-input" placeholder="Confirm Password" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
 										{% endif %}
 									{% endfor %}
+
 									<div class="button-wrapper d-flex w-100 mt-0">
-										<button type="submit" class="mt-0 w-100 fw-500 standard-description button black-button high">Login</button>
-									</div>
-									<input type="hidden" name="next" value="{{ next }}" />
-									<div class="signUp">
-										<a href="{% url 'signup' %}" class="sign-up middle-description">Sign Up</a>
+										<button type="submit" class="mt-0 w-100 fw-500 standard-description button black-button high">Create Account</button>
 									</div>
 								</form>
 							</div>

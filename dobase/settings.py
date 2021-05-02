@@ -42,6 +42,9 @@ SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', False)
 CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', False)
 SECURE_REFERRER_POLICY = 'same-origin'
 
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
+
 # Application definition
 
 INSTALLED_APPS = [
