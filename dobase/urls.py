@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from tasks.views import create_task, view_tasks
+from tasks.views import TaskCreateView, view_tasks
 from users.views import create_account
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', create_task, name='home'),
+    path('', TaskCreateView.as_view(), name='home'),
     path('tasks/', view_tasks, name='view-tasks'),
     path('signup/', create_account, name='signup'),
 ]
