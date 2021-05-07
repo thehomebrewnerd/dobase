@@ -142,23 +142,23 @@
 	<div class="footer-menu">
 		<ul>
 
-			<li><a href="#">
+			<li><a href="{% url 'view-tasks' %}">
 				<span class="icon"><i class="fas fa-user" aria-hidden="true"></i></span>
 				<span class="text">Me</span>
 			</a></li>
-			<li><a href="#">
+			<li><a href="{% url 'view-tasks' %}">
 				<span class="icon">
 					<i class="fas fa-users" aria-hidden="true"></i>
 				</span>
 				<span class="text">Other</span>
 			</a></li>
-			<li><a href="#">
+			<li><a href="{% url 'view-tasks' %}">
 				<span class="icon">
 					<i class="fas fa-calendar-alt" aria-hidden="true"></i>
 				</span>
 				<span class="text">Date</span>
 			</a></li>
-			<li><a href="#" class="add added-active">
+			<li><a href="{% url 'home' %}" class="add">
 				<span class="icon hide"><i class="fas fa-plus" aria-hidden="true"></i></span>
 				<span class="icon show"><i class="fas fa-check"></i></span>
 				<span class="text">Add</span></a></li>
@@ -191,35 +191,11 @@
 		$(document).ready(function() {
 
 
-			$('.add').click(function (e) {
-				e.preventDefault();
-				$(this).toggleClass('added-active');
-			})
+			// $('.add').click(function (e) {
+			// 	e.preventDefault();
+			// 	$(this).toggleClass('added-active');
+			// })
 
-			var availableTags = [
-				"ActionScript",
-				"AppleScript",
-				"Asp",
-				"BASIC",
-				"C",
-				"C++",
-				"Clojure",
-				"COBOL",
-				"ColdFusion",
-				"Erlang",
-				"Fortran",
-				"Groovy",
-				"Haskell",
-				"Java",
-				"JavaScript",
-				"Lisp",
-				"Perl",
-				"PHP",
-				"Python",
-				"Ruby",
-				"Scala",
-				"Scheme"
-			];
 			var workProjectTags = [];
 			{% for tag in auto_work_projects %}
       			workProjectTags.push(`{{ tag|safe }}`);

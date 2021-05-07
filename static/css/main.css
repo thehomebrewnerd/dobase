@@ -1114,7 +1114,7 @@ button {
   .hero-content .width-wrapper .control-width.checkboxes-wrapper {
     padding-top: 0; }
   .hero-content .hero-form .button-wrapper {
-    display: none;
+    /* display: none; */
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
