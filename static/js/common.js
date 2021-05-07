@@ -256,15 +256,16 @@ $(document).ready(function () {
 
 		if($(this).is(':checked')){
 			actionLine(state, 'add');
+			complete_task(this.value, true);
 		}
 		if(!$(this).is(':checked')){
 			actionLine(state, 'remove');
+			complete_task(this.value, false)
 		}
 
 		var totalAllActiveCheck = allCheckSecondLine.not(':checked').length;
 
 		if(totalNotCheck === 0) {
-			console.log('not elements');
 			inputHeroSecondLine.prop('checked', true);
 			actionLine(inputHeroSecondLine, 'add')
 			if (totalAllActiveCheck === 0) {

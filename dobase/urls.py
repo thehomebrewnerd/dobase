@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from tasks.views import TaskCreateView, view_tasks
+from tasks.views import TaskCreateView, view_tasks, update_task_status
 from users.views import create_account
 
 urlpatterns = [
@@ -25,4 +25,5 @@ urlpatterns = [
     path('', TaskCreateView.as_view(), name='home'),
     path('tasks/', view_tasks, name='view-tasks'),
     path('signup/', create_account, name='signup'),
+    path('tasks/update_task_status', update_task_status, name='update_task_status')
 ]

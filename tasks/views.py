@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.db.models.functions import Lower
+from django.http import JsonResponse
 
 from .models import Task
 
@@ -11,7 +12,7 @@ from .models import Task
 @login_required(login_url='/accounts/login')
 def view_tasks(request):
     """View for displaying task list for the logged in user"""
-    work_tasks = Task.objects.filter(user=request.user, task_type=1).order_by('created_on')
+    work_tasks = Task.objects.filter(user=request.user, task_type=1, is_complete=False).order_by('created_on')
     work_task_dict = {}
     for task in work_tasks:
         task_name = task.project_name
@@ -22,7 +23,7 @@ def view_tasks(request):
         goal_dict[goal_name] = task_list
         work_task_dict[task_name] = goal_dict
 
-    personal_tasks = Task.objects.filter(user=request.user, task_type=2).order_by('created_on')
+    personal_tasks = Task.objects.filter(user=request.user, task_type=2, is_complete=False).order_by('created_on')
     personal_task_dict = {}
     for task in personal_tasks:
         task_name = task.project_name
@@ -121,3 +122,26 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         context['auto_personal_people'] = sorted(auto_personal_people)
 
         return context
+
+
+@login_required(login_url='/accounts/login')
+def update_task_status(request):
+    if request.method == "POST":
+        user = request.user
+        task_id = request.POST.get('id')
+        status = request.POST.get('status')
+        task = get_object_or_404(Task, pk=task_id)
+
+        print("Task ID:", task_id)
+        print("Status:", type(status), bool(status))
+
+        if status == '1':
+            task.is_complete = True
+        else:
+            task.is_complete = False
+        
+        task.save()
+
+        return JsonResponse({"message": "task updated successfully"})
+    else:
+        return JsonResponse({"nothing to see": "this isn't happening"})
