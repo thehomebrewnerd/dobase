@@ -132,9 +132,6 @@ def update_task_status(request):
         status = request.POST.get('status')
         task = get_object_or_404(Task, pk=task_id)
 
-        print("Task ID:", task_id)
-        print("Status:", type(status), bool(status))
-
         if status == '1':
             task.is_complete = True
         else:
