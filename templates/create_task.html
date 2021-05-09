@@ -91,10 +91,10 @@
 												{{f}}
 											<textarea class="standard-form-textarea" placeholder="{{ field.label }}" name="{{ field.html_name }}"></textarea>
 										{% elif field.html_name == 'task_type' %}
-											<input type="search" id="work_{{ field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}" value=1 hidden>
+											<input type="search" id="{{ field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}" value=1 hidden>
 										{% else %}
-											<div class="standard-form-search" id="search-wrp-work-{{ field.html_name}}">
-												<input type="search" id="work_{{ field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}">
+											<div class="standard-form-search" id="search-wrp-{{ field.html_name}}">
+												<input type="search" id="{{ field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}">
 											</div>
 										{% endif %}
 									{% endfor %}
@@ -104,7 +104,7 @@
 								</form>
 							</div>
 						</div>
-						<div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+						<!-- <div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
 							<div class="width-wrapper">
 								<form method="POST" class="hero-form control-width">
 									{% csrf_token %}
@@ -132,7 +132,7 @@
 									</div>
 								</form>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -190,7 +190,6 @@
 	<script>
 		$(document).ready(function() {
 
-
 			// $('.add').click(function (e) {
 			// 	e.preventDefault();
 			// 	$(this).toggleClass('added-active');
@@ -222,67 +221,73 @@
       			personalPeopleTags.push(`{{ tag|safe }}`);
     		{% endfor %}
 
-			$("input#work_project_name").autocomplete({
+			function setWorkAutocomplete () {
+				$("input#project_name").autocomplete({
 				source: workProjectTags,
-				appendTo: "#search-wrp-work-project_name",
+				appendTo: "#search-wrp-project_name",
 				open: function( event, ui ) {
-					$('#search-wrp-work-project_name').addClass('open');
+					$('#search-wrp-project_name').addClass('open');
 				},
 				close: function( event, ui ) {
-					$('#search-wrp-work-project_name').removeClass('open');
+					$('#search-wrp-project_name').removeClass('open');
 				}
-			});
-			$("input#work_goal_name").autocomplete({
-				source: workGoalTags,
-				appendTo: "#search-wrp-work-goal_name",
-				open: function( event, ui ) {
-					$('#search-wrp-work-goal_name').addClass('open');
-				},
-				close: function( event, ui ) {
-					$('#search-wrp-work-goal_name').removeClass('open');
-				}
-			});
-			$("input#work_task_owner").autocomplete({
-				source: workPeopleTags,
-				appendTo: "#search-wrp-work-task_owner",
-				open: function( event, ui ) {
-					$('#search-wrp-work-task_owner').addClass('open');
-				},
-				close: function( event, ui ) {
-					$('#search-wrp-work-task_owner').removeClass('open');
-				}
-			});
-			$("input#personal_project_name").autocomplete({
-				source: personalProjectTags,
-				appendTo: "#search-wrp-personal-project_name",
-				open: function( event, ui ) {
-					$('#search-wrp-personal-project_name').addClass('open');
-				},
-				close: function( event, ui ) {
-					$('#search-wrp-personal-project_name').removeClass('open');
-				}
-			});
-			$("input#personal_goal_name").autocomplete({
-				source: personalGoalTags,
-				appendTo: "#search-wrp-personal-goal_name",
-				open: function( event, ui ) {
-					$('#search-wrp-personal-goal_name').addClass('open');
-				},
-				close: function( event, ui ) {
-					$('#search-wrp-personal-goal_name').removeClass('open');
-				}
-			});
-			$("input#personal_task_owner").autocomplete({
-				source: personalPeopleTags,
-				appendTo: "#search-wrp-personal-task_owner",
-				open: function( event, ui ) {
-					$('#search-wrp-personal-task_owner').addClass('open');
-				},
-				close: function( event, ui ) {
-					$('#search-wrp-personal-task_owner').removeClass('open');
-				}
-			});
+				});
+				$("input#goal_name").autocomplete({
+					source: workGoalTags,
+					appendTo: "#search-wrp-goal_name",
+					open: function( event, ui ) {
+						$('#search-wrp-goal_name').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-goal_name').removeClass('open');
+					}
+				});
+				$("input#task_owner").autocomplete({
+					source: workPeopleTags,
+					appendTo: "#search-wrp-task_owner",
+					open: function( event, ui ) {
+						$('#search-wrp-task_owner').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-task_owner').removeClass('open');
+					}
+				});
+			}
 
+			function setPersonalAutocomplete () {
+				$("input#project_name").autocomplete({
+				source: personalProjectTags,
+				appendTo: "#search-wrp-project_name",
+				open: function( event, ui ) {
+					$('#search-wrp-project_name').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp-project_name').removeClass('open');
+				}
+				});
+				$("input#goal_name").autocomplete({
+					source: personalGoalTags,
+					appendTo: "#search-wrp-goal_name",
+					open: function( event, ui ) {
+						$('#search-wrp-goal_name').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-goal_name').removeClass('open');
+					}
+				});
+				$("input#task_owner").autocomplete({
+					source: personalPeopleTags,
+					appendTo: "#search-wrp-task_owner",
+					open: function( event, ui ) {
+						$('#search-wrp-task_owner').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-task_owner').removeClass('open');
+					}
+				});
+			}
+			
+			setWorkAutocomplete();
 
 			var parent = document.getElementById('hide-scroll');
 			var child = document.getElementById('main-container');
@@ -329,7 +334,20 @@
 				width: "100%",
 				sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
 			});
+
+			$('a[data-toggle="tab"]').on('click', function (e) {		
+			if($(e.target).is('#personal-tab')) {
+				$('#task_type').val(2);
+				setPersonalAutocomplete();
+			}
+			else if($(e.target).is('#work-tab')) {
+				$('#task_type').val(1);
+				setWorkAutocomplete();
+			}
+			})
+
 		});
+
 	</script>
 	
 </body>
