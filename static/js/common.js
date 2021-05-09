@@ -22,8 +22,6 @@ var stickyHeaders = (function() {
 
 				var $thisSticky = $(this);
 
-				console.log($thisSticky);
-
 				$thisSticky
 						.data('originalPosition', $thisSticky.offset().top)
 						.data('originalHeight', $thisSticky.outerHeight(true))
@@ -32,9 +30,6 @@ var stickyHeaders = (function() {
 
 
 				var	$stickyPosition = $thisSticky.data('originalPosition');
-
-				console.log($stickyPosition);
-				console.log($window.scrollTop());
 
 				if (($stickyPosition - (tPanelHeight - 1)) <= $(document).scrollTop()) {
 
@@ -62,16 +57,7 @@ var stickyHeaders = (function() {
 			var $thisSticky = $(this),
 					$stickyPosition = $thisSticky.data('originalPosition');
 
-			// console.log($stickyPosition);
-			// console.log($window.scrollTop());
-
 			if (($stickyPosition - (tPanelHeight - 1)) <= $window.scrollTop()) {
-
-				// console.log($stickies);
-				// $stickies.each(function (i) {
-				// 	var $nextSticky = $stickies.eq(i + 1);
-				// 	console.log($nextSticky);
-				// })
 
 				$thisSticky.addClass("fixed");
 
@@ -106,9 +92,9 @@ var followMeBar = $('.followMeBar');
 $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
 	e.target // newly activated tab
 	e.relatedTarget // previous active tab
-	console.log($(e.target).is('#work-tab'));
+	// console.log($(e.target).is('#work-tab'));
 	if($(e.target).is('#personal-tab')) {
-		console.log('hello work');
+		// console.log('hello work');
 		// $(window).scrollTop(-1);
 		$('.followMeBar2').each(function () {
 			$(this).removeClass("fixed");
@@ -117,11 +103,11 @@ $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
 		stickyHeaders.load($(".followMeBar"));
 		$('.followMeBar').each(function () {
 			// $(this).data('originalPosition', $(this).offset().top)
-			console.log($(this).data('originalPosition'));
+			// console.log($(this).data('originalPosition'));
 		})
 	}
 	else if($(e.target).is('#work-tab')) {
-		console.log('hello personal');
+		// console.log('hello personal');
 		// $(window).scrollTop(-1);
 
 		$('.followMeBar').each(function () {
@@ -131,7 +117,7 @@ $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
 		stickyHeaders.load($(".followMeBar2"));
 		$('.followMeBar2').each(function () {
 			// $(this).data('originalPosition', $(this).offset().top)
-			console.log($(this).data('originalPosition'));
+			// console.log($(this).data('originalPosition'));
 		})
 	}
 
@@ -196,7 +182,6 @@ $(document).ready(function () {
 	function actionLine(item ,action) {
 		var state = item;
 		var formBlock;
-		console.log(state);
 		formBlock = state.closest('.form-block');
 		if(action === 'remove') {
 			formBlock.removeClass('line-through');
@@ -217,8 +202,6 @@ $(document).ready(function () {
 
 		if(heroInputSecondLine.is(e.target)) {
 			if(totalNotCheck === 0) {
-				console.log('not elements');
-				console.log(heroInputFirstLine);
 				heroInputFirstLine.prop('checked', true);
 			}
 			else if(totalNotCheck < totalCheck) {
@@ -246,12 +229,10 @@ $(document).ready(function () {
 		var inputHeroSecondLine = secondLineParent.find('.form-check-input.hero');
 		var allCheckSecondLine = firstLineParent.find('.form-check-input').not('.form-check-input.hero');
 
-		var element = parentBlock.find(formCheckInput);
+		// var element = parentBlock.find(formCheckInput);
+		var element = secondLineParent.find(formCheckInput).not('.form-check-input.hero');
 		var totalNotCheck = element.not(':checked').length;
 		var totalCheck = element.length;
-
-
-
 		var state = $(this);
 
 		if($(this).is(':checked')){

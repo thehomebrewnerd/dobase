@@ -93,8 +93,8 @@
 													<div class="form-block-head">
 														<h4 class="title hero">{{ project_name }}</h4>
 														<div class="checkbox-block" hidden>
-															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox10{{ forloop.counter }}" value="option1">
-															<label class="form-check-label" for="inlineCheckboxo10{{ forloop.counter }}"></label>
+															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckboxProject1{{ forloop.counter }}" value="option1">
+															<label class="form-check-label" for="inlineCheckboxProject1{{ forloop.counter }}"></label>
 														</div>
 													</div>
 												</div>
@@ -104,8 +104,8 @@
 												<div class="form-block">
 													<h4 class="title hero">{{ goal_name }}</h4>
 													<div class="checkbox-block" hidden>
-														<input class="form-check-input hero" type="checkbox" id="inlineCheckbox20{{ forloop.counter }}" value="option1">
-														<label class="form-check-label" for="inlineCheckbox20{{ forloop.counter }}"></label>
+														<input class="form-check-input hero" type="checkbox" id="inlineCheckboxGoal1{{ forloop.counter }}" value="option1">
+														<label class="form-check-label" for="inlineCheckboxGoal1{{ forloop.counter }}"></label>
 													</div>
 												</div>
 												{% for task in task_list %}
@@ -118,7 +118,6 @@
 															<label class="form-check-label" for="inlineCheckbox{{ task.id }}"></label>
 														</div>
 													</div>
-													
 												</div>
 												{% endfor %}
 											</div>
@@ -138,8 +137,8 @@
 													<div class="form-block-head">
 														<h4 class="title hero">{{ project_name }}</h4>
 														<div class="checkbox-block" hidden>
-															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox30{{ forloop.counter }}" value="option1">
-															<label class="form-check-label" for="inlineCheckbox30{{ forloop.counter }}"></label>
+															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckboxProjectPersonal{{ forloop.counter }}" value="option1">
+															<label class="form-check-label" for="inlineCheckboxProjectPersonal{{ forloop.counter }}"></label>
 														</div>
 													</div>
 												</div>
@@ -149,8 +148,8 @@
 												<div class="form-block">
 													<h4 class="title hero">{{ goal_name }}</h4>
 													<div class="checkbox-block" hidden>
-														<input class="form-check-input hero" type="checkbox" id="inlineCheckbox40{{ forloop.counter }}" value="option1">
-														<label class="form-check-label" for="inlineCheckbox40{{ forloop.counter }}"></label>
+														<input class="form-check-input hero" type="checkbox" id="inlineCheckboxGoalPersonal{{ forloop.counter }}" value="option1">
+														<label class="form-check-label" for="inlineCheckboxGoalPersonal{{ forloop.counter }}"></label>
 													</div>
 												</div>
 												{% for task in task_list %}
@@ -233,14 +232,11 @@
 	<script>
 		function complete_task(id, done) { 
 			if (done == true) {
-				console.log("Completing Task");
 				status = 1;
 			}
 			else {
-				console.log("Uncompleting Task");
 				status = 0;
 			}
-			console.log(id);
 			$.ajax({
           		url : "{% url 'update_task_status' %}", // the endpoint
           		type : "POST", // http method
