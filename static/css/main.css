@@ -41,9 +41,9 @@ body input:focus:required:invalid,
 body textarea:focus:required:invalid {
   color: red; }
 
-body input:required:valid,
+/* body input:required:valid,
 body textarea:required:valid {
-  color: green; }
+  color: green; } */
 
 a {
   text-decoration: none;
