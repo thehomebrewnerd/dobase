@@ -12,7 +12,7 @@ from .models import Task
 @login_required(login_url='/accounts/login')
 def view_tasks(request, task_filter=None):
     """View for displaying task list for the logged in user"""
-    full_tasks = Task.objects.filter(user=request.user).order_by('created_on')
+    full_tasks = Task.objects.filter(user=request.user).order_by('is_complete', 'created_on')
     task_filter = request.GET.get('filter', None)
     if task_filter == 'others':
         owners = set()
