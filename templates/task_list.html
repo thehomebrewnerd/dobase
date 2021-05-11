@@ -55,8 +55,8 @@
 				</div>
 				<ul class="nav-menu">
 					<li><a class="standard-description" href="{% url 'view-tasks' %}"><span class="icon"><i class="fas fa-user"></i></span>Me</a></li>
-					<li><a class="standard-description" href="{% url 'view-tasks' %}"><span class="icon"><i class="fas fa-users"></i></span>Others</a></li>
-					<li><a class="standard-description" href="{% url 'view-tasks' %}"><span class="icon"><i class="fas fa-calendar-alt"></i></span>Date</a></li>
+					<li><a class="standard-description" href="{% url 'view-tasks' %}?filter=others"><span class="icon"><i class="fas fa-users"></i></span>Others</a></li>
+					<li><a class="standard-description" href="{% url 'view-tasks' %}?filter=date"><span class="icon"><i class="fas fa-calendar-alt"></i></span>Date</a></li>
 				</ul>
 				<div class="bottom-block text-center">
 					<a href="{% url 'home' %}" class="button black-button standard-description fw-500 high"><span class="icon mr-2"><i class="fas fa-plus"></i></span> Add</a>
@@ -86,6 +86,12 @@
 							<div class="tab-pane fade show active" id="work" role="tabpanel" aria-labelledby="work-tab">
 								<div class="width-wrapper">
 									<form action="" class="hero-form control-width wider checkboxes-wrapper">
+										{% for person, work_tasks in work_tasks_by_person.items %}
+										{% if person != "Me" %}
+											<div class="form-block">
+												<h4>{{ person }}</h4>
+											</div>
+										{% endif %}
 										{% for project_name, goals in work_tasks.items %}
 										<div class="form-block-wrapper first-line">
 											<div class="followWrap">
@@ -124,12 +130,19 @@
 											{% endfor %}
 										</div>
 										{% endfor %}
+										{% endfor %}
 									</form>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
 								<div class="width-wrapper">
 									<form action="" class="hero-form control-width wider checkboxes-wrapper">
+										{% for person, personal_tasks in personal_tasks_by_person.items %}
+										{% if person != "Me" %}
+											<div class="form-block">
+												<h4>{{ person }}</h4>
+											</div>
+										{% endif %}
 										{% for project_name, goals in personal_tasks.items %}
 										<div class="form-block-wrapper first-line">
 											<div class="followWrap">
@@ -168,6 +181,7 @@
 											{% endfor %}
 										</div>
 										{% endfor %}
+										{% endfor %}
 									</form>
 								</div>
 							</div>
@@ -187,15 +201,15 @@
 				</a>
 			</li>
 			<li>
-				<a href="{% url 'view-tasks' %}">
+				<a href="{% url 'view-tasks' %}?filter=others">
 					<span class="icon">
 						<i class="fas fa-users" aria-hidden="true"></i>
 					</span>
-					<span class="text">Other</span>
+					<span class="text">Others</span>
 				</a>
 			</li>
 			<li>
-				<a href="{% url 'view-tasks' %}">
+				<a href="{% url 'view-tasks' %}filter=date">
 					<span class="icon">
 						<i class="fas fa-calendar-alt" aria-hidden="true"></i>
 					</span>

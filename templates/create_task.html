@@ -49,8 +49,8 @@
 				</div>
 				<ul class="nav-menu">
 					<li><a class="standard-description" href="{% url 'view-tasks' %}"><span class="icon"><i class="fas fa-user"></i></span>Me</a></li>
-					<li><a class="standard-description" href="{% url 'view-tasks' %}"><span class="icon"><i class="fas fa-users"></i></span>Others</a></li>
-					<li><a class="standard-description" href="{% url 'view-tasks' %}"><span class="icon"><i class="fas fa-calendar-alt"></i></span>Date</a></li>
+					<li><a class="standard-description" href="{% url 'view-tasks' %}?filter=others"><span class="icon"><i class="fas fa-users"></i></span>Others</a></li>
+					<li><a class="standard-description" href="{% url 'view-tasks' %}?filter=date"><span class="icon"><i class="fas fa-calendar-alt"></i></span>Date</a></li>
 				</ul>
 				<div class="bottom-block text-center">
 					<a href="{% url 'logout' %}?next=/accounts/login/" class="medium-description fw-700">Log Out</a>
@@ -116,13 +116,13 @@
 				<span class="icon"><i class="fas fa-user" aria-hidden="true"></i></span>
 				<span class="text">Me</span>
 			</a></li>
-			<li><a href="{% url 'view-tasks' %}">
+			<li><a href="{% url 'view-tasks' %}?filter=others">
 				<span class="icon">
 					<i class="fas fa-users" aria-hidden="true"></i>
 				</span>
-				<span class="text">Other</span>
+				<span class="text">Others</span>
 			</a></li>
-			<li><a href="{% url 'view-tasks' %}">
+			<li><a href="{% url 'view-tasks' %}filter=date">
 				<span class="icon">
 					<i class="fas fa-calendar-alt" aria-hidden="true"></i>
 				</span>
