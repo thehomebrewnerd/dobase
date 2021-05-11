@@ -116,11 +116,11 @@
 												</div>
 												{% for task in task_list %}
 												<div class="form-block-wrapper third-line">
-													<div class="form-block">
+													<div class="form-block{%if task.is_complete%} line-through{%endif%}">
 														<h4 class="title hero">{{ task.task_description }}</h4>
 														<div class="checkbox-block">
 															<span class="date">{{ task.created_on|date:"SHORT_DATE_FORMAT" }}</span>
-															<input class="form-check-input" type="checkbox" id="inlineCheckbox{{ task.id }}" value="{{ task.id }}">
+															<input class="form-check-input" type="checkbox" id="inlineCheckbox{{ task.id }}" value="{{ task.id }}" {%if task.is_complete%}checked{%endif%}>
 															<label class="form-check-label" for="inlineCheckbox{{ task.id }}"></label>
 														</div>
 													</div>
@@ -167,11 +167,11 @@
 												</div>
 												{% for task in task_list %}
 												<div class="form-block-wrapper third-line">
-													<div class="form-block">
+													<div class="form-block{%if task.is_complete%} line-through{%endif%}">
 														<h4 class="title hero">{{ task.task_description }}</h4>
 														<div class="checkbox-block">
 															<span class="date">{{ task.created_on|date:"SHORT_DATE_FORMAT" }}</span>
-															<input class="form-check-input" type="checkbox" id="inlineCheckbox{{ task.id }}" value="{{ task.id }}">
+															<input class="form-check-input" type="checkbox" id="inlineCheckbox{{ task.id }}" value="{{ task.id }}" {%if task.is_complete%}checked{%endif%}>
 															<label class="form-check-label" for="inlineCheckbox{{ task.id }}"></label>
 														</div>
 													</div>
