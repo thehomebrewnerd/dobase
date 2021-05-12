@@ -59,6 +59,19 @@ def view_tasks(request, task_filter=None):
     return render(request, 'task_list.html', context)
 
 
+@login_required(login_url='/accounts/login')
+def view_tasks_by_date(request, task_filter=None):
+    """View for displaying task list for the logged in user by date"""
+    full_tasks = Task.objects.filter(user=request.user).order_by('is_complete', 'created_on')
+
+
+    work_tasks = full_tasks.filter(task_type=1)
+    personal_tasks = full_tasks.filter(task_type=2)
+
+    context = {'work_tasks': work_tasks, 'personal_tasks': personal_tasks}
+    return render(request, 'task_list_by_date.html', context)
+
+
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     fields = ['project_name', 'goal_name', 'task_description', 'task_owner', 'task_type']

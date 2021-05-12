@@ -37,7 +37,6 @@
 	<script src="{% static 'libs/modernizr/modernizr.js' %}"></script>
 
 </head>
-
 <body class="">
 	<div id="main-container" class="">
 		<div class="side-bar-wrapper">
@@ -86,102 +85,44 @@
 							<div class="tab-pane fade show active" id="work" role="tabpanel" aria-labelledby="work-tab">
 								<div class="width-wrapper">
 									<form action="" class="hero-form control-width wider checkboxes-wrapper">
-										{% for person, work_tasks in work_tasks_by_person.items %}
-										{% if person != "Me" %}
-											<div class="form-block">
-												<h4>{{ person }}</h4>
-											</div>
-										{% endif %}
-										{% for project_name, goals in work_tasks.items %}
-										<div class="form-block-wrapper first-line">
-											<div class="followWrap">
-												<div class="form-block followMeBar">
-													<div class="form-block-head">
-														<h4 class="title hero">{{ project_name }}</h4>
-														<div class="checkbox-block" hidden>
-															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckboxProject1{{ forloop.counter }}" value="option1">
-															<label class="form-check-label" for="inlineCheckboxProject1{{ forloop.counter }}"></label>
-														</div>
-													</div>
-												</div>
-											</div>
-											{% for goal_name, task_list in goals.items %}
-											<div class="form-block-wrapper second-line">
-												<div class="form-block">
-													<h4 class="title hero">{{ goal_name }}</h4>
-													<div class="checkbox-block" hidden>
-														<input class="form-check-input hero" type="checkbox" id="inlineCheckboxGoal1{{ forloop.counter }}" value="option1">
-														<label class="form-check-label" for="inlineCheckboxGoal1{{ forloop.counter }}"></label>
-													</div>
-												</div>
-												{% for task in task_list %}
+												{% for task in work_tasks %}
 												<div class="form-block-wrapper third-line">
 													<div class="form-block{%if task.is_complete%} line-through{%endif%}">
-														<h4 class="title hero">{{ task.task_description }}</h4>
+														<div>
+															<h4 class="title hero">{{ task.task_description }}</h4>
+															<div>Owner: {% if task.task_owner %}{{ task.task_owner }}{% else %}Me{% endif %} - {{ task.project_name }} - {{ task.goal_name }}</div>
+														</div>
 														<div class="checkbox-block">
 															<span class="date">{{ task.created_on|date:"SHORT_DATE_FORMAT" }}</span>
 															<input class="form-check-input" type="checkbox" id="inlineCheckbox{{ task.id }}" value="{{ task.id }}" {%if task.is_complete%}checked{%endif%}>
 															<label class="form-check-label" for="inlineCheckbox{{ task.id }}"></label>
 														</div>
+														
 													</div>
 												</div>
 												{% endfor %}
-											</div>
-											{% endfor %}
-										</div>
-										{% endfor %}
-										{% endfor %}
 									</form>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
 								<div class="width-wrapper">
 									<form action="" class="hero-form control-width wider checkboxes-wrapper">
-										{% for person, personal_tasks in personal_tasks_by_person.items %}
-										{% if person != "Me" %}
-											<div class="form-block">
-												<h4>{{ person }}</h4>
-											</div>
-										{% endif %}
-										{% for project_name, goals in personal_tasks.items %}
-										<div class="form-block-wrapper first-line">
-											<div class="followWrap">
-												<div class="form-block followMeBar2">
-													<div class="form-block-head">
-														<h4 class="title hero">{{ project_name }}</h4>
-														<div class="checkbox-block" hidden>
-															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckboxProjectPersonal{{ forloop.counter }}" value="option1">
-															<label class="form-check-label" for="inlineCheckboxProjectPersonal{{ forloop.counter }}"></label>
-														</div>
-													</div>
-												</div>
-											</div>
-											{% for goal_name, task_list in goals.items %}
-											<div class="form-block-wrapper second-line">
-												<div class="form-block">
-													<h4 class="title hero">{{ goal_name }}</h4>
-													<div class="checkbox-block" hidden>
-														<input class="form-check-input hero" type="checkbox" id="inlineCheckboxGoalPersonal{{ forloop.counter }}" value="option1">
-														<label class="form-check-label" for="inlineCheckboxGoalPersonal{{ forloop.counter }}"></label>
-													</div>
-												</div>
-												{% for task in task_list %}
+												{% for task in personal_tasks %}
 												<div class="form-block-wrapper third-line">
 													<div class="form-block{%if task.is_complete%} line-through{%endif%}">
-														<h4 class="title hero">{{ task.task_description }}</h4>
+														<div>
+															<h4 class="title hero">{{ task.task_description }}</h4>
+															<div>Owner: {% if task.task_owner %}{{ task.task_owner }}{% else %}Me{% endif %} - {{ task.project_name }} - {{ task.goal_name }}</div>
+														</div>
 														<div class="checkbox-block">
 															<span class="date">{{ task.created_on|date:"SHORT_DATE_FORMAT" }}</span>
 															<input class="form-check-input" type="checkbox" id="inlineCheckbox{{ task.id }}" value="{{ task.id }}" {%if task.is_complete%}checked{%endif%}>
 															<label class="form-check-label" for="inlineCheckbox{{ task.id }}"></label>
 														</div>
+														
 													</div>
 												</div>
 												{% endfor %}
-											</div>
-											{% endfor %}
-										</div>
-										{% endfor %}
-										{% endfor %}
 									</form>
 								</div>
 							</div>
