@@ -12,7 +12,7 @@ from .models import Task
 @login_required(login_url='/accounts/login')
 def view_tasks(request, task_filter=None):
     """View for displaying task list for the logged in user"""
-    full_tasks = Task.objects.filter(user=request.user).order_by('is_complete', '-updated_on')
+    full_tasks = Task.objects.filter(user=request.user).order_by('is_complete', '-created_on')
     task_filter = request.GET.get('filter', None)
     if task_filter == 'others':
         owners = set()
@@ -32,26 +32,32 @@ def view_tasks(request, task_filter=None):
         work_tasks_for_owner = full_tasks.filter(task_type=1, task_owner=query_owner)
         work_task_dict = {}
         for task in work_tasks_for_owner:
-            task_name = task.project_name
+            project_name = task.project_name
             goal_name = task.goal_name
-            goal_dict = work_task_dict.get(task_name) or {}
+            goal_dict = work_task_dict.get(project_name) or {}
             task_list = goal_dict.get(goal_name) or []
-            task_list = task_list + [task]
+            if task.is_complete:
+                task_list = task_list + [task]
+            else:
+                task_list = [task] + task_list
             goal_dict[goal_name] = task_list
-            work_task_dict[task_name] = goal_dict
+            work_task_dict[project_name] = goal_dict
         if len(work_task_dict) > 0:
             work_dict[owner] = work_task_dict
 
         personal_tasks_for_owner = full_tasks.filter(task_type=2, task_owner=query_owner)
         personal_task_dict = {}
         for task in personal_tasks_for_owner:
-            task_name = task.project_name
+            project_name = task.project_name
             goal_name = task.goal_name
-            goal_dict = personal_task_dict.get(task_name) or {}
+            goal_dict = personal_task_dict.get(project_name) or {}
             task_list = goal_dict.get(goal_name) or []
-            task_list = task_list + [task]
+            if task.is_complete:
+                task_list = task_list + [task]
+            else:
+                task_list = [task] + task_list
             goal_dict[goal_name] = task_list
-            personal_task_dict[task_name] = goal_dict
+            personal_task_dict[project_name] = goal_dict
         if len(personal_task_dict) > 0:
             personal_dict[owner] = personal_task_dict
 
