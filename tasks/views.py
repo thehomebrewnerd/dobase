@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.db.models.functions import Lower
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 
 from .models import Task
 
@@ -85,13 +85,24 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+        data = form.save(commit=False)
+        task_description = data.task_description
+        task_items = task_description.split(" + ")
+        for item in task_items:
+            task = Task()
+            task.project_name = data.project_name
+            task.goal_name = data.goal_name
+            task.task_description = item
+            task.task_owner = data.task_owner
+            task.task_type = data.task_type
+            task.user = self.request.user
+            task.save()
+
+        return HttpResponseRedirect(self.success_url)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-
         # Maximum number of values to return for autocomplete
         MAX_AUTOCOMPLETE = 10
 
