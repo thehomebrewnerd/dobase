@@ -119,7 +119,7 @@
 													<div class="form-block{%if task.is_complete%} line-through{%endif%}">
 														<h4 class="title hero">{{ task.task_description }}</h4>
 														<div class="checkbox-block">
-															<span class="date">{{ task.created_on|date:"SHORT_DATE_FORMAT" }}</span>
+															<span class="date">{% if task.is_complete %}<a href="" class="form-archive-link" data-id="{{ task.id }}">archive</a>{% else %}{{ task.created_on|date:"SHORT_DATE_FORMAT" }}{% endif %}</span>
 															<input class="form-check-input" type="checkbox" id="inlineCheckbox{{ task.id }}" value="{{ task.id }}" {%if task.is_complete%}checked{%endif%}>
 															<label class="form-check-label" for="inlineCheckbox{{ task.id }}"></label>
 														</div>
@@ -170,7 +170,7 @@
 													<div class="form-block{%if task.is_complete%} line-through{%endif%}">
 														<h4 class="title hero">{{ task.task_description }}</h4>
 														<div class="checkbox-block">
-															<span class="date">{{ task.created_on|date:"SHORT_DATE_FORMAT" }}</span>
+															<span class="date">{% if task.is_complete %}<a href="" class="form-archive-link" data-id="{{ task.id }}">archive</a>{% else %}{{ task.created_on|date:"SHORT_DATE_FORMAT" }}{% endif %}</span>
 															<input class="form-check-input" type="checkbox" id="inlineCheckbox{{ task.id }}" value="{{ task.id }}" {%if task.is_complete%}checked{%endif%}>
 															<label class="form-check-label" for="inlineCheckbox{{ task.id }}"></label>
 														</div>
@@ -263,6 +263,29 @@
 				// handle a successful response
 				success : function(json) {
 					console.log("Success");
+				},
+
+          // handle a non-successful response
+          error : function(xhr,errmsg,err) {
+			  console.log("Something went wrong");
+          }
+      });
+		}
+
+		function archive_task(id, e) { 
+			$.ajax({
+          		url : "{% url 'archive_task' %}", // the endpoint
+          		type : "POST", // http method
+				data : { 
+					'id': id,
+					'status': status,
+					'csrfmiddlewaretoken': '{{csrf_token}}' 
+					}, // data sent with the post request
+
+				// handle a successful response
+				success : function(json) {
+					console.log("Success");
+					e.style.display = 'none';
 				},
 
           // handle a non-successful response

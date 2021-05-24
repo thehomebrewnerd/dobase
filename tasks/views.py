@@ -12,7 +12,7 @@ from .models import Task
 @login_required(login_url='/accounts/login')
 def view_tasks(request, task_filter=None):
     """View for displaying task list for the logged in user"""
-    full_tasks = Task.objects.filter(user=request.user).order_by('is_complete', '-created_on')
+    full_tasks = Task.objects.filter(user=request.user, is_archived=False).order_by('is_complete', '-created_on')
     task_filter = request.GET.get('filter', None)
     if task_filter == 'others':
         owners = set()
@@ -68,7 +68,7 @@ def view_tasks(request, task_filter=None):
 @login_required(login_url='/accounts/login')
 def view_tasks_by_date(request, task_filter=None):
     """View for displaying task list for the logged in user by date"""
-    full_tasks = Task.objects.filter(user=request.user).order_by('is_complete', 'created_on')
+    full_tasks = Task.objects.filter(user=request.user, is_archived=False).order_by('is_complete', 'created_on')
 
 
     work_tasks = full_tasks.filter(task_type=1)
@@ -191,5 +191,21 @@ def update_task_status(request):
         task.save()
 
         return JsonResponse({"message": "task updated successfully"})
+    else:
+        return JsonResponse({"nothing to see": "this isn't happening"})
+
+
+@login_required(login_url='/accounts/login')
+def archive_task(request):
+    if request.method == "POST":
+        user = request.user
+        task_id = request.POST.get('id')
+        task = get_object_or_404(Task, pk=task_id)
+
+        task.is_archived = True
+        
+        task.save()
+
+        return JsonResponse({"message": "task archived successfully"})
     else:
         return JsonResponse({"nothing to see": "this isn't happening"})

@@ -15,6 +15,7 @@ class Task(models.Model):
                                     choices=TaskTypeChoices.choices,
                                     default=TaskTypeChoices.BUSINESS)
     is_complete = models.BooleanField("Is Complete?", default=False)
+    is_archived = models.BooleanField("Is Archived?", default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
