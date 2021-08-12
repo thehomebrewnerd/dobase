@@ -62,7 +62,7 @@ def view_tasks(request, task_filter=None):
             personal_dict[owner] = personal_task_dict
 
     context = {'work_tasks_by_person': work_dict, 'personal_tasks_by_person': personal_dict}
-    return render(request, 'task_list.html', context)
+    return render(request, 'index.html', context)
 
 
 @login_required(login_url='/accounts/login')

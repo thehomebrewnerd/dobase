@@ -22,7 +22,8 @@ from users.views import create_account
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', TaskCreateView.as_view(), name='home'),
+    # path('', TaskCreateView.as_view(), name='home'),
+    path('', view_tasks, name='home'),
     path('tasks/', view_tasks, name='view-tasks'),
     path('tasks/date/', view_tasks_by_date, name='view-tasks-date'),
     path('signup/', create_account, name='signup'),
