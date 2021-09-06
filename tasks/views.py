@@ -13,16 +13,23 @@ from .models import Task
 def view_tasks(request, task_filter=None):
     """View for displaying task list for the logged in user"""
     full_tasks = Task.objects.filter(user=request.user, is_archived=False).order_by('is_complete', '-created_on')
-    task_filter = request.GET.get('filter', None)
-    if task_filter == 'others':
-        owners = set()
-        for task in full_tasks:
-            if task.task_owner is not None:
-                owners.add(task.task_owner)
-        owners = sorted(list(owners))
-    else:
-        owners = ["Me"]
+    # task_filter = request.GET.get('filter', None)
+    # if task_filter == 'others':
+    #     owners = set()
+    #     for task in full_tasks:
+    #         if task.task_owner is not None:
+    #             owners.add(task.task_owner)
+    #     owners = sorted(list(owners))
+    # else:
+    #     owners = ["Me"]
 
+    owners = set()
+    for task in full_tasks:
+        if task.task_owner is not None:
+            owners.add(task.task_owner)
+    owners = sorted(list(owners))
+    owners = ["Me"] + sorted(list(owners))
+    print(owners)
     work_dict = {}
     personal_dict = {}
     for owner in owners:

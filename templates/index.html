@@ -169,29 +169,19 @@
 									<div class="item-block">
 										<h5 class="common-list-subtitle">{{ goal_name }}</h5>
 										{% for task in task_list %}
-										<div class="swiper-main-container">
-											<!-- Slider main container -->
-											<div class="swiper-container">
-												<!-- Additional required wrapper -->
-												<div class="swiper-wrapper">
-													<!-- Slides -->
-													<div class="swiper-slide">
-														<a href="#" class="slider-button archive-button btn-warning">Archive</a>
+										<div class="list-item">
+											<div class="top-block">
+												<div class="content-side">
+													<p class="common-list-description">{{ task.task_description }}</p>
+													<div class="bottom-block">
+														<p class="bottom-small-description">{{ task.created_on }}</p>
 													</div>
-													<div class="swiper-slide">
-														<div class="list-item">
-															<div class="top-block">
-																<div class="content-side">
-																	<p class="common-list-description">{{ task.task_description }}</p>
-																	<div class="bottom-block">
-																		<p class="bottom-small-description">{{ task.created_on }}</p>
-																	</div>
-																</div>
-																<div class="control-side">
-																	<div class="control-block">
-																		<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox10{{ forloop.counter }}" value="{{ forloop.counter }}">
-																		<label class="form-check-label" for="inlineCheckbox10{{ forloop.counter }}"></label>
-																		<a href="#" class="">
+												</div>
+												<div class="control-side">
+													<div class="control-block">
+														<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox103" value="option1">
+														<label class="form-check-label" for="inlineCheckbox103"></label>
+														<a href="#" class="">
 													<span class="icon">
 														<svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 															<path d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -199,14 +189,7 @@
 															<path d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 														</svg>
 													</span>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="swiper-slide">
-														<a href="#" class="slider-button delete-button btn-danger">Delete</a>
+														</a>
 													</div>
 												</div>
 											</div>
@@ -222,209 +205,45 @@
 
 							<div class="tab-pane fade" id="others" role="tabpanel" aria-labelledby="others-tab">
 								<div class="common-list-body">
-									<h3 class="common-list-title">Anthony Smith</h3>
+								{% for person, work_tasks in work_tasks_by_person.items %}
+								{% if person != "Me" %}
+								{% for project_name, goals in work_tasks.items %}
+									<h3 class="common-list-title">{{ person }}</h3>
+									{% for goal_name, task_list in goals.items %}
 									<div class="item-block">
-										<h5 class="common-list-subtitle">Durham Project / <span class="thin">Approvals</span></h5>
-										<div class="list-item control-arrow">
+										<h5 class="common-list-subtitle">{{ goal_name }}</h5>
+										{% for task in task_list %}
+										<div class="list-item">
 											<div class="top-block">
 												<div class="content-side">
-													<p class="common-list-description">Make a list of all current contracts, inventory of all contract amounts, make my own burn schedule, maybe even ask Meira</p>
+													<p class="common-list-description">{{ task.task_description }}</p>
 													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
+														<p class="bottom-small-description">{{ task.created_on }}</p>
 													</div>
 												</div>
 												<div class="control-side">
-													<a href="#" class="text-snippet">Reminded</a>
 													<div class="control-block">
-														<div class="control-top-block">
-															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox110" value="option1">
-															<label class="form-check-label" for="inlineCheckbox110"></label>
-															<a href="#" class="">
-															<span class="icon">
-																<svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	<path d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																</svg>
-															</span>
-															</a>
-														</div>
-														<a href="#" class="icon-wrapper">
-																<span class="icon arrow-icon">
-																	<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M12.8334 1.08337L7.00002 6.91671L1.16669 1.08337" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	</svg>
-																</span>
+														<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox103" value="option1">
+														<label class="form-check-label" for="inlineCheckbox103"></label>
+														<a href="#" class="">
+													<span class="icon">
+														<svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<path d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+															<path d="M16.1778 4.23975H1.63965" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+															<path d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+														</svg>
+													</span>
 														</a>
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="list-item wrapper-notice-snippet">
-											<div class="notice-snippet">
-												<a href="#" class="simple-text-snippet">Reminded</a>
-											</div>
-										</div>
-										<div class="list-item wrapper-notice-snippet">
-											<div class="notice-snippet border-top-0">
-												<a href="#" class="triangle-text-snippet">Reminded</a>
-												<p class="notice-text">17 May 2021, 05:00 pm</p>
-											</div>
-										</div>
-										<div class="list-item control-arrow">
-											<div class="top-block">
-												<div class="content-side">
-													<p class="common-list-description">Complete these to make changes to many tasks at once</p>
-													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
-													</div>
-												</div>
-												<div class="control-side">
-													<a href="#" class="text-snippet">Reminded</a>
-													<div class="control-block">
-														<div class="control-top-block">
-															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox111" value="option1">
-															<label class="form-check-label" for="inlineCheckbox111"></label>
-															<a href="#" class="">
-																<span class="icon">
-																	<svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																		<path d="M16.1778 4.23975H1.63965" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																		<path d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	</svg>
-																</span>
-															</a>
-														</div>
-
-														<a href="#" class="icon-wrapper">
-																<span class="icon arrow-icon">
-																	<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M12.8334 1.08337L7.00002 6.91671L1.16669 1.08337" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	</svg>
-																</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="list-item control-arrow">
-											<div class="top-block">
-												<div class="content-side">
-													<p class="common-list-description">Create a private Space (Open task to see how)</p>
-													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
-														<div class="date-wrapper">
-															<p class="date-snippet">28 May</p>
-															<p class="date-snippet">5 June</p>
-														</div>
-													</div>
-												</div>
-												<div class="control-side">
-													<a href="#" class="text-snippet">Reminded</a>
-													<div class="control-block">
-														<div class="control-top-block">
-															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox112" value="option1">
-															<label class="form-check-label" for="inlineCheckbox112"></label>
-															<a href="#" class="">
-															<span class="icon">
-																<svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	<path d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																</svg>
-															</span>
-															</a>
-														</div>
-
-														<a href="#" class="icon-wrapper">
-																<span class="icon arrow-icon">
-																	<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M12.8334 1.08337L7.00002 6.91671L1.16669 1.08337" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	</svg>
-																</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
+										{% endfor %}
 									</div>
-									<div class="item-block">
-										<h5 class="common-list-subtitle">Durham Project / <span class="thin">Design</span></h5>
-										<div class="list-item control-arrow">
-											<div class="top-block">
-												<div class="content-side">
-													<p class="common-list-description">Complete these to make changes to many tasks at once</p>
-													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
-														<p class="date-snippet">14 June</p>
-													</div>
-												</div>
-												<div class="control-side">
-													<a href="#" class="text-snippet">Reminded</a>
-													<div class="control-block">
-														<div class="control-top-block">
-															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox113" value="option1">
-															<label class="form-check-label" for="inlineCheckbox113"></label>
-															<a href="#" class="">
-												<span class="icon">
-													<svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-														<path d="M16.1778 4.23975H1.63965" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-														<path d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-													</svg>
-												</span>
-															</a>
-														</div>
-
-														<a href="#" class="icon-wrapper">
-																<span class="icon arrow-icon">
-																	<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M12.8334 1.08337L7.00002 6.91671L1.16669 1.08337" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	</svg>
-																</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="list-item control-arrow">
-											<div class="top-block">
-												<div class="content-side">
-													<p class="common-list-description">Create a private Space (Open task to see how)</p>
-													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
-													</div>
-												</div>
-												<div class="control-side">
-													<a href="#" class="text-snippet">Reminded</a>
-													<div class="control-block">
-														<div class="control-top-block">
-															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox114" value="option1">
-															<label class="form-check-label" for="inlineCheckbox114"></label>
-															<a href="#" class="">
-															<span class="icon">
-													<svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-														<path d="M16.1778 4.23975H1.63965" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-														<path d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-													</svg>
-												</span>
-															</a>
-														</div>
-
-														<a href="#" class="icon-wrapper">
-																<span class="icon arrow-icon">
-																	<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M12.8334 1.08337L7.00002 6.91671L1.16669 1.08337" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-																	</svg>
-																</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+									{% endfor %}
+								{% endfor %}
+								{% endif %}
+								{% endfor %}
 							</div>
 							<div class="tab-pane fade" id="date" role="tabpanel" aria-labelledby="date-tab">
 								<div class="common-list-body">
@@ -836,29 +655,19 @@
 										<div class="item-block">
 											<h5 class="common-list-subtitle">{{ goal_name }}</h5>
 											{% for task in task_list %}
-											<div class="swiper-main-container">
-												<!-- Slider main container -->
-												<div class="swiper-container">
-													<!-- Additional required wrapper -->
-													<div class="swiper-wrapper">
-														<!-- Slides -->
-														<div class="swiper-slide">
-															<a href="#" class="slider-button archive-button btn-warning">Archive</a>
+											<div class="list-item">
+												<div class="top-block">
+													<div class="content-side">
+														<p class="common-list-description">{{ task.task_description }}</p>
+														<div class="bottom-block">
+															<p class="bottom-small-description">{{ task.created_on }}</p>
 														</div>
-														<div class="swiper-slide">
-															<div class="list-item">
-																<div class="top-block">
-																	<div class="content-side">
-																		<p class="common-list-description">{{ task.task_description }}</p>
-																		<div class="bottom-block">
-																			<p class="bottom-small-description">{{ task.created_on }}</p>
-																		</div>
-																	</div>
-																	<div class="control-side">
-																		<div class="control-block">
-																			<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox199" value="option1">
-																			<label class="form-check-label" for="inlineCheckbox199"></label>
-																			<a href="#" class="">
+													</div>
+													<div class="control-side">
+														<div class="control-block">
+															<input class="form-check-input hero first-input" type="checkbox" id="inlineCheckbox199" value="option1">
+															<label class="form-check-label" for="inlineCheckbox199"></label>
+															<a href="#" class="">
 														<span class="icon">
 															<svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 																<path d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -866,19 +675,13 @@
 																<path d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973" stroke="#04212F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 															</svg>
 														</span>
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
+															</a>
 														</div>
-														<div class="swiper-slide">
-															<a href="#" class="slider-button delete-button btn-danger">Delete</a>
-														</div>
-
 													</div>
 												</div>
 											</div>
+
+											
 											{% endfor %}
 										</div>
 										{% endfor %}
