@@ -903,22 +903,21 @@
 
 							<div class="tab-pane fade" id="me-personal" role="tabpanel"
 								aria-labelledby="me-tab-personal">
-
 								<div class="common-list-body">
-									<h3 class="common-list-title">(ME PERSONAL) Durham Development</h3>
+									{% for person, personal_tasks in personal_tasks_by_person.items %}
+									{% if person == "Me" %}
+									{% for project_name, goals in personal_tasks.items %}
+									<h3 class="common-list-title">{{ project_name }}</h3>
+									{% for goal_name, task_list in goals.items %}
 									<div class="item-block">
-										<h5 class="common-list-subtitle">(ME PERSONAL) City Approvals</h5>
-
+										<h5 class="common-list-subtitle">{{ goal_name }}</h5>
+										{% for task in task_list %}
 										<div class="list-item">
 											<div class="top-block">
 												<div class="content-side">
-													<p class="common-list-description">(ME PERSONAL)
-														Make a list of all current contracts, inventory
-														of all contract amounts, make my own burn
-														schedule, maybe even ask Meira</p>
+													<p class="common-list-description">{{ task.task_description }}</p>
 													<div class="bottom-block">
-														<p class="bottom-small-description">15 May
-															2021, 09:00 am</p>
+														<p class="bottom-small-description">{{ task.created_on }}</p>
 													</div>
 												</div>
 												<div class="control-side">
@@ -950,202 +949,12 @@
 												</div>
 											</div>
 										</div>
-
-										<div class="list-item">
-											<div class="top-block">
-												<div class="content-side">
-													<p class="common-list-description">(ME PERSONAL) Make a list of all
-														current contracts, inventory of all contract amounts, make my
-														own burn schedule, maybe even ask Meira</p>
-													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
-													</div>
-												</div>
-												<div class="control-side">
-													<div class="control-block">
-														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox199" value="option1">
-														<label class="form-check-label" for="inlineCheckbox199"></label>
-														<a href="#" class="">
-															<span class="icon">
-																<svg width="17" height="20" viewBox="0 0 17 20"
-																	fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path
-																		d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F"
-																		stroke-width="1.5" stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path
-																		d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																</svg>
-															</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="list-item">
-											<div class="top-block">
-												<div class="content-side">
-													<p class="common-list-description">(ME PERSONAL) Complete these to
-														make changes to many tasks at once</p>
-													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
-													</div>
-												</div>
-												<div class="control-side">
-													<div class="control-block">
-														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox192" value="option1">
-														<label class="form-check-label" for="inlineCheckbox192"></label>
-														<a href="#" class="">
-															<span class="icon">
-																<svg width="17" height="20" viewBox="0 0 17 20"
-																	fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path
-																		d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F"
-																		stroke-width="1.5" stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path
-																		d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																</svg>
-															</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="list-item">
-											<div class="top-block">
-												<div class="content-side">
-													<p class="common-list-description">(ME PERSONAL) Create a private
-														Space (Open task to see how)</p>
-													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
-													</div>
-												</div>
-												<div class="control-side">
-													<div class="control-block">
-														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox193" value="option1">
-														<label class="form-check-label" for="inlineCheckbox193"></label>
-														<a href="#" class="">
-															<span class="icon">
-																<svg width="17" height="20" viewBox="0 0 17 20"
-																	fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path
-																		d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F"
-																		stroke-width="1.5" stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path
-																		d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																</svg>
-															</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
+										{% endfor %}
 									</div>
-									<div class="item-block">
-										<h5 class="common-list-subtitle">(ME PERSONAL) Construction</h5>
-										<div class="list-item">
-											<div class="top-block">
-												<div class="content-side">
-													<p class="common-list-description">(ME PERSONAL) Complete these to
-														make changes to many tasks at once</p>
-													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
-													</div>
-												</div>
-												<div class="control-side">
-													<div class="control-block">
-														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox194" value="option1">
-														<label class="form-check-label" for="inlineCheckbox194"></label>
-														<a href="#" class="">
-															<span class="icon">
-																<svg width="17" height="20" viewBox="0 0 17 20"
-																	fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path
-																		d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F"
-																		stroke-width="1.5" stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path
-																		d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																</svg>
-															</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="list-item">
-											<div class="top-block">
-												<div class="content-side">
-													<p class="common-list-description">(ME PERSONAL) Create a private
-														Space (Open task to see how)</p>
-													<div class="bottom-block">
-														<p class="bottom-small-description">15 May 2021, 09:00 am</p>
-													</div>
-												</div>
-												<div class="control-side">
-													<div class="control-block">
-														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox195" value="option1">
-														<label class="form-check-label" for="inlineCheckbox195"></label>
-														<a href="#" class="">
-															<span class="icon">
-																<svg width="17" height="20" viewBox="0 0 17 20"
-																	fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path
-																		d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F"
-																		stroke-width="1.5" stroke-linecap="round"
-																		stroke-linejoin="round" />
-																	<path
-																		d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
-																		stroke="#04212F" stroke-width="1.5"
-																		stroke-linecap="round"
-																		stroke-linejoin="round" />
-																</svg>
-															</span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									{% endfor %}
+								{% endfor %}
+								{% endif %}
+								{% endfor %}
 								</div>
 							</div>
 							<div class="tab-pane fade" id="others-personal" role="tabpanel"
