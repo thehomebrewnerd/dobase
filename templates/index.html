@@ -52,7 +52,7 @@
 		<div class="side-bar-wrapper">
 			<div id="side-bar" class="side-bar-block">
 				<div class="top-block">
-					<a href="index.html" class="hero-title fw-800">doBase</a>
+					<a href="{% url 'home' %}" class="hero-title fw-800">doBase</a>
 					<form action="" class="hero-form control-width">
 						<div class="standard-form-search" id="search-wrp">
 							<div class="wrapper-close-button">
@@ -105,7 +105,7 @@
 								Setting</a>
 						</li>
 						<li>
-							<a href="#" class="standard-text">
+							<a href="{% url 'logout' %}?next=/accounts/login/" class="standard-text">
 								<span class="icon">
 									<svg width="21" height="21" viewBox="0 0 21 21" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
@@ -813,7 +813,7 @@
 								aria-labelledby="new-tab-form">
 								<div class="common-list-body mobile">
 									<div class="top-block">
-										<a href="index.html" class="hero-title fw-800">doBase</a>
+										<a href="{% url 'home' %}" class="hero-title fw-800">doBase</a>
 										<form action="" class="hero-form control-width">
 											<div class="standard-form-search" id="search-wrp11">
 												<div class="wrapper-close-button">
