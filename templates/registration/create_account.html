@@ -39,7 +39,7 @@
 </head>
 
 <body>
-	<div id="main-container" class="">
+	<div id="main-container" class="login dark-theme"> 
 		<div class="container hero-content">
 			<div class="row">
 				<div class="col-12">
@@ -54,7 +54,7 @@
 							<div class="width-wrapper">
 								{% if form.errors %}
 									{% for error in form.non_field_errors %}
-										<div class="alert alert-danger">
+										<div class="alert alert-primary">
 											<strong>{{ error|escape }}</strong>
 										</div>
 									{% endfor %}
@@ -66,7 +66,7 @@
 										{% if field.html_name == 'email' %}
 											{% if field.errors %}
 												{% for error in field.errors %}
-													<div class="alert alert-danger">
+													<div class="alert alert-primary">
 														<strong>{{ error|escape }}</strong>
 													</div>
 												{% endfor %}
@@ -75,7 +75,7 @@
 										{% elif field.html_name == 'password1' %}
 											{% if field.errors %}
 												{% for error in field.errors %}
-													<div class="alert alert-danger">
+													<div class="alert alert-primary">
 														<strong>{{ error|escape }}</strong>
 													</div>
 												{% endfor %}
@@ -84,7 +84,7 @@
 										{% else %}
 											{% if field.errors %}
 												{% for error in field.errors %}
-													<div class="alert alert-danger">
+													<div class="alert alert-primary">
 														<strong>{{ error|escape }}</strong>
 													</div>
 												{% endfor %}
@@ -94,7 +94,7 @@
 									{% endfor %}
 
 									<div class="button-wrapper d-flex w-100 mt-0">
-										<button type="submit" class="mt-0 w-100 fw-500 standard-description button black-button high">Create Account</button>
+										<button type="submit" class="mt-0 w-100 fw-500 standard-description button blue-button">Create Account</button>
 									</div>
 								</form>
 							</div>
