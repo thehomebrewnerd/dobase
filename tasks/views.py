@@ -10,60 +10,6 @@ from .models import Task
 
 
 @login_required(login_url='/accounts/login')
-def view_tasks(request, task_filter=None):
-    """View for displaying task list for the logged in user"""
-    full_tasks = Task.objects.filter(user=request.user, is_archived=False).order_by('is_complete', '-created_on')
-
-    owners = set()
-    for task in full_tasks:
-        if task.task_owner is not None:
-            owners.add(task.task_owner)
-    owners = sorted(list(owners))
-    owners = ["Me"] + sorted(list(owners))
-
-    work_dict = {}
-    personal_dict = {}
-    for owner in owners:
-        query_owner = owner
-        if owner == "Me":
-            query_owner = None
-        work_tasks_for_owner = full_tasks.filter(task_type=1, task_owner=query_owner)
-        work_task_dict = {}
-        for task in work_tasks_for_owner:
-            project_name = task.project_name
-            goal_name = task.goal_name
-            goal_dict = work_task_dict.get(project_name) or {}
-            task_list = goal_dict.get(goal_name) or []
-            if task.is_complete:
-                task_list = task_list + [task]
-            else:
-                task_list = [task] + task_list
-            goal_dict[goal_name] = task_list
-            work_task_dict[project_name] = goal_dict
-        if len(work_task_dict) > 0:
-            work_dict[owner] = work_task_dict
-
-        personal_tasks_for_owner = full_tasks.filter(task_type=2, task_owner=query_owner)
-        personal_task_dict = {}
-        for task in personal_tasks_for_owner:
-            project_name = task.project_name
-            goal_name = task.goal_name
-            goal_dict = personal_task_dict.get(project_name) or {}
-            task_list = goal_dict.get(goal_name) or []
-            if task.is_complete:
-                task_list = task_list + [task]
-            else:
-                task_list = [task] + task_list
-            goal_dict[goal_name] = task_list
-            personal_task_dict[project_name] = goal_dict
-        if len(personal_task_dict) > 0:
-            personal_dict[owner] = personal_task_dict
-
-    context = {'work_tasks_by_person': work_dict, 'personal_tasks_by_person': personal_dict}
-    return render(request, 'index.html', context)
-
-
-@login_required(login_url='/accounts/login')
 def view_tasks_by_date(request, task_filter=None):
     """View for displaying task list for the logged in user by date"""
     full_tasks = Task.objects.filter(user=request.user, is_archived=False).order_by('is_complete', 'created_on')
@@ -79,7 +25,8 @@ def view_tasks_by_date(request, task_filter=None):
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     fields = ['project_name', 'goal_name', 'task_description', 'task_owner', 'task_type']
-    template_name = 'create_task.html'
+    # template_name = 'create_task.html'
+    template_name = 'index.html'
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
@@ -170,6 +117,10 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         context['auto_personal_goals'] = sorted(auto_personal_goals)
         context['auto_personal_people'] = sorted(auto_personal_people)
 
+        # Get the tasks for the user and add it to the context
+        task_dict = get_user_tasks(self.request.user)
+
+        context = {**context, **task_dict}
         return context
 
 
@@ -207,3 +158,56 @@ def archive_task(request):
         return JsonResponse({"message": "task archived successfully"})
     else:
         return JsonResponse({"nothing to see": "this isn't happening"})
+
+
+def get_user_tasks(user):
+    """View for displaying task list for the logged in user"""
+    full_tasks = Task.objects.filter(user=user, is_archived=False).order_by('is_complete', '-created_on')
+
+    owners = set()
+    for task in full_tasks:
+        if task.task_owner is not None:
+            owners.add(task.task_owner)
+    owners = sorted(list(owners))
+    owners = ["Me"] + sorted(list(owners))
+
+    work_dict = {}
+    personal_dict = {}
+    for owner in owners:
+        query_owner = owner
+        if owner == "Me":
+            query_owner = None
+        work_tasks_for_owner = full_tasks.filter(task_type=1, task_owner=query_owner)
+        work_task_dict = {}
+        for task in work_tasks_for_owner:
+            project_name = task.project_name
+            goal_name = task.goal_name
+            goal_dict = work_task_dict.get(project_name) or {}
+            task_list = goal_dict.get(goal_name) or []
+            if task.is_complete:
+                task_list = task_list + [task]
+            else:
+                task_list = [task] + task_list
+            goal_dict[goal_name] = task_list
+            work_task_dict[project_name] = goal_dict
+        if len(work_task_dict) > 0:
+            work_dict[owner] = work_task_dict
+
+        personal_tasks_for_owner = full_tasks.filter(task_type=2, task_owner=query_owner)
+        personal_task_dict = {}
+        for task in personal_tasks_for_owner:
+            project_name = task.project_name
+            goal_name = task.goal_name
+            goal_dict = personal_task_dict.get(project_name) or {}
+            task_list = goal_dict.get(goal_name) or []
+            if task.is_complete:
+                task_list = task_list + [task]
+            else:
+                task_list = [task] + task_list
+            goal_dict[goal_name] = task_list
+            personal_task_dict[project_name] = goal_dict
+        if len(personal_task_dict) > 0:
+            personal_dict[owner] = personal_task_dict
+
+    context = {'work_tasks_by_person': work_dict, 'personal_tasks_by_person': personal_dict}
+    return context

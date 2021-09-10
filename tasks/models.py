@@ -8,8 +8,8 @@ class Task(models.Model):
         PERSONAL = 2
     
     project_name = models.CharField("Project", max_length=512)
-    goal_name = models.CharField("Subcategory", max_length=512)
-    task_description = models.TextField("Action")
+    goal_name = models.CharField("Goal", max_length=512)
+    task_description = models.TextField("Task")
     task_owner = models.CharField("Who (Defaults to Me)", max_length=128, blank=True, null=True)
     task_type = models.IntegerField("Task Type",
                                     choices=TaskTypeChoices.choices,

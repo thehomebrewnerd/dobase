@@ -16,16 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from tasks.views import TaskCreateView, view_tasks, view_tasks_by_date, update_task_status, archive_task
+from tasks.views import TaskCreateView, view_tasks_by_date, update_task_status, archive_task
 from users.views import create_account
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    # path('', TaskCreateView.as_view(), name='home'),
-    path('', view_tasks, name='home'),
-    path('tasks/', view_tasks, name='view-tasks'),
-    path('tasks/date/', view_tasks_by_date, name='view-tasks-date'),
+    path('', TaskCreateView.as_view(), name='home'),
+    # path('', view_tasks, name='home'),
+    # path('tasks/', view_tasks, name='view-tasks'),
+    # path('tasks/date/', view_tasks_by_date, name='view-tasks-date'),
     path('signup/', create_account, name='signup'),
     path('tasks/update_task_status', update_task_status, name='update_task_status'),
     path('tasks/archive_task', archive_task, name='archive_task')
