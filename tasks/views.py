@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -209,5 +211,29 @@ def get_user_tasks(user):
         if len(personal_task_dict) > 0:
             personal_dict[owner] = personal_task_dict
 
-    context = {'work_tasks_by_person': work_dict, 'personal_tasks_by_person': personal_dict}
+    # Generate tasks by date dict
+    work_by_date_dict = {}
+    personal_by_date_dict = {}
+    work_full_tasks = full_tasks.filter(task_type=1).order_by('is_complete', 'created_on')
+    personal_full_tasks = full_tasks.filter(task_type=2).order_by('is_complete', 'created_on')
+
+    for task in work_full_tasks:
+        now = datetime.now()
+        week_num = (now - task.created_on.replace(tzinfo=None)).days // 7 + 1
+        task_list = work_by_date_dict.get(week_num) or []
+        task_list = task_list + [task]
+        work_by_date_dict[week_num] = task_list
+
+    personal_task_list = [] 
+    for task in personal_full_tasks:
+        now = datetime.now()
+        week_num = (now - task.created_on.replace(tzinfo=None)).days // 7 + 1
+        task_list = personal_by_date_dict.get(week_num) or []
+        task_list = task_list + [task]
+        personal_by_date_dict[week_num] = task_list
+
+    context = {'work_tasks_by_person': work_dict,
+               'personal_tasks_by_person': personal_dict,
+               'work_tasks_by_date': work_by_date_dict,
+               'personal_tasks_by_date': personal_by_date_dict}
     return context
