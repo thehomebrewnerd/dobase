@@ -1702,175 +1702,99 @@
 				e.preventDefault();
 				$(this).toggleClass('added-active');
 			})
+			var workProjectTags = [];
+			{% for tag in auto_work_projects %}
+      			workProjectTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			var workGoalTags = [];
+			{% for tag in auto_work_goals %}
+      			workGoalTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			var workPeopleTags = [];
+			{% for tag in auto_work_people %}
+      			workPeopleTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
 
-			var availableTags = [
-				"ActionScript",
-				"AppleScript",
-				"Asp",
-				"BASIC",
-				"C",
-				"C++",
-				"Clojure",
-				"COBOL",
-				"ColdFusion",
-				"Erlang",
-				"Fortran",
-				"Groovy",
-				"Haskell",
-				"Java",
-				"JavaScript",
-				"Lisp",
-				"Perl",
-				"PHP",
-				"Python",
-				"Ruby",
-				"Scala",
-				"Scheme"
-			];
-			$("input#search1").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp",
-				open: function (event, ui) {
-					$('#search-wrp').addClass('open');
+			var personalProjectTags = [];
+			{% for tag in auto_personal_projects %}
+      			personalProjectTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			var personalGoalTags = [];
+			{% for tag in auto_personal_goals %}
+      			personalGoalTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			var personalPeopleTags = [];
+			{% for tag in auto_personal_people %}
+      			personalPeopleTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			
+			function setWorkAutocomplete () {
+				$("input#project_name").autocomplete({
+				source: workProjectTags,
+				appendTo: "#search-wrp-project_name",
+				open: function( event, ui ) {
+					$('#search-wrp-project_name').addClass('open');
 				},
-				close: function (event, ui) {
-					$('#search-wrp').removeClass('open');
+				close: function( event, ui ) {
+					$('#search-wrp-project_name').removeClass('open');
 				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp').removeClass('open');
-			});
-			$("input#search2").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp2",
-				open: function (event, ui) {
-					$('#search-wrp2').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp2').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp2').removeClass('open');
-			});
-			$("input#search3").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp3",
-				open: function (event, ui) {
-					$('#search-wrp3').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp3').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp3').removeClass('open');
-			});
-			$("input#search4").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp4",
-				open: function (event, ui) {
-					$('#search-wrp4').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp4').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp4').removeClass('open');
-			});
-			$("input#search5").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp5",
-				open: function (event, ui) {
-					$('#search-wrp5').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp5').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp5').removeClass('open');
-			});
-			$("input#search6").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp6",
-				open: function (event, ui) {
-					$('#search-wrp6').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp6').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp6').removeClass('open');
-			});
-			$("input#search7").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp7",
-				open: function (event, ui) {
-					$('#search-wrp7').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp7').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp7').removeClass('open');
-			});
-			$("input#search8").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp8",
-				open: function (event, ui) {
-					$('#search-wrp8').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp8').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp8').removeClass('open');
-			});
-			$("input#search9").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp9",
-				open: function (event, ui) {
-					$('#search-wrp9').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp9').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp9').removeClass('open');
-			});
-			$("input#search10").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp10",
-				open: function (event, ui) {
-					$('#search-wrp10').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp10').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp10').removeClass('open');
-			});
-			$("input#search11").autocomplete({
-				source: availableTags,
-				appendTo: "#search-wrp11",
-				open: function (event, ui) {
-					$('#search-wrp11').addClass('open');
-				},
-				close: function (event, ui) {
-					$('#search-wrp11').removeClass('open');
-				}
-			}).click(function () {
-				$(this).autocomplete("search", 'a');
-				$('#search-wrp11').removeClass('open');
-			});
+				});
+				$("input#goal_name").autocomplete({
+					source: workGoalTags,
+					appendTo: "#search-wrp-goal_name",
+					open: function( event, ui ) {
+						$('#search-wrp-goal_name').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-goal_name').removeClass('open');
+					}
+				});
+				$("input#task_owner").autocomplete({
+					source: workPeopleTags,
+					appendTo: "#search-wrp-task_owner",
+					open: function( event, ui ) {
+						$('#search-wrp-task_owner').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-task_owner').removeClass('open');
+					}
+				});
+			}
 
+			function setPersonalAutocomplete () {
+				$("input#project_name").autocomplete({
+				source: personalProjectTags,
+				appendTo: "#search-wrp-project_name",
+				open: function( event, ui ) {
+					$('#search-wrp-project_name').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp-project_name').removeClass('open');
+				}
+				});
+				$("input#goal_name").autocomplete({
+					source: personalGoalTags,
+					appendTo: "#search-wrp-goal_name",
+					open: function( event, ui ) {
+						$('#search-wrp-goal_name').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-goal_name').removeClass('open');
+					}
+				});
+				$("input#task_owner").autocomplete({
+					source: personalPeopleTags,
+					appendTo: "#search-wrp-task_owner",
+					open: function( event, ui ) {
+						$('#search-wrp-task_owner').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-task_owner').removeClass('open');
+					}
+				});
+			}
+			
+			setWorkAutocomplete();
 
 			var parent = document.getElementById('hide-scroll');
 			var child = document.getElementById('main-container');
@@ -1922,24 +1846,24 @@
 				if(e.target.checked) {
 					console.log("Personal")
 					$('#task_type').val(2);
-					// setPersonalAutocomplete();
+					setPersonalAutocomplete();
 				}
 				else {
 					console.log("Work")
 					$('#task_type').val(1);
-					// setWorkAutocomplete();
+					setWorkAutocomplete();
 				}
 			})
 
 			$('.tasks-panel-work .nav-tabs').find('a').on('shown.bs.tab', function () {
 				console.log("Work")
 				$('#task_type').val(1);
-				// setWorkAutocomplete();
+				setWorkAutocomplete();
 			});
 			$('.tasks-panel-personal .nav-tabs').find('a').on('shown.bs.tab', function () {
 				console.log("Personal")
 				$('#task_type').val(2);
-				// setPersonalAutocomplete();
+				setPersonalAutocomplete();
 			});
 
 
