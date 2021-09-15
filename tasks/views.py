@@ -164,7 +164,7 @@ def archive_task(request):
 
 def get_user_tasks(user):
     """View for displaying task list for the logged in user"""
-    full_tasks = Task.objects.filter(user=user, is_archived=False).order_by('is_complete', '-created_on')
+    full_tasks = Task.objects.filter(user=user).order_by('is_complete', '-created_on')
 
     owners = set()
     for task in full_tasks:
@@ -179,7 +179,7 @@ def get_user_tasks(user):
         query_owner = owner
         if owner == "Me":
             query_owner = None
-        work_tasks_for_owner = full_tasks.filter(task_type=1, task_owner=query_owner)
+        work_tasks_for_owner = full_tasks.filter(task_type=1, task_owner=query_owner, is_archived=False)
         work_task_dict = {}
         for task in work_tasks_for_owner:
             project_name = task.project_name
@@ -195,7 +195,7 @@ def get_user_tasks(user):
         if len(work_task_dict) > 0:
             work_dict[owner] = work_task_dict
 
-        personal_tasks_for_owner = full_tasks.filter(task_type=2, task_owner=query_owner)
+        personal_tasks_for_owner = full_tasks.filter(task_type=2, task_owner=query_owner, is_archived=False)
         personal_task_dict = {}
         for task in personal_tasks_for_owner:
             project_name = task.project_name
@@ -214,8 +214,8 @@ def get_user_tasks(user):
     # Generate tasks by date dict
     work_by_date_dict = {}
     personal_by_date_dict = {}
-    work_full_tasks = full_tasks.filter(task_type=1).order_by('is_complete', 'created_on')
-    personal_full_tasks = full_tasks.filter(task_type=2).order_by('is_complete', 'created_on')
+    work_full_tasks = full_tasks.filter(task_type=1, is_archived=False).order_by('is_complete', 'created_on')
+    personal_full_tasks = full_tasks.filter(task_type=2, is_archived=False).order_by('is_complete', 'created_on')
 
     for task in work_full_tasks:
         now = datetime.now()

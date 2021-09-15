@@ -243,7 +243,7 @@
 												<div class="control-side">
 													<div class="control-block">
 														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox101" value="option1">
+															id="inlineCheckbox101" value="option1" {% if task.is_complete %}checked{% endif %}>
 														<label class="form-check-label" for="inlineCheckbox101"></label>
 														<a href="#" class="">
 															<span class="icon">
@@ -301,7 +301,7 @@
 													<div class="control-block">
 														<div class="control-top-block">
 															<input class="form-check-input hero first-input"
-																type="checkbox" id="inlineCheckbox110" value="option1">
+																type="checkbox" id="inlineCheckbox110" value="option1" {% if task.is_complete %}checked{% endif %}>
 															<label class="form-check-label"
 																for="inlineCheckbox110"></label>
 															<a href="#" class="">
@@ -379,7 +379,7 @@
 												<div class="control-side">
 													<div class="control-block">
 														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox106" value="option1">
+															id="inlineCheckbox106" value="option10" {% if task.is_complete %}checked{% endif %}>
 														<label class="form-check-label" for="inlineCheckbox106"></label>
 														<a href="#" class="">
 															<span class="icon">
@@ -432,7 +432,7 @@
 														<div class="control-top-block">
 															<input class="form-check-input hero first-input"
 																type="checkbox" id="inlineCheckbox10010"
-																value="option1">
+																value="option1" {% if task.is_complete %}checked{% endif %}>
 															<label class="form-check-label"
 																for="inlineCheckbox10010"></label>
 
@@ -500,7 +500,7 @@
 													<div class="control-block">
 														<div class="control-top-block">
 															<input class="form-check-input hero first-input"
-																type="checkbox" id="inlineCheckbox1111" value="option1">
+																type="checkbox" id="inlineCheckbox1111" value="option1" {% if task.is_complete %}checked{% endif %}>
 															<label class="form-check-label"
 																for="inlineCheckbox1111"></label>
 															<a href="#" class="">
@@ -834,7 +834,7 @@
 												<div class="control-side">
 													<div class="control-block">
 														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox199" value="option1">
+															id="inlineCheckbox199" value="option1" {% if task.is_complete %}checked{% endif %}>
 														<label class="form-check-label" for="inlineCheckbox199"></label>
 														<a href="#" class="">
 															<span class="icon">
@@ -893,7 +893,7 @@
 													<div class="control-block">
 														<div class="control-top-block">
 															<input class="form-check-input hero first-input"
-																type="checkbox" id="inlineCheckbox1010" value="option1">
+																type="checkbox" id="inlineCheckbox1010" value="option1" {% if task.is_complete %}checked{% endif %}>
 															<label class="form-check-label"
 																for="inlineCheckbox1010"></label>
 
@@ -973,7 +973,7 @@
 												<div class="control-side">
 													<div class="control-block">
 														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox125" value="option1">
+															id="inlineCheckbox125" value="option1" {% if task.is_complete %}checked{% endif %}>
 														<label class="form-check-label" for="inlineCheckbox125"></label>
 														<a href="#" class="">
 															<span class="icon">
@@ -1026,7 +1026,7 @@
 													<div class="control-block">
 														<div class="control-top-block">
 															<input class="form-check-input hero first-input"
-																type="checkbox" id="inlineCheckbox1210" value="option1">
+																type="checkbox" id="inlineCheckbox1210" value="option1" {% if task.is_complete %}checked{% endif %}>
 															<label class="form-check-label"
 																for="inlineCheckbox1210"></label>
 
@@ -1865,8 +1865,6 @@
 				$('#task_type').val(2);
 				setPersonalAutocomplete();
 			});
-
-
 
 		});
 	</script>
