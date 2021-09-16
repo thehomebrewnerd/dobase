@@ -175,6 +175,8 @@ def get_user_tasks(user):
 
     work_dict = {}
     personal_dict = {}
+    archived_work_dict = {}
+    archived_personal_dict = {}
     for owner in owners:
         query_owner = owner
         if owner == "Me":
@@ -210,7 +212,40 @@ def get_user_tasks(user):
             personal_task_dict[project_name] = goal_dict
         if len(personal_task_dict) > 0:
             personal_dict[owner] = personal_task_dict
+    
+        # Get archived tasks by person
+        archived_work_task_dict = {}
+        archived_work_tasks_for_owner = full_tasks.filter(task_type=1, task_owner=query_owner, is_archived=True)
+        for task in archived_work_tasks_for_owner:
+            project_name = task.project_name
+            goal_name = task.goal_name
+            goal_dict = archived_work_task_dict.get(project_name) or {}
+            task_list = goal_dict.get(goal_name) or []
+            if task.is_complete:
+                task_list = task_list + [task]
+            else:
+                task_list = [task] + task_list
+            goal_dict[goal_name] = task_list
+            archived_work_task_dict[project_name] = goal_dict
+        if len(archived_work_task_dict) > 0:
+            archived_work_dict[owner] = archived_work_task_dict
 
+        archived_personal_task_dict = {}
+        archived_personal_tasks_for_owner = full_tasks.filter(task_type=2, task_owner=query_owner, is_archived=True)
+        for task in archived_personal_tasks_for_owner:
+            project_name = task.project_name
+            goal_name = task.goal_name
+            goal_dict = archived_personal_task_dict.get(project_name) or {}
+            task_list = goal_dict.get(goal_name) or []
+            if task.is_complete:
+                task_list = task_list + [task]
+            else:
+                task_list = [task] + task_list
+            goal_dict[goal_name] = task_list
+            archived_personal_task_dict[project_name] = goal_dict
+        if len(archived_personal_task_dict) > 0:
+            archived_personal_dict[owner] = archived_personal_task_dict
+    
     # Generate tasks by date dict
     work_by_date_dict = {}
     personal_by_date_dict = {}
@@ -231,9 +266,12 @@ def get_user_tasks(user):
         task_list = personal_by_date_dict.get(week_num) or []
         task_list = task_list + [task]
         personal_by_date_dict[week_num] = task_list
+    
 
     context = {'work_tasks_by_person': work_dict,
                'personal_tasks_by_person': personal_dict,
                'work_tasks_by_date': work_by_date_dict,
-               'personal_tasks_by_date': personal_by_date_dict}
+               'personal_tasks_by_date': personal_by_date_dict,
+               'archived_work_tasks': archived_work_dict,
+               'archived_personal_tasks': archived_personal_dict}
     return context
