@@ -248,15 +248,15 @@ $(document).ready(function () {
 		var totalNotCheck = element.not(':checked').length;
 		var totalCheck = element.length;
 
-
-
 		var state = $(this);
-
+		
 		if($(this).is(':checked')){
 			actionLine(state, 'add');
+			complete_task(this.value, true);
 		}
 		if(!$(this).is(':checked')){
 			actionLine(state, 'remove');
+			complete_task(this.value, false);
 		}
 
 		var totalAllActiveCheck = allCheckSecondLine.not(':checked').length;

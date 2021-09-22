@@ -243,8 +243,8 @@
 												<div class="control-side">
 													<div class="control-block">
 														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox101" value="option1" {% if task.is_complete %}checked{% endif %}>
-														<label class="form-check-label" for="inlineCheckbox101"></label>
+															id="inlineCheckbox1-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+														<label class="form-check-label" for="inlineCheckbox1-{{task.id}}"></label>
 														<a href="#" class="">
 															<span class="icon">
 																<svg width="17" height="20" viewBox="0 0 17 20"
@@ -301,9 +301,9 @@
 													<div class="control-block">
 														<div class="control-top-block">
 															<input class="form-check-input hero first-input"
-																type="checkbox" id="inlineCheckbox110" value="option1" {% if task.is_complete %}checked{% endif %}>
+																type="checkbox" id="inlineCheckbox2-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
 															<label class="form-check-label"
-																for="inlineCheckbox110"></label>
+																for="inlineCheckbox2-{{task.id}}"></label>
 															<a href="#" class="">
 																<span class="icon">
 																	<svg width="17" height="20" viewBox="0 0 17 20"
@@ -379,8 +379,8 @@
 												<div class="control-side">
 													<div class="control-block">
 														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox106" value="option10" {% if task.is_complete %}checked{% endif %}>
-														<label class="form-check-label" for="inlineCheckbox106"></label>
+															id="inlineCheckbox3-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+														<label class="form-check-label" for="inlineCheckbox3-{{task.id}}"></label>
 														<a href="#" class="">
 															<span class="icon">
 																<svg width="17" height="20" viewBox="0 0 17 20"
@@ -433,10 +433,10 @@
 													<div class="control-block">
 														<div class="control-top-block">
 															<input class="form-check-input hero first-input"
-																type="checkbox" id="inlineCheckbox10010"
-																value="option1" {% if task.is_complete %}checked{% endif %}>
+																type="checkbox" id="inlineCheckbox4-{{task.id}}"
+																value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
 															<label class="form-check-label"
-																for="inlineCheckbox10010"></label>
+																for="inlineCheckbox4-{{task.id}}"></label>
 
 															<a href="#" class="">
 																<span class="icon">
@@ -610,8 +610,8 @@
 												<div class="control-side">
 													<div class="control-block">
 														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox199" value="option1" {% if task.is_complete %}checked{% endif %}>
-														<label class="form-check-label" for="inlineCheckbox199"></label>
+															id="inlineCheckbox5-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+														<label class="form-check-label" for="inlineCheckbox5-{{task.id}}"></label>
 														<a href="#" class="">
 															<span class="icon">
 																<svg width="17" height="20" viewBox="0 0 17 20"
@@ -669,9 +669,9 @@
 													<div class="control-block">
 														<div class="control-top-block">
 															<input class="form-check-input hero first-input"
-																type="checkbox" id="inlineCheckbox1010" value="option1" {% if task.is_complete %}checked{% endif %}>
+																type="checkbox" id="inlineCheckbox6-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
 															<label class="form-check-label"
-																for="inlineCheckbox1010"></label>
+																for="inlineCheckbox6-{{task.id}}"></label>
 
 															<a href="#" class="">
 																<span class="icon">
@@ -749,8 +749,8 @@
 												<div class="control-side">
 													<div class="control-block">
 														<input class="form-check-input hero first-input" type="checkbox"
-															id="inlineCheckbox125" value="option1" {% if task.is_complete %}checked{% endif %}>
-														<label class="form-check-label" for="inlineCheckbox125"></label>
+															id="inlineCheckbox7-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+														<label class="form-check-label" for="inlineCheckbox7-{{task.id}}"></label>
 														<a href="#" class="">
 															<span class="icon">
 																<svg width="17" height="20" viewBox="0 0 17 20"
@@ -804,9 +804,9 @@
 													<div class="control-block">
 														<div class="control-top-block">
 															<input class="form-check-input hero first-input"
-																type="checkbox" id="inlineCheckbox1210" value="option1" {% if task.is_complete %}checked{% endif %}>
+																type="checkbox" id="inlineCheckbox8-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
 															<label class="form-check-label"
-																for="inlineCheckbox1210"></label>
+																for="inlineCheckbox8-{{task.id}}"></label>
 
 															<a href="#" class="">
 																<span class="icon">
@@ -1243,6 +1243,58 @@
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
+	<script>
+		function complete_task(id, done) { 
+			if (done == true) {
+				status = 1;
+			}
+			else {
+				status = 0;
+			}
+			$.ajax({
+          		url : "{% url 'update_task_status' %}", // the endpoint
+          		type : "POST", // http method
+				data : { 
+					'id': id,
+					'status': status,
+					'csrfmiddlewaretoken': '{{csrf_token}}' 
+					}, // data sent with the post request
+
+				// handle a successful response
+				success : function(json) {
+					console.log("Success");
+				},
+
+          // handle a non-successful response
+          error : function(xhr,errmsg,err) {
+			  console.log("Something went wrong");
+          }
+      });
+		}
+
+		function archive_task(id, e) { 
+			$.ajax({
+          		url : "{% url 'archive_task' %}", // the endpoint
+          		type : "POST", // http method
+				data : { 
+					'id': id,
+					'status': status,
+					'csrfmiddlewaretoken': '{{csrf_token}}' 
+					}, // data sent with the post request
+
+				// handle a successful response
+				success : function(json) {
+					console.log("Success");
+					e.style.display = 'none';
+				},
+
+          // handle a non-successful response
+          error : function(xhr,errmsg,err) {
+			  console.log("Something went wrong");
+          }
+      });
+		}
+	</script>
 
 	<script src="{% static 'js/common.js' %}"></script>
 
