@@ -185,6 +185,15 @@ $(window).load(function() {
 
 $(document).ready(function () {
 
+	// archive task
+	var archiveLink = $('.form-archive-link');
+
+	archiveLink.on('click', function (e) {
+		e.preventDefault();
+		taskID = $(this).attr('data-id')
+		archive_task(taskID, this);
+	})
+
 	// selects
 	var formCheckInput = $('.form-check-input');
 
