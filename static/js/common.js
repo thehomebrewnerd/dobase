@@ -22,8 +22,6 @@ var stickyHeaders = (function() {
 
 				var $thisSticky = $(this);
 
-				console.log($thisSticky);
-
 				$thisSticky
 						.data('originalPosition', $thisSticky.offset().top)
 						.data('originalHeight', $thisSticky.outerHeight(true))
@@ -33,8 +31,6 @@ var stickyHeaders = (function() {
 
 				var	$stickyPosition = $thisSticky.data('originalPosition');
 
-				console.log($stickyPosition);
-				console.log($window.scrollTop());
 
 				if (($stickyPosition - (tPanelHeight - 1)) <= $(document).scrollTop()) {
 
@@ -62,8 +58,6 @@ var stickyHeaders = (function() {
 			var $thisSticky = $(this),
 					$stickyPosition = $thisSticky.data('originalPosition');
 
-			// console.log($stickyPosition);
-			// console.log($window.scrollTop());
 
 			if (($stickyPosition - (tPanelHeight - 1)) <= $window.scrollTop()) {
 
@@ -104,9 +98,9 @@ var followMeBar = $('.followMeBar');
 $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
 	e.target // newly activated tab
 	e.relatedTarget // previous active tab
-	console.log($(e.target).is('#work-tab'));
+
 	if($(e.target).is('#personal-tab')) {
-		console.log('hello work');
+		// console.log('hello work');
 		// $(window).scrollTop(-1);
 		$('.followMeBar2').each(function () {
 			$(this).removeClass("fixed");
@@ -115,11 +109,11 @@ $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
 		stickyHeaders.load($(".followMeBar"));
 		$('.followMeBar').each(function () {
 			// $(this).data('originalPosition', $(this).offset().top)
-			console.log($(this).data('originalPosition'));
+			// console.log($(this).data('originalPosition'));
 		})
 	}
 	else if($(e.target).is('#work-tab')) {
-		console.log('hello personal');
+		// console.log('hello personal');
 		// $(window).scrollTop(-1);
 
 		$('.followMeBar').each(function () {
@@ -129,7 +123,7 @@ $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
 		stickyHeaders.load($(".followMeBar2"));
 		$('.followMeBar2').each(function () {
 			// $(this).data('originalPosition', $(this).offset().top)
-			console.log($(this).data('originalPosition'));
+			// console.log($(this).data('originalPosition'));
 		})
 	}
 
@@ -203,7 +197,7 @@ $(document).ready(function () {
 	function actionLine(item ,action) {
 		var state = item;
 		var formBlock;
-		console.log(state);
+		// console.log(state);
 		formBlock = state.closest('.form-block');
 		if(action === 'remove') {
 			formBlock.removeClass('line-through');
@@ -224,8 +218,8 @@ $(document).ready(function () {
 
 		if(heroInputSecondLine.is(e.target)) {
 			if(totalNotCheck === 0) {
-				console.log('not elements');
-				console.log(heroInputFirstLine);
+				// console.log('not elements');
+				// console.log(heroInputFirstLine);
 				heroInputFirstLine.prop('checked', true);
 			}
 			else if(totalNotCheck < totalCheck) {
@@ -273,7 +267,7 @@ $(document).ready(function () {
 		var totalAllActiveCheck = allCheckSecondLine.not(':checked').length;
 
 		if(totalNotCheck === 0) {
-			console.log('not elements');
+			// console.log('not elements');
 			inputHeroSecondLine.prop('checked', true);
 			actionLine(inputHeroSecondLine, 'add')
 			if (totalAllActiveCheck === 0) {
@@ -311,14 +305,14 @@ $(document).ready(function () {
 	var mobileTaskPanelWork = $('.footer-menu').find('.tasks-panel-work');
 	var mobileTaskPanelPersonal = $('.footer-menu').find('.tasks-panel-personal');
 
-	console.log(mobileTaskPanelWork);
+	// console.log(mobileTaskPanelWork);
 
 	var heroContentTasksPanelNavLink = wrapperTasksPanel.find('.nav-link');
 
-	console.log(heroContentTasksPanelNavLink);
+	// console.log(heroContentTasksPanelNavLink);
 
 
-	console.log(wrapperTasksPanel);
+	// console.log(wrapperTasksPanel);
 
 	var toggleSync = $('.toggle-sync');
 
@@ -326,7 +320,7 @@ $(document).ready(function () {
 
 	toggleButton.click(function () {
 		switcherTheme = !switcherTheme;
-		console.log(switcherTheme);
+		// console.log(switcherTheme);
 
 		if(switcherTheme === false) {
 			changeThemeLight();
@@ -343,10 +337,10 @@ $(document).ready(function () {
 			//
 			// console.log(taskPanelWorkNavLink.attr('id') === 'me-tab');
 			// console.log(linkAttribute === 'me-tab');
-			console.log(taskPanelWorkNavLink);
+			// console.log(taskPanelWorkNavLink);
 
-			console.log(linkAttribute);
-			console.log($(window).outerWidth() < 900);
+			// console.log(linkAttribute);
+			// console.log($(window).outerWidth() < 900);
 
 			var mobileTaskPanelWorkNavLink = mobileTaskPanelWork.find('.nav-link.active');
 
@@ -357,7 +351,7 @@ $(document).ready(function () {
 				taskPanelPersonal.removeClass('d-none');
 				taskPanelPersonal.show();
 
-				console.log(mobileLinkAttribute);
+				// console.log(mobileLinkAttribute);
 
 				if(mobileLinkAttribute === 'me-tab-mobile') {
 					$('[aria-labelledby=me-tab]').removeClass('active show');
@@ -506,12 +500,12 @@ $(document).ready(function () {
 		console.log(switcherTheme);
 	});
 
-	if(toggleButton.is(':checked')) {
-		console.log(switcherTheme);
-	}
+	// if(toggleButton.is(':checked')) {
+	// 	console.log(switcherTheme);
+	// }
 
 	heroContentTasksPanelNavLink.click(function () {
-		console.log('delete active class for others nav-link');
+		// console.log('delete active class for others nav-link');
 
 		heroContentTasksPanelNavLink.removeClass('active');
 		var allTasksPanelTitles = wrapperTasksPanel.find('.tasks-panel-title');
@@ -520,8 +514,8 @@ $(document).ready(function () {
 		var tasksPanelTitle = tasksPanel.find('.tasks-panel-title');
 		allTasksPanelTitles.removeClass('active');
 		tasksPanelTitle.addClass('active');
-		console.log(tasksPanelTitle);
-		console.log(tasksPanel);
+		// console.log(tasksPanelTitle);
+		// console.log(tasksPanel);
 
 	})
 
@@ -569,7 +563,7 @@ $(document).ready(function () {
 			taskPanelWorkTitle.addClass('active');
 
 		if($('.new-form-block').hasClass('active')) {
-			console.log('new form has class');
+			// console.log('new form has class');
 			$('.mobile-nav').css('display', 'none');
 		} else {
 			$('.mobile-nav').css('display', 'flex');
@@ -604,7 +598,7 @@ $(document).ready(function () {
 
 		});
 
-		const swiperInit = document.querySelector('.swiper-container').swiper;
+		// const swiperInit = document.querySelector('.swiper-container').swiper;
 
 		toggleButton.click(function (e) {
 			var swiper = new Swiper('.swiper-container', {
@@ -629,19 +623,22 @@ $(document).ready(function () {
 	// end setting for swiper
 
 // Switch to personal tasks if it is the weekend or time is before 8am or after 5pm
-date = new Date();
+date = new Date("September 24, 2021 20:30:00");
 dayOfWeek = date.getDay()
 hourOfDay = date.getHours()
 var linkToClick = $('#me-tab-personal');
+var mobileLink = $('#personal-mobile-toggle')
 
 if (dayOfWeek == 0 || dayOfWeek == 6) {
-	console.log("Weekend - personal")
+	// console.log("Weekend - personal")
 	linkToClick.click()
+	mobileLink.click()
 } else if (hourOfDay < 8 || hourOfDay > 17) {
-	console.log("early or late - personal")
+	// console.log("early or late - personal")
 	linkToClick.click()
+	mobileLink.click()
 } else {
-	console.log("Work")
+	// console.log("Work")
 }
 
 })
