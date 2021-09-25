@@ -1,0 +1,1464 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+
+	<title>doBase</title>
+	<meta name="description" content="">
+	<link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}" type="image/x-icon">
+	<link rel="apple-touch-icon" href="{% static 'img/favicon/apple-touch-icon.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/favicon/apple-touch-icon-72x72.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/favicon/apple-touch-icon-114x114.png' %}">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+
+	<script src="https://kit.fontawesome.com/8682e796b5.js" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="{% static 'libs/bootstrap4/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'libs/bootstrap4/css/bootstrap-grid.min.css' %}">
+
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{% static 'libs/animate/animate.css' %}">
+
+
+
+	<!--	<link rel="stylesheet" href="css/main.min.css">-->
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+	<!-- <link rel="stylesheet" type="text/css" media="print" href="{% static 'css/print.css' %}"> -->
+
+
+	<script src="{% static 'libs/modernizr/modernizr.js' %}"></script>
+
+</head>
+
+<body class=" hide-scroll" id="hide-scroll">
+	<div id="main-container" class="top-stick dark-theme">
+		<div class="side-bar-wrapper">
+			<div id="side-bar" class="side-bar-block">
+				<div class="top-block">
+					<a href="{% url 'home' %}" class="hero-title fw-800">doBase</a>
+					<form method="POST" class="hero-form control-width">
+						{% csrf_token %}
+						{% for field in form.visible_fields %}
+							{% if field.errors %}
+								{% for error in field.errors %}
+									<div class="alert alert-danger">
+										<strong>{{ error|escape }}</strong>
+									</div>
+								{% endfor %}
+							{% endif %}
+							{% if field.html_name == 'task_description' %}
+								<textarea class="standard-form-textarea" placeholder="{{ field.label }}" name="{{ field.html_name }}" required></textarea>
+							{% elif field.html_name == 'task_type' %}
+								<input type="search" id="{{field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}" value=1 hidden>
+							{% else %}
+								<div class="standard-form-search" id="search-wrp-{{ field.html_name}}">
+									<input type="search" id="{{ field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}" {% if field.html_name != "task_owner" %}required{%endif%}>
+								</div>
+							{% endif %}
+						{% endfor %}
+						<div class="switch-wrapper">
+							<p class="standard-text active mb-0" id="switch-work">Work</p>
+							<div class="toggle-wrapper">
+								<input type="checkbox" name="toggle2" class="toggle-input" id="toggle">
+								<label for="toggle"></label>
+							</div>
+							<p class="standard-text mb-0" id="switch-personal">Personal</p>
+						</div>
+						<div class="button-wrapper">
+							<button type="submit" class="w-100 fw-500 button blue-button">Remember</button>
+						</div>
+					</form>
+					<!-- <form action="" class="hero-form control-width">
+						<div class="standard-form-search" id="search-wrp">
+							<div class="wrapper-close-button">
+								<span class="close-ui-menu-button"></span>
+							</div>
+							<input type="search" id="search1" class="standard-form-input" placeholder="Project">
+						</div>
+						<div class="standard-form-search" id="search-wrp2">
+							<div class="wrapper-close-button">
+								<span class="close-ui-menu-button"></span>
+							</div>
+							<input type="search" id="search2" class="standard-form-input" placeholder="Goal">
+						</div>
+						<textarea class="standard-form-textarea" placeholder="Task"></textarea>
+						<div class="standard-form-search" id="search-wrp5">
+							<div class="wrapper-close-button">
+								<span class="close-ui-menu-button"></span>
+							</div>
+							<input type="search" id="search5" class="standard-form-input"
+								placeholder="Who (Default to me)">
+						</div>
+						<div class="switch-wrapper">
+							<p class="standard-text active mb-0" id="switch-work">Work</p>
+							<div class="toggle-wrapper">
+								<input type="checkbox" name="toggle2" class="toggle-input" id="toggle">
+								<label for="toggle"></label>
+							</div>
+							<p class="standard-text mb-0" id="switch-personal">Personal</p>
+						</div>
+						<div class="button-wrapper">
+							<button type="submit" class="w-100 fw-500 button blue-button">Remember</button>
+						</div>
+					</form> -->
+				</div>
+				<div class="bottom-block text-center">
+					<ul class="common-menu">
+						<li>
+							<a href="#" class="standard-text">
+								<span class="icon">
+									<svg width="20" height="22" viewBox="0 0 20 22" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M18.8067 6.62361L18.1842 5.54352C17.6577 4.6296 16.4907 4.31432 15.5755 4.83872V4.83872C15.1399 5.09534 14.6201 5.16815 14.1307 5.04109C13.6413 4.91402 13.2226 4.59752 12.9668 4.16137C12.8023 3.88415 12.7139 3.56839 12.7105 3.24604V3.24604C12.7254 2.72922 12.5304 2.2284 12.17 1.85767C11.8096 1.48694 11.3145 1.27786 10.7975 1.27808H9.5435C9.03697 1.27807 8.55131 1.47991 8.194 1.83895C7.83669 2.19798 7.63717 2.68459 7.63961 3.19112V3.19112C7.6246 4.23693 6.77248 5.07681 5.72657 5.0767C5.40421 5.07336 5.08846 4.98494 4.81123 4.82041V4.82041C3.89606 4.29601 2.72911 4.61129 2.20254 5.52522L1.53435 6.62361C1.00841 7.53639 1.3194 8.70261 2.23 9.23231V9.23231C2.8219 9.57404 3.18653 10.2056 3.18653 10.8891C3.18653 11.5725 2.8219 12.2041 2.23 12.5458V12.5458C1.32056 13.0719 1.00923 14.2353 1.53435 15.1454V15.1454L2.16593 16.2346C2.41265 16.6798 2.8266 17.0083 3.31619 17.1474C3.80578 17.2866 4.33064 17.2249 4.77462 16.976V16.976C5.21108 16.7213 5.73119 16.6516 6.21934 16.7822C6.70749 16.9128 7.12324 17.233 7.37416 17.6717C7.5387 17.9489 7.62711 18.2646 7.63046 18.587V18.587C7.63046 19.6435 8.48696 20.5 9.5435 20.5H10.7975C11.8505 20.5001 12.7055 19.6491 12.7105 18.5962V18.5962C12.7081 18.088 12.9089 17.6 13.2682 17.2407C13.6275 16.8814 14.1155 16.6807 14.6236 16.6831C14.9452 16.6917 15.2596 16.7798 15.5389 16.9394V16.9394C16.4517 17.4653 17.6179 17.1544 18.1476 16.2438V16.2438L18.8067 15.1454C19.0618 14.7075 19.1318 14.186 19.0012 13.6964C18.8706 13.2067 18.5502 12.7894 18.111 12.5367V12.5367C17.6718 12.284 17.3514 11.8666 17.2208 11.3769C17.0902 10.8873 17.1603 10.3658 17.4154 9.92796C17.5812 9.63834 17.8214 9.3982 18.111 9.23231V9.23231C19.0161 8.70289 19.3264 7.54349 18.8067 6.63277V6.63277V6.62361Z"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<circle cx="10.1751" cy="10.8891" r="2.63616" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+									</svg>
+								</span>
+								Setting</a>
+						</li>
+						<li>
+							<a href="{% url 'logout' %}?next=/accounts/login/" class="standard-text">
+								<span class="icon">
+									<svg width="21" height="21" viewBox="0 0 21 21" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M13.016 5.38948V4.45648C13.016 2.42148 11.366 0.771484 9.33097 0.771484H4.45597C2.42197 0.771484 0.771973 2.42148 0.771973 4.45648V15.5865C0.771973 17.6215 2.42197 19.2715 4.45597 19.2715H9.34097C11.37 19.2715 13.016 17.6265 13.016 15.5975V14.6545"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path d="M19.8094 10.0214H7.76843" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M16.8812 7.10632L19.8092 10.0213L16.8812 12.9373" stroke="white"
+											stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+									</svg>
+								</span>
+								Log Out</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="hero-content">
+			<div class="container-fluid container-custom">
+				<div class="row">
+					<div class="col-12">
+						<div class="wrapper-tasks-panel">
+							<div class="tasks-panel t-panel tasks-panel-work" role="tablist">
+								<h6 class="tasks-panel-title fw-700 active">Work</h6>
+								<ul class="nav nav-tabs" id="hero-content-tabs-work">
+									<li class="nav-item" role="presentation">
+										<a class="nav-link standard-description button fw-500 active" id="me-tab"
+											data-toggle="tab" href="#me" role="tab" aria-controls="me"
+											aria-selected="true">Me</a>
+									</li>
+									<li class="nav-item" role="presentation">
+										<a class="nav-link standard-description button fw-500" id="others-tab"
+											data-toggle="tab" href="#others" role="tab" aria-controls="others"
+											aria-selected="false">Others</a>
+									</li>
+									<li class="nav-item" role="presentation">
+										<a class="nav-link standard-description button fw-500" id="date-tab"
+											data-toggle="tab" href="#date" role="tab" aria-controls="date"
+											aria-selected="false">Date</a>
+									</li>
+									<li class="nav-item" role="presentation">
+										<a class="nav-link standard-description button fw-500" id="archive-tab"
+											data-toggle="tab" href="#archive" role="tab" aria-controls="archive"
+											aria-selected="false">Archive</a>
+									</li>
+								</ul>
+							</div>
+							<div class="tasks-panel tasks-panel-personal">
+								<h6 class="tasks-panel-title fw-700">Personal</h6>
+								<ul class="nav nav-tabs t-panel" id="hero-content-tabs-personal" role="tablist">
+									<li class="nav-item" role="presentation">
+										<a class="nav-link standard-description button fw-500" id="me-tab-personal"
+											data-toggle="tab" href="#me-personal" role="tab" aria-controls="me-personal"
+											aria-selected="true">Me</a>
+									</li>
+									<li class="nav-item" role="presentation">
+										<a class="nav-link standard-description button fw-500" id="others-tab-personal"
+											data-toggle="tab" href="#others-personal" role="tab"
+											aria-controls="others-personal" aria-selected="false">Others</a>
+									</li>
+									<li class="nav-item" role="presentation">
+										<a class="nav-link standard-description button fw-500" id="date-tab-personal"
+											data-toggle="tab" href="#date-personal" role="tab"
+											aria-controls="date-personal" aria-selected="false">Date</a>
+									</li>
+									<li class="nav-item" role="presentation">
+										<a class="nav-link standard-description button fw-500" id="archive-tab-personal"
+											data-toggle="tab" href="#archive-personal" role="tab"
+											aria-controls="archive-personal" aria-selected="false">Archive</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="mobile-nav">
+							<div class="buttons-wrapper toggle-input">
+								<a href="#" class="button work active">Work</a>
+								<a href="#" class="button personal" id="personal-mobile-toggle">Personal</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="tab-content" id="">
+							<div class="tab-pane fade show active" id="me" role="tabpanel" aria-labelledby="me-tab">
+								<div class="common-list-body">
+								{% for person, work_tasks in work_tasks_by_person.items %}
+								{% if person == "Me" %}
+								{% for project_name, goals in work_tasks.items %}
+									<h3 class="common-list-title">{{ project_name }}</h3>
+									{% for goal_name, task_list in goals.items %}
+									<div class="item-block">
+										<h5 class="common-list-subtitle">{{ goal_name }}</h5>
+										{% for task in task_list %}
+										<div class="list-item">
+											<div class="top-block">
+												<div class="content-side">
+													<p class="common-list-description">{{ task.task_description }}</p>
+													<div class="bottom-block">
+														<p class="bottom-small-description">{{ task.created_on }}</p>
+													</div>
+												</div>
+												<div class="control-side">
+													<div class="control-block">
+														<input class="form-check-input hero first-input" type="checkbox"
+															id="inlineCheckbox1-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+														<label class="form-check-label" for="inlineCheckbox1-{{task.id}}"></label>
+														<a href="" class="form-archive-link" data-id="{{ task.id }}">
+															<span class="icon">
+																<svg width="17" height="20" viewBox="0 0 17 20"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path
+																		d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
+																		stroke="#04212F" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F"
+																		stroke-width="1.5" stroke-linecap="round"
+																		stroke-linejoin="round" />
+																	<path
+																		d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
+																		stroke="#04212F" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																</svg>
+															</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+									{% endfor %}
+								{% endfor %}
+								{% endif %}
+								{% endfor %}
+								</div>
+							</div>
+							<div class="tab-pane fade" id="others" role="tabpanel" aria-labelledby="others-tab">
+								<div class="common-list-body">
+								{% for person, work_tasks in work_tasks_by_person.items %}
+								{% if person != "Me" %}
+								{% for project_name, goals in work_tasks.items %}
+									<h3 class="common-list-title">{{ person }}</h3>
+									{% for goal_name, task_list in goals.items %}
+									<div class="item-block">
+										<h5 class="common-list-subtitle">{{ project_name }} / <span
+												class="thin">{{ goal_name }}</span></h5>
+										{% for task in task_list %}
+										<div class="list-item control-arrow">
+											<div class="top-block">
+												<div class="content-side">
+													<p class="common-list-description">{{ task.task_description }}</p>
+													<div class="bottom-block">
+														<p class="bottom-small-description">{{ task.created_on }}</p>
+													</div>
+												</div>
+												<div class="control-side">
+													<!-- <a href="#" class="text-snippet">Reminded</a> -->
+													<div class="control-block">
+														<div class="control-top-block">
+															<input class="form-check-input hero first-input"
+																type="checkbox" id="inlineCheckbox2-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+															<label class="form-check-label"
+																for="inlineCheckbox2-{{task.id}}"></label>
+															<a href="" class="form-archive-link" data-id="{{ task.id }}">
+																<span class="icon">
+																	<svg width="17" height="20" viewBox="0 0 17 20"
+																		fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<path
+																			d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																		<path d="M16.1778 4.23975H1.63965"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																		<path
+																			d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																	</svg>
+																</span>
+															</a>
+														</div>
+														<a href="#" class="icon-wrapper">
+															<span class="icon arrow-icon">
+																<svg width="14" height="8" viewBox="0 0 14 8"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path
+																		d="M12.8334 1.08337L7.00002 6.91671L1.16669 1.08337"
+																		stroke="white" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																</svg>
+															</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+										<!-- <div class="list-item wrapper-notice-snippet">
+											<div class="notice-snippet">
+												<a href="#" class="simple-text-snippet">Reminded</a>
+											</div>
+										</div>
+										<div class="list-item wrapper-notice-snippet">
+											<div class="notice-snippet border-top-0">
+												<a href="#" class="triangle-text-snippet">Reminded</a>
+												<p class="notice-text">17 May 2021, 05:00 pm</p>
+											</div>
+										</div>	 -->
+									</div>
+									{% endfor %}
+								{% endfor %}
+								{% endif %}
+								{% endfor %}
+								</div>
+							</div>
+							<div class="tab-pane fade" id="date" role="tabpanel" aria-labelledby="date-tab">
+								<div class="common-list-body">
+									{% for week_num, task_list in work_tasks_by_date.items %}
+									<h3 class="common-list-title">{{ week_num }} {% if week_num > 1 %}Weeks{% else %}Week{% endif %}</h3>
+									<div class="item-block">
+										{% for task in task_list %}
+										<div class="list-item bigger-top-indent">
+											<h5 class="common-list-small-subtitle">{% if task.task_owner %}{{ task.task_owner }}{% else %}Me{% endif %} / {{ task.project_name }} / {{ task.goal_name }}</h5>
+											<div class="line-block">
+												<div class="content-side">
+													<p class="common-list-description">{{ task.task_description }}</p>
+													<div class="bottom-block">
+														<p class="bottom-small-description">{{ task.created_on }}</p>
+													</div>
+												</div>
+												<div class="control-side">
+													<div class="control-block">
+														<input class="form-check-input hero first-input" type="checkbox"
+															id="inlineCheckbox3-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+														<label class="form-check-label" for="inlineCheckbox3-{{task.id}}"></label>
+														<a href="" class="form-archive-link" data-id="{{ task.id }}">
+															<span class="icon">
+																<svg width="17" height="20" viewBox="0 0 17 20"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path
+																		d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
+																		stroke="#04212F" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F"
+																		stroke-width="1.5" stroke-linecap="round"
+																		stroke-linejoin="round" />
+																	<path
+																		d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
+																		stroke="#04212F" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																</svg>
+															</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+									{% endfor %}								
+								</div>
+							</div>
+							<div class="tab-pane fade" id="archive" role="tabpanel" aria-labelledby="archive-tab">
+								<div class="common-list-body">
+									{% for person, work_tasks in archived_work_tasks.items %}
+									<h3 class="common-list-title">{{ person }}</h3>
+									{% for project_name, goals in work_tasks.items %}
+									{% for goal_name, task_list in goals.items %}
+									<div class="item-block">
+										<h5 class="common-list-subtitle">{{ project_name}} / <span
+												class="thin">{{ goal_name }}</span></h5>
+										{% for task in task_list %}
+										<div class="list-item control-arrow">
+											<div class="top-block">
+												<div class="content-side">
+													<p class="common-list-description">{{ task.task_description }}</p>
+													<div class="bottom-block">
+														<p class="bottom-small-description">{{ task.created_on }}</p>
+													</div>
+												</div>
+												<div class="control-side">
+													<!-- <a href="#" class="text-snippet">Reminded</a> -->
+													<div class="control-block">
+														<div class="control-top-block">
+															<input class="form-check-input hero first-input"
+																type="checkbox" id="inlineCheckbox4-{{task.id}}"
+																value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+															<label class="form-check-label"
+																for="inlineCheckbox4-{{task.id}}"></label>
+															<a href="" class="form-archive-link" data-id="{{ task.id }}">
+																<span class="icon">
+																	<svg width="17" height="20" viewBox="0 0 17 20"
+																		fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<path
+																			d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																		<path d="M16.1778 4.23975H1.63965"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																		<path
+																			d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																	</svg>
+																</span>
+															</a>
+														</div>
+
+														<a href="#" class="icon-wrapper">
+															<span class="icon arrow-icon">
+																<svg width="14" height="8" viewBox="0 0 14 8"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path
+																		d="M12.8334 1.08337L7.00002 6.91671L1.16669 1.08337"
+																		stroke="white" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																</svg>
+															</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+										<!-- <div class="list-item wrapper-notice-snippet">
+											<div class="notice-snippet">
+												<a href="#" class="simple-text-snippet">Reminded</a>
+											</div>
+										</div>
+										<div class="list-item wrapper-notice-snippet">
+											<div class="notice-snippet border-top-0">
+												<a href="#" class="triangle-text-snippet">Reminded</a>
+												<p class="notice-text">17 May 2021, 05:00 pm</p>
+											</div>
+										</div> -->
+									</div>
+									{% endfor %}
+									{% endfor %}
+									{% endfor %}
+								</div>
+							</div>
+
+							<div class="tab-pane fade new-form-block" id="new-form" role="tabpanel"
+								aria-labelledby="new-tab-form">
+								<div class="common-list-body mobile">
+									<div class="top-block">
+										<a href="{% url 'home' %}" class="hero-title fw-800">doBase</a>
+										<form method="POST" class="hero-form control-width">
+											{% csrf_token %}
+											{% for field in form.visible_fields %}
+												{% if field.errors %}
+													{% for error in field.errors %}
+														<div class="alert alert-danger">
+															<strong>{{ error|escape }}</strong>
+														</div>
+													{% endfor %}
+												{% endif %}
+												{% if field.html_name == 'task_description' %}
+													<textarea class="standard-form-textarea" placeholder="{{ field.label }}" name="{{ field.html_name }}" required></textarea>
+												{% elif field.html_name == 'task_type' %}
+													<input type="search" id="{{field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}" value=1 hidden>
+												{% else %}
+													<div class="standard-form-search" id="search-wrp-{{ field.html_name}}">
+														<input type="search" id="{{ field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}" {% if field.html_name != "task_owner" %}required{%endif%}>
+													</div>
+												{% endif %}
+											{% endfor %}
+											<div class="switch-wrapper">
+												<p class="standard-text active mb-0">Work</p>
+												<div class="toggle-wrapper">
+													<input type="checkbox" name="toggle2"
+														class="toggle-input toggle-sync" id="toggle1">
+													<label for="toggle1"></label>
+												</div>
+												<p class="standard-text mb-0">Personal</p>
+											</div>
+											<div class="button-wrapper">
+												<button type="submit" class="w-100 fw-500 button blue-button">Remember</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-pane fade new-form-block" id="new-form-personal" role="tabpanel"
+								aria-labelledby="new-tab-form-personal">
+								<div class="common-list-body mobile">
+									<div class="top-block">
+										<a href="index.html" class="hero-title fw-800">doBase</a>
+										<form method="POST" class="hero-form control-width">
+											{% csrf_token %}
+											{% for field in form.visible_fields %}
+												{% if field.errors %}
+													{% for error in field.errors %}
+														<div class="alert alert-danger">
+															<strong>{{ error|escape }}</strong>
+														</div>
+													{% endfor %}
+												{% endif %}
+												{% if field.html_name == 'task_description' %}
+													<textarea class="standard-form-textarea" placeholder="{{ field.label }}" name="{{ field.html_name }}" required></textarea>
+												{% elif field.html_name == 'task_type' %}
+													<input type="search" id="{{field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}" value=2 hidden>
+												{% else %}
+													<div class="standard-form-search" id="search-wrp-{{ field.html_name}}">
+														<input type="search" id="{{ field.html_name}}" class="standard-form-input" placeholder="{{ field.label }}" name="{{ field.html_name }}" {% if field.html_name != "task_owner" %}required{%endif%}>
+													</div>
+												{% endif %}
+											{% endfor %}
+											<div class="switch-wrapper">
+												<p class="standard-text active mb-0">Work</p>
+												<div class="toggle-wrapper">
+													<input type="checkbox" name="toggle2"
+														class="toggle-input toggle-sync" id="toggle3" checked>
+													<label for="toggle3"></label>
+												</div>
+												<p class="standard-text mb-0">Personal</p>
+											</div>
+											<div class="button-wrapper">
+												<button type="submit" class="w-100 fw-500 button blue-button">Remember</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-pane fade" id="me-personal" role="tabpanel"
+								aria-labelledby="me-tab-personal">
+								<div class="common-list-body">
+									{% for person, personal_tasks in personal_tasks_by_person.items %}
+									{% if person == "Me" %}
+									{% for project_name, goals in personal_tasks.items %}
+									<h3 class="common-list-title">{{ project_name }}</h3>
+									{% for goal_name, task_list in goals.items %}
+									<div class="item-block">
+										<h5 class="common-list-subtitle">{{ goal_name }}</h5>
+										{% for task in task_list %}
+										<div class="list-item">
+											<div class="top-block">
+												<div class="content-side">
+													<p class="common-list-description">{{ task.task_description }}</p>
+													<div class="bottom-block">
+														<p class="bottom-small-description">{{ task.created_on }}</p>
+													</div>
+												</div>
+												<div class="control-side">
+													<div class="control-block">
+														<input class="form-check-input hero first-input" type="checkbox"
+															id="inlineCheckbox5-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+														<label class="form-check-label" for="inlineCheckbox5-{{task.id}}"></label>
+														<a href="" class="form-archive-link" data-id="{{ task.id }}">
+															<span class="icon">
+																<svg width="17" height="20" viewBox="0 0 17 20"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path
+																		d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
+																		stroke="#04212F" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F"
+																		stroke-width="1.5" stroke-linecap="round"
+																		stroke-linejoin="round" />
+																	<path
+																		d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
+																		stroke="#04212F" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																</svg>
+															</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+									{% endfor %}
+								{% endfor %}
+								{% endif %}
+								{% endfor %}
+								</div>
+							</div>
+							<div class="tab-pane fade" id="others-personal" role="tabpanel"
+								aria-labelledby="others-tab-personal">
+								<div class="common-list-body">
+								{% for person, personal_tasks in personal_tasks_by_person.items %}
+								{% if person != "Me" %}
+								{% for project_name, goals in personal_tasks.items %}
+									<h3 class="common-list-title">{{ person }}</h3>
+									{% for goal_name, task_list in goals.items %}
+									<div class="item-block">
+										<h5 class="common-list-subtitle">{{ project_name }} / <span
+												class="thin">{{ goal_name }}</span></h5>
+										{% for task in task_list %}
+										<div class="list-item control-arrow">
+											<div class="top-block">
+												<div class="content-side">
+													<p class="common-list-description">{{ task.task_description }}</p>
+													<div class="bottom-block">
+														<p class="bottom-small-description">{{ task.created_on }}</p>
+													</div>
+												</div>
+												<div class="control-side">
+													<!-- <a href="#" class="text-snippet">Reminded</a> -->
+													<div class="control-block">
+														<div class="control-top-block">
+															<input class="form-check-input hero first-input"
+																type="checkbox" id="inlineCheckbox6-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+															<label class="form-check-label"
+																for="inlineCheckbox6-{{task.id}}"></label>
+															<a href="" class="form-archive-link" data-id="{{ task.id }}">
+																<span class="icon">
+																	<svg width="17" height="20" viewBox="0 0 17 20"
+																		fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<path
+																			d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																		<path d="M16.1778 4.23975H1.63965"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																		<path
+																			d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																	</svg>
+																</span>
+															</a>
+														</div>
+														<a href="#" class="icon-wrapper">
+															<span class="icon arrow-icon">
+																<svg width="14" height="8" viewBox="0 0 14 8"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path
+																		d="M12.8334 1.08337L7.00002 6.91671L1.16669 1.08337"
+																		stroke="white" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																</svg>
+															</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+										<!-- <div class="list-item wrapper-notice-snippet">
+											<div class="notice-snippet">
+												<a href="#" class="simple-text-snippet">Reminded</a>
+											</div>
+										</div>
+										<div class="list-item wrapper-notice-snippet">
+											<div class="notice-snippet border-top-0">
+												<a href="#" class="triangle-text-snippet">Reminded</a>
+												<p class="notice-text">17 May 2021, 05:00 pm</p>
+											</div>
+										</div> -->
+									</div>
+									{% endfor %}
+								{% endfor %}
+								{% endif %}
+								{% endfor %}
+								</div>
+							</div>
+							<div class="tab-pane fade" id="date-personal" role="tabpanel" aria-labelledby="date-tab-personal">
+								<div class="common-list-body">
+									{% for week_num, task_list in personal_tasks_by_date.items %}
+									<h3 class="common-list-title">{{ week_num }} {% if week_num > 1 %}Weeks{% else %}Week{% endif %}</h3>
+									<div class="item-block">
+										{% for task in task_list %}
+										<div class="list-item bigger-top-indent">
+											<h5 class="common-list-small-subtitle">{% if task.task_owner %}{{ task.task_owner }}{% else %}Me{% endif %} / {{ task.project_name }} / {{ task.goal_name }}
+											</h5>
+											<div class="line-block">
+												<div class="content-side">
+													<p class="common-list-description">{{ task.task_description }}</p>
+													<div class="bottom-block">
+														<p class="bottom-small-description">{{ task.created_on }}</p>
+													</div>
+												</div>
+												<div class="control-side">
+													<div class="control-block">
+														<input class="form-check-input hero first-input" type="checkbox"
+															id="inlineCheckbox7-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+														<label class="form-check-label" for="inlineCheckbox7-{{task.id}}"></label>
+														<a href="" class="form-archive-link" data-id="{{ task.id }}">
+															<span class="icon">
+																<svg width="17" height="20" viewBox="0 0 17 20"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path
+																		d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
+																		stroke="#04212F" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																	<path d="M16.1778 4.23975H1.63965" stroke="#04212F"
+																		stroke-width="1.5" stroke-linecap="round"
+																		stroke-linejoin="round" />
+																	<path
+																		d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
+																		stroke="#04212F" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																</svg>
+															</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+							<div class="tab-pane fade" id="archive-personal" role="tabpanel"
+								aria-labelledby="archive-tab-personal">
+								<div class="common-list-body">
+									{% for person, personal_tasks in archived_personal_tasks.items %}
+									<h3 class="common-list-title">{{ person }}</h3>
+									{% for project_name, goals in personal_tasks.items %}
+									{% for goal_name, task_list in goals.items %}
+									<div class="item-block">
+										<h5 class="common-list-subtitle">{{ project_name }} / <span
+												class="thin">{{ goal_name }}</span></h5>
+										{% for task in task_list %}
+										<div class="list-item control-arrow">
+											<div class="top-block">
+												<div class="content-side">
+													<p class="common-list-description">{{ task.task_description }}</p>
+													<div class="bottom-block">
+														<p class="bottom-small-description">{{ task.created_on }}</p>
+													</div>
+												</div>
+												<div class="control-side">
+													<!-- <a href="#" class="text-snippet">Reminded</a> -->
+													<div class="control-block">
+														<div class="control-top-block">
+															<input class="form-check-input hero first-input"
+																type="checkbox" id="inlineCheckbox8-{{task.id}}" value="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+															<label class="form-check-label"
+																for="inlineCheckbox8-{{task.id}}"></label>
+															<a href="" class="form-archive-link" data-id="{{ task.id }}">
+																<span class="icon">
+																	<svg width="17" height="20" viewBox="0 0 17 20"
+																		fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<path
+																			d="M14.9919 7.46826C14.9919 7.46826 14.5264 14.2033 14.2564 17.0403C14.1278 18.3953 13.4102 19.1893 12.2348 19.2143C9.99813 19.2613 7.75885 19.2643 5.523 19.2093C4.39222 19.1823 3.68666 18.3783 3.56064 17.0473C3.28887 14.1853 2.82593 7.46826 2.82593 7.46826"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																		<path d="M16.1778 4.23975H1.63965"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																		<path
+																			d="M13.3763 4.23973C12.7034 4.23973 12.1238 3.68473 11.9918 2.91573L11.7835 1.69973C11.6549 1.13873 11.2194 0.750732 10.723 0.750732H7.09403C6.59765 0.750732 6.16214 1.13873 6.03354 1.69973L5.82522 2.91573C5.69319 3.68473 5.11366 4.23973 4.44067 4.23973"
+																			stroke="#04212F" stroke-width="1.5"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																	</svg>
+																</span>
+															</a>
+														</div>
+
+														<a href="#" class="icon-wrapper">
+															<span class="icon arrow-icon">
+																<svg width="14" height="8" viewBox="0 0 14 8"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path
+																		d="M12.8334 1.08337L7.00002 6.91671L1.16669 1.08337"
+																		stroke="white" stroke-width="1.5"
+																		stroke-linecap="round"
+																		stroke-linejoin="round" />
+																</svg>
+															</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+										<!-- <div class="list-item wrapper-notice-snippet">
+											<div class="notice-snippet">
+												<a href="#" class="simple-text-snippet">Reminded</a>
+											</div>
+										</div>
+										<div class="list-item wrapper-notice-snippet">
+											<div class="notice-snippet border-top-0">
+												<a href="#" class="triangle-text-snippet">Reminded</a>
+												<p class="notice-text">17 May 2021, 05:00 pm</p>
+											</div>
+										</div> -->
+									</div>
+									{% endfor %}
+									{% endfor %}
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-menu">
+			<div class="wrapper-tasks-panel">
+				<div class="tasks-panel t-panel tasks-panel-work" role="tablist">
+					<ul class="nav nav-tabs" id="hero-content-tabs-work-footer">
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500 active" id="me-tab-mobile"
+								data-toggle="tab" href="#me" role="tab" aria-controls="me" aria-selected="true">
+								<span class="icon full-color">
+									<svg width="16" height="20" viewBox="0 0 16 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M13.294 5.29105C13.294 8.22808 10.9391 10.5831 8 10.5831C5.0619 10.5831 2.70601 8.22808 2.70601 5.29105C2.70601 2.35402 5.0619 0 8 0C10.9391 0 13.294 2.35402 13.294 5.29105ZM8 20C3.66237 20 0 19.295 0 16.575C0 13.8539 3.68538 13.1739 8 13.1739C12.3386 13.1739 16 13.8789 16 16.599C16 19.32 12.3146 20 8 20Z"
+											fill="white" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="16" height="20" viewBox="0 0 16 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M7.98475 13.3462C4.11713 13.3462 0.81427 13.931 0.81427 16.2729C0.81427 18.6148 4.09617 19.2205 7.98475 19.2205C11.8524 19.2205 15.1543 18.6348 15.1543 16.2938C15.1543 13.9529 11.8733 13.3462 7.98475 13.3462Z"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M7.98477 10.0059C10.5229 10.0059 12.58 7.94779 12.58 5.40969C12.58 2.8716 10.5229 0.814453 7.98477 0.814453C5.44667 0.814453 3.38858 2.8716 3.38858 5.40969C3.38001 7.93922 5.42382 9.99731 7.95239 10.0059H7.98477Z"
+											stroke="white" stroke-width="1.42857" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">Me</span>
+							</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500" id="others-tab-mobile"
+								data-toggle="tab" href="#others" role="tab" aria-controls="others"
+								aria-selected="false">
+								<span class="icon full-color">
+									<svg width="20" height="18" viewBox="0 0 20 18" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M12.2124 4.76241C12.2124 7.40617 10.0489 9.52482 7.34933 9.52482C4.6507 9.52482 2.48631 7.40617 2.48631 4.76241C2.48631 2.11865 4.6507 0 7.34933 0C10.0489 0 12.2124 2.11865 12.2124 4.76241ZM0 14.9174C0 12.47 3.38553 11.8577 7.34933 11.8577C11.3347 11.8577 14.6987 12.4911 14.6987 14.9404C14.6987 17.3877 11.3131 18 7.34933 18C3.364 18 0 17.3666 0 14.9174ZM14.1734 4.84875C14.1734 6.19506 13.7605 7.45131 13.0364 8.49482C12.9611 8.60214 13.0276 8.74683 13.1587 8.76983C13.3407 8.79954 13.5276 8.81774 13.7184 8.82158C15.6167 8.87045 17.3202 7.67362 17.7908 5.87118C18.4885 3.19676 16.4415 0.795428 13.8339 0.795428C13.5511 0.795428 13.2801 0.824175 13.0159 0.876878C12.9797 0.884544 12.9405 0.901792 12.921 0.932455C12.8955 0.971743 12.9141 1.02253 12.9396 1.05607C13.7233 2.13216 14.1734 3.44206 14.1734 4.84875ZM17.3173 10.7023C18.5932 10.9466 19.4317 11.444 19.7791 12.1694C20.0736 12.7635 20.0736 13.4534 19.7791 14.0475C19.2478 15.1705 17.5335 15.5318 16.8672 15.6247C16.7292 15.6439 16.6186 15.5289 16.6333 15.3928C16.9738 12.2805 14.2664 10.8048 13.5658 10.4656C13.5364 10.4493 13.5296 10.4263 13.5325 10.411C13.5345 10.4014 13.5472 10.3861 13.5697 10.3832C15.0854 10.3545 16.7155 10.5586 17.3173 10.7023Z"
+											fill="white" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M7.59151 13.2068C11.2805 13.2068 14.4335 13.7658 14.4335 15.9988C14.4335 18.2318 11.3015 18.8068 7.59151 18.8068C3.90151 18.8068 0.749512 18.2528 0.749512 16.0188C0.749512 13.7848 3.88051 13.2068 7.59151 13.2068Z"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M7.59151 10.0198C5.16951 10.0198 3.20551 8.05676 3.20551 5.63476C3.20551 3.21276 5.16951 1.24976 7.59151 1.24976C10.0125 1.24976 11.9765 3.21276 11.9765 5.63476C11.9855 8.04776 10.0355 10.0108 7.62251 10.0198H7.59151Z"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path
+											d="M14.4831 8.88153C16.0841 8.65653 17.3171 7.28253 17.3201 5.61953C17.3201 3.98053 16.1251 2.62053 14.5581 2.36353"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path
+											d="M16.5954 12.7322C18.1464 12.9632 19.2294 13.5072 19.2294 14.6272C19.2294 15.3982 18.7194 15.8982 17.8954 16.2112"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">Others</span>
+							</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500" id="new-tab-form" data-toggle="tab"
+								href="#new-form" role="tab" aria-controls="new" aria-selected="false">
+								<span class="icon full-color">
+									<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M5.66976 -0.000854492H14.3398C17.7298 -0.000854492 19.9998 2.37915 19.9998 5.91915V14.0901C19.9998 17.6201 17.7298 19.9991 14.3398 19.9991H5.66976C2.27976 19.9991 -0.000244141 17.6201 -0.000244141 14.0901V5.91915C-0.000244141 2.37915 2.27976 -0.000854492 5.66976 -0.000854492ZM14.2565 9.98507C14.2572 9.50494 13.8683 9.11603 13.3875 9.11603H10.8702L10.8695 6.59803C10.8702 6.1179 10.4742 5.72192 9.99335 5.72192C9.51181 5.72121 9.1229 6.11012 9.11654 6.59873L9.1229 9.10825L6.60631 9.10896C6.1177 9.11533 5.72879 9.50423 5.7295 9.98577C5.7295 10.4666 6.12548 10.8626 6.6056 10.8619L9.12361 10.8626L9.11654 13.3728C9.12361 13.8607 9.51252 14.2496 9.99264 14.2489C10.2331 14.2489 10.46 14.1506 10.6156 13.9951C10.7782 13.8324 10.8695 13.6125 10.8695 13.3721L10.8772 10.8626L13.3868 10.8548C13.635 10.8626 13.8471 10.7636 14.0026 10.608C14.1653 10.4454 14.2565 10.2255 14.2565 9.98507Z"
+											fill="white" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path d="M9.99908 6.60227V13.3792" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M13.3907 9.99167L6.60742 9.99097" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M14.3345 0.750244H5.66549C2.64449 0.750244 0.750488 2.88924 0.750488 5.91624V14.0842C0.750488 17.1112 2.63549 19.2502 5.66549 19.2502H14.3335C17.3645 19.2502 19.2505 17.1112 19.2505 14.0842V5.91624C19.2505 2.88924 17.3645 0.750244 14.3345 0.750244Z"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">New</span>
+							</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500" id="date-tab-mobile"
+								data-toggle="tab" href="#date" role="tab" aria-controls="date" aria-selected="false">
+								<span class="icon full-color">
+									<svg width="18" height="20" viewBox="0 0 18 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M13.4109 0.76862L13.4119 1.51824C16.1665 1.73414 17.9862 3.6112 17.9891 6.48975L18 14.9155C18.0039 18.054 16.0322 19.985 12.8718 19.99L5.15189 20C2.0112 20.004 0.0148232 18.027 0.0108739 14.8796L1.32771e-05 6.55272C-0.00393603 3.65517 1.75153 1.78311 4.50618 1.53024L4.50519 0.780614C4.5042 0.340834 4.83002 0.00999952 5.26445 0.00999952C5.69887 0.00900002 6.02469 0.338835 6.02568 0.778615L6.02666 1.47826L11.8914 1.47027L11.8904 0.770619C11.8894 0.330839 12.2152 0.00100402 12.6497 4.52073e-06C13.0742 -0.000994979 13.4099 0.32884 13.4109 0.76862ZM1.52149 6.86157L16.4696 6.84158V6.49175C16.4272 4.34283 15.349 3.21539 13.4139 3.04748L13.4148 3.81709C13.4148 4.24688 13.0801 4.58771 12.6556 4.58771C12.2212 4.58871 11.8944 4.24888 11.8944 3.81909L11.8934 3.0095L6.02864 3.01749L6.02962 3.82609C6.02962 4.25687 5.70479 4.5967 5.27037 4.5967C4.83595 4.5977 4.50914 4.25887 4.50914 3.82809L4.50815 3.05847C2.58286 3.25138 1.51754 4.38281 1.5205 6.55072L1.52149 6.86157ZM12.2399 11.4043V11.4153C12.2498 11.8751 12.625 12.2239 13.0801 12.2139C13.5244 12.2029 13.8789 11.8221 13.869 11.3623C13.8483 10.9225 13.4918 10.5637 13.0485 10.5647C12.5944 10.5747 12.2389 10.9445 12.2399 11.4043ZM13.0554 15.892C12.6013 15.882 12.235 15.5032 12.234 15.0435C12.2241 14.5837 12.5884 14.2029 13.0426 14.1919H13.0525C13.5165 14.1919 13.8927 14.5707 13.8927 15.0405C13.8937 15.5102 13.5185 15.891 13.0554 15.892ZM8.17213 11.4203C8.19187 11.8801 8.56804 12.2389 9.02222 12.2189C9.46651 12.1979 9.82096 11.8181 9.80122 11.3583C9.79036 10.9085 9.42505 10.5587 8.98075 10.5597C8.52658 10.5797 8.17114 10.9605 8.17213 11.4203ZM9.02617 15.8471C8.57199 15.8671 8.19681 15.5082 8.17608 15.0485C8.17608 14.5887 8.53053 14.2089 8.9847 14.1879C9.429 14.1869 9.79529 14.5367 9.80517 14.9855C9.8259 15.4463 9.47046 15.8261 9.02617 15.8471ZM4.10434 11.4553C4.12408 11.915 4.50025 12.2749 4.95442 12.2539C5.39872 12.2339 5.75317 11.8531 5.73244 11.3933C5.72257 10.9435 5.35725 10.5937 4.91197 10.5947C4.4578 10.6147 4.10335 10.9955 4.10434 11.4553ZM4.95837 15.8521C4.5042 15.8731 4.12902 15.5132 4.10828 15.0535C4.1073 14.5937 4.46274 14.2129 4.91691 14.1929C5.3612 14.1919 5.7275 14.5417 5.73738 14.9915C5.75811 15.4513 5.40366 15.8321 4.95837 15.8521Z"
+											fill="white" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="20" height="22" viewBox="0 0 20 22" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path d="M1.09265 8.40421H18.9166" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M14.4421 12.3097H14.4514" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M10.0046 12.3097H10.0139" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M5.55787 12.3097H5.56714" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M14.4421 16.1962H14.4514" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M10.0046 16.1962H10.0139" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M5.55787 16.1962H5.56714" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M14.0437 1V4.29078" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M5.96552 1V4.29078" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M14.2383 2.5791H5.77096C2.83427 2.5791 1 4.21504 1 7.22213V16.2718C1 19.3261 2.83427 20.9999 5.77096 20.9999H14.229C17.175 20.9999 19 19.3545 19 16.3474V7.22213C19.0092 4.21504 17.1842 2.5791 14.2383 2.5791Z"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">Date</span>
+							</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500" id="archive-tab-mobile"
+								data-toggle="tab" href="#archive" role="tab" aria-controls="archive"
+								aria-selected="false">
+								<span class="icon full-color">
+									<svg width="18" height="20" viewBox="0 0 18 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M17.2871 3.24297C17.6761 3.24297 18 3.56596 18 3.97696V4.35696C18 4.75795 17.6761 5.09095 17.2871 5.09095H0.713853C0.32386 5.09095 0 4.75795 0 4.35696V3.97696C0 3.56596 0.32386 3.24297 0.713853 3.24297H3.62957C4.22185 3.24297 4.7373 2.82197 4.87054 2.22798L5.02323 1.54598C5.26054 0.616994 6.0415 0 6.93527 0H11.0647C11.9488 0 12.7385 0.616994 12.967 1.49699L13.1304 2.22698C13.2627 2.82197 13.7781 3.24297 14.3714 3.24297H17.2871ZM15.8058 17.134C16.1102 14.2971 16.6432 7.55712 16.6432 7.48913C16.6626 7.28313 16.5955 7.08813 16.4623 6.93113C16.3193 6.78413 16.1384 6.69713 15.9391 6.69713H2.06852C1.86818 6.69713 1.67756 6.78413 1.54529 6.93113C1.41108 7.08813 1.34494 7.28313 1.35467 7.48913C1.35646 7.50162 1.37558 7.73903 1.40755 8.13594C1.54958 9.89917 1.94517 14.8102 2.20079 17.134C2.38168 18.846 3.50498 19.922 5.13206 19.961C6.38763 19.99 7.68112 20 9.00379 20C10.2496 20 11.5149 19.99 12.8094 19.961C14.4929 19.932 15.6152 18.875 15.8058 17.134Z"
+											fill="white" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M16.3249 7.46826C16.3249 7.46826 15.7819 14.2033 15.4669 17.0403C15.3169 18.3953 14.4799 19.1893 13.1089 19.2143C10.4999 19.2613 7.88791 19.2643 5.27991 19.2093C3.96091 19.1823 3.13791 18.3783 2.99091 17.0473C2.67391 14.1853 2.13391 7.46826 2.13391 7.46826"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path d="M17.7082 4.23975H0.750244" stroke="white" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path
+											d="M14.4407 4.23973C13.6557 4.23973 12.9797 3.68473 12.8257 2.91573L12.5827 1.69973C12.4327 1.13873 11.9247 0.750732 11.3457 0.750732H7.1127C6.5337 0.750732 6.0257 1.13873 5.8757 1.69973L5.6327 2.91573C5.4787 3.68473 4.8027 4.23973 4.0177 4.23973"
+											stroke="white" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">Archive</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="tasks-panel d-none tasks-panel-personal">
+					<ul class="nav nav-tabs t-panel" id="hero-content-tabs-personal-footer" role="tablist">
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500" id="me-tab-personal-mobile"
+								data-toggle="tab" href="#me-personal" role="tab" aria-controls="me-personal"
+								aria-selected="true">
+								<span class="icon full-color">
+									<svg width="16" height="20" viewBox="0 0 16 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M13.294 5.29105C13.294 8.22808 10.9391 10.5831 8 10.5831C5.0619 10.5831 2.70601 8.22808 2.70601 5.29105C2.70601 2.35402 5.0619 0 8 0C10.9391 0 13.294 2.35402 13.294 5.29105ZM8 20C3.66237 20 0 19.295 0 16.575C0 13.8539 3.68538 13.1739 8 13.1739C12.3386 13.1739 16 13.8789 16 16.599C16 19.32 12.3146 20 8 20Z"
+											fill="#32BEEC" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="16" height="20" viewBox="0 0 16 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M7.98475 13.3462C4.11713 13.3462 0.81427 13.931 0.81427 16.2729C0.81427 18.6148 4.09617 19.2205 7.98475 19.2205C11.8524 19.2205 15.1543 18.6348 15.1543 16.2938C15.1543 13.9529 11.8733 13.3462 7.98475 13.3462Z"
+											stroke="#04212F" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M7.98477 10.0059C10.5229 10.0059 12.58 7.94779 12.58 5.40969C12.58 2.8716 10.5229 0.814453 7.98477 0.814453C5.44667 0.814453 3.38858 2.8716 3.38858 5.40969C3.38001 7.93922 5.42382 9.99731 7.95239 10.0059H7.98477Z"
+											stroke="#04212F" stroke-width="1.42857" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">Me</span>
+							</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500" id="others-tab-personal-mobile"
+								data-toggle="tab" href="#others-personal" role="tab" aria-controls="others-personal"
+								aria-selected="false">
+								<span class="icon full-color">
+									<svg width="20" height="18" viewBox="0 0 20 18" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M12.2124 4.76241C12.2124 7.40617 10.0489 9.52482 7.34933 9.52482C4.6507 9.52482 2.48631 7.40617 2.48631 4.76241C2.48631 2.11865 4.6507 0 7.34933 0C10.0489 0 12.2124 2.11865 12.2124 4.76241ZM0 14.9174C0 12.47 3.38553 11.8577 7.34933 11.8577C11.3347 11.8577 14.6987 12.4911 14.6987 14.9404C14.6987 17.3877 11.3131 18 7.34933 18C3.364 18 0 17.3666 0 14.9174ZM14.1734 4.84875C14.1734 6.19506 13.7605 7.45131 13.0364 8.49482C12.9611 8.60214 13.0276 8.74683 13.1587 8.76983C13.3407 8.79954 13.5276 8.81774 13.7184 8.82158C15.6167 8.87045 17.3202 7.67362 17.7908 5.87118C18.4885 3.19676 16.4415 0.795428 13.8339 0.795428C13.5511 0.795428 13.2801 0.824175 13.0159 0.876878C12.9797 0.884544 12.9405 0.901792 12.921 0.932455C12.8955 0.971743 12.9141 1.02253 12.9396 1.05607C13.7233 2.13216 14.1734 3.44206 14.1734 4.84875ZM17.3173 10.7023C18.5932 10.9466 19.4317 11.444 19.7791 12.1694C20.0736 12.7635 20.0736 13.4534 19.7791 14.0475C19.2478 15.1705 17.5335 15.5318 16.8672 15.6247C16.7292 15.6439 16.6186 15.5289 16.6333 15.3928C16.9738 12.2805 14.2664 10.8048 13.5658 10.4656C13.5364 10.4493 13.5296 10.4263 13.5325 10.411C13.5345 10.4014 13.5472 10.3861 13.5697 10.3832C15.0854 10.3545 16.7155 10.5586 17.3173 10.7023Z"
+											fill="#32BEEC" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M7.59151 13.207C11.2805 13.207 14.4335 13.766 14.4335 15.999C14.4335 18.232 11.3015 18.807 7.59151 18.807C3.90151 18.807 0.749512 18.253 0.749512 16.019C0.749512 13.785 3.88051 13.207 7.59151 13.207Z"
+											stroke="#180911" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M7.59151 10.02C5.16951 10.02 3.20551 8.057 3.20551 5.635C3.20551 3.213 5.16951 1.25 7.59151 1.25C10.0125 1.25 11.9765 3.213 11.9765 5.635C11.9855 8.048 10.0355 10.011 7.62251 10.02H7.59151Z"
+											stroke="#180911" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path
+											d="M14.4831 8.88177C16.0841 8.65677 17.3171 7.28277 17.3201 5.61977C17.3201 3.98077 16.1251 2.62077 14.5581 2.36377"
+											stroke="#180911" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path
+											d="M16.5954 12.7324C18.1464 12.9634 19.2294 13.5074 19.2294 14.6274C19.2294 15.3984 18.7194 15.8984 17.8954 16.2114"
+											stroke="#180911" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">Others</span>
+							</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500" id="new-tab-form-personal"
+								data-toggle="tab" href="#new-form-personal" role="tab" aria-controls="new-personal"
+								aria-selected="false">
+								<span class="icon full-color">
+									<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M5.66976 -0.000732422H14.3398C17.7298 -0.000732422 19.9998 2.37927 19.9998 5.91927V14.0903C19.9998 17.6203 17.7298 19.9993 14.3398 19.9993H5.66976C2.27976 19.9993 -0.000244141 17.6203 -0.000244141 14.0903V5.91927C-0.000244141 2.37927 2.27976 -0.000732422 5.66976 -0.000732422ZM14.2565 9.98519C14.2572 9.50506 13.8683 9.11615 13.3875 9.11615H10.8702L10.8695 6.59815C10.8702 6.11802 10.4742 5.72204 9.99335 5.72204C9.51181 5.72134 9.1229 6.11024 9.11654 6.59885L9.1229 9.10838L6.60631 9.10908C6.1177 9.11545 5.72879 9.50436 5.7295 9.9859C5.7295 10.4667 6.12548 10.8627 6.6056 10.862L9.12361 10.8627L9.11654 13.3729C9.12361 13.8608 9.51252 14.2498 9.99264 14.249C10.2331 14.249 10.46 14.1508 10.6156 13.9952C10.7782 13.8326 10.8695 13.6126 10.8695 13.3722L10.8772 10.8627L13.3868 10.8549C13.635 10.8627 13.8471 10.7637 14.0026 10.6082C14.1653 10.4455 14.2565 10.2256 14.2565 9.98519Z"
+											fill="#32BEEC" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path d="M9.99911 6.60178V13.3787" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M13.3907 9.99143L6.60742 9.99072" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M14.3345 0.75H5.66549C2.64449 0.75 0.750488 2.889 0.750488 5.916V14.084C0.750488 17.111 2.63549 19.25 5.66549 19.25H14.3335C17.3645 19.25 19.2505 17.111 19.2505 14.084V5.916C19.2505 2.889 17.3645 0.75 14.3345 0.75Z"
+											stroke="#04212F" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">New</span>
+							</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500" id="date-tab-personal-mobile"
+								data-toggle="tab" href="#date-personal" role="tab" aria-controls="date-personal"
+								aria-selected="false">
+								<span class="icon full-color">
+									<svg width="18" height="20" viewBox="0 0 18 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M13.4109 0.76862L13.4119 1.51824C16.1665 1.73414 17.9862 3.6112 17.9891 6.48975L18 14.9155C18.0039 18.054 16.0322 19.985 12.8718 19.99L5.15189 20C2.0112 20.004 0.0148232 18.027 0.0108739 14.8796L1.32771e-05 6.55272C-0.00393603 3.65517 1.75153 1.78311 4.50618 1.53024L4.50519 0.780614C4.5042 0.340834 4.83002 0.00999952 5.26445 0.00999952C5.69887 0.00900002 6.02469 0.338835 6.02568 0.778615L6.02666 1.47826L11.8914 1.47027L11.8904 0.770619C11.8894 0.330839 12.2152 0.00100402 12.6497 4.52073e-06C13.0742 -0.000994979 13.4099 0.32884 13.4109 0.76862ZM1.52149 6.86157L16.4696 6.84158V6.49175C16.4272 4.34283 15.349 3.21539 13.4139 3.04748L13.4148 3.81709C13.4148 4.24688 13.0801 4.58771 12.6556 4.58771C12.2212 4.58871 11.8944 4.24888 11.8944 3.81909L11.8934 3.0095L6.02864 3.01749L6.02962 3.82609C6.02962 4.25687 5.70479 4.5967 5.27037 4.5967C4.83595 4.5977 4.50914 4.25887 4.50914 3.82809L4.50815 3.05847C2.58286 3.25138 1.51754 4.38281 1.5205 6.55072L1.52149 6.86157ZM12.2399 11.4043V11.4153C12.2498 11.8751 12.625 12.2239 13.0801 12.2139C13.5244 12.2029 13.8789 11.8221 13.869 11.3623C13.8483 10.9225 13.4918 10.5637 13.0485 10.5647C12.5944 10.5747 12.2389 10.9445 12.2399 11.4043ZM13.0554 15.892C12.6013 15.882 12.235 15.5032 12.234 15.0435C12.2241 14.5837 12.5884 14.2029 13.0426 14.1919H13.0525C13.5165 14.1919 13.8927 14.5707 13.8927 15.0405C13.8937 15.5102 13.5185 15.891 13.0554 15.892ZM8.17213 11.4203C8.19187 11.8801 8.56804 12.2389 9.02222 12.2189C9.46651 12.1979 9.82096 11.8181 9.80122 11.3583C9.79036 10.9085 9.42505 10.5587 8.98075 10.5597C8.52658 10.5797 8.17114 10.9605 8.17213 11.4203ZM9.02617 15.8471C8.57199 15.8671 8.19681 15.5082 8.17608 15.0485C8.17608 14.5887 8.53053 14.2089 8.9847 14.1879C9.429 14.1869 9.79529 14.5367 9.80517 14.9855C9.8259 15.4463 9.47046 15.8261 9.02617 15.8471ZM4.10434 11.4553C4.12408 11.915 4.50025 12.2749 4.95442 12.2539C5.39872 12.2339 5.75317 11.8531 5.73244 11.3933C5.72257 10.9435 5.35725 10.5937 4.91197 10.5947C4.4578 10.6147 4.10335 10.9955 4.10434 11.4553ZM4.95837 15.8521C4.5042 15.8731 4.12902 15.5132 4.10828 15.0535C4.1073 14.5937 4.46274 14.2129 4.91691 14.1929C5.3612 14.1919 5.7275 14.5417 5.73738 14.9915C5.75811 15.4513 5.40366 15.8321 4.95837 15.8521Z"
+											fill="#32BEEC" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="20" height="22" viewBox="0 0 20 22" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path d="M1.09265 8.40445H18.9166" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M14.4421 12.3097H14.4514" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M10.0046 12.3097H10.0139" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M5.55787 12.3097H5.56714" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M14.4421 16.1964H14.4514" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M10.0046 16.1964H10.0139" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M5.55787 16.1964H5.56714" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M14.0437 1V4.29078" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path d="M5.96552 1V4.29078" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M14.2383 2.5791H5.77096C2.83427 2.5791 1 4.21504 1 7.22213V16.2718C1 19.3261 2.83427 20.9999 5.77096 20.9999H14.229C17.175 20.9999 19 19.3545 19 16.3474V7.22213C19.0092 4.21504 17.1842 2.5791 14.2383 2.5791Z"
+											stroke="#04212F" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">Date</span>
+							</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link standard-description button fw-500" id="archive-tab-personal-mobile"
+								data-toggle="tab" href="#archive-personal" role="tab" aria-controls="archive-personal"
+								aria-selected="false">
+								<span class="icon full-color">
+									<svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M16.3249 7.46826C16.3249 7.46826 15.7819 14.2033 15.4669 17.0403C15.3169 18.3953 14.4799 19.1893 13.1089 19.2143C10.4999 19.2613 7.88791 19.2643 5.27991 19.2093C3.96091 19.1823 3.13791 18.3783 2.99091 17.0473C2.67391 14.1853 2.13391 7.46826 2.13391 7.46826"
+											stroke="#04212F" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path d="M17.7082 4.23975H0.750244" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path
+											d="M14.4407 4.23973C13.6557 4.23973 12.9797 3.68473 12.8257 2.91573L12.5827 1.69973C12.4327 1.13873 11.9247 0.750732 11.3457 0.750732H7.1127C6.5337 0.750732 6.0257 1.13873 5.8757 1.69973L5.6327 2.91573C5.4787 3.68473 4.8027 4.23973 4.0177 4.23973"
+											stroke="#04212F" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="icon">
+									<svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M16.3249 7.46826C16.3249 7.46826 15.7819 14.2033 15.4669 17.0403C15.3169 18.3953 14.4799 19.1893 13.1089 19.2143C10.4999 19.2613 7.88791 19.2643 5.27991 19.2093C3.96091 19.1823 3.13791 18.3783 2.99091 17.0473C2.67391 14.1853 2.13391 7.46826 2.13391 7.46826"
+											stroke="#04212F" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+										<path d="M17.7082 4.23975H0.750244" stroke="#04212F" stroke-width="1.5"
+											stroke-linecap="round" stroke-linejoin="round" />
+										<path
+											d="M14.4407 4.23973C13.6557 4.23973 12.9797 3.68473 12.8257 2.91573L12.5827 1.69973C12.4327 1.13873 11.9247 0.750732 11.3457 0.750732H7.1127C6.5337 0.750732 6.0257 1.13873 5.8757 1.69973L5.6327 2.91573C5.4787 3.68473 4.8027 4.23973 4.0177 4.23973"
+											stroke="#04212F" stroke-width="1.5" stroke-linecap="round"
+											stroke-linejoin="round" />
+									</svg>
+								</span>
+								<span class="text">Archive</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="loader">
+		<div class="loader_inner"></div>
+	</div>
+
+	<!--[if lt IE 9]>
+<script src="libs/html5shiv/es5-shim.min.js"></script>
+<script src="libs/html5shiv/html5shiv.min.js"></script>
+<script src="libs/html5shiv/html5shiv-printshiv.min.js"></script>
+<script src="libs/respond/respond.min.js"></script>
+<![endif]-->
+
+	<script src="{% static 'libs/jquery/jquery-1.11.2.min.js' %}"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="{% static 'libs/waypoints/waypoints.min.js' %}"></script>
+	<script src="{% static 'libs/animate/animate-css.js' %}"></script>
+	<script src="{% static 'libs/bootstrap4/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'libs/plugins-scroll/plugins-scroll.js' %}"></script>
+	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+	<script>
+		function complete_task(id, done) { 
+			if (done == true) {
+				status = 1;
+			}
+			else {
+				status = 0;
+			}
+			$.ajax({
+          		url : "{% url 'update_task_status' %}", // the endpoint
+          		type : "POST", // http method
+				data : { 
+					'id': id,
+					'status': status,
+					'csrfmiddlewaretoken': '{{csrf_token}}' 
+					}, // data sent with the post request
+
+				// handle a successful response
+				success : function(json) {
+					console.log("Success");
+				},
+
+          // handle a non-successful response
+          error : function(xhr,errmsg,err) {
+			  console.log("Something went wrong");
+          }
+      });
+		}
+
+		function archive_task(id, e) { 
+			$.ajax({
+          		url : "{% url 'archive_task' %}", // the endpoint
+          		type : "POST", // http method
+				data : { 
+					'id': id,
+					'status': status,
+					'csrfmiddlewaretoken': '{{csrf_token}}' 
+					}, // data sent with the post request
+
+				// handle a successful response
+				success : function(json) {
+					console.log("Success");
+					e.style.display = 'none';
+				},
+
+          // handle a non-successful response
+          error : function(xhr,errmsg,err) {
+			  console.log("Something went wrong");
+          }
+      });
+		}
+	</script>
+
+	<script src="{% static 'js/common.js' %}"></script>
+
+	<script>
+		$(document).ready(function () {
+
+
+			$('.add').click(function (e) {
+				e.preventDefault();
+				$(this).toggleClass('added-active');
+			})
+			var workProjectTags = [];
+			{% for tag in auto_work_projects %}
+      			workProjectTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			var workGoalTags = [];
+			{% for tag in auto_work_goals %}
+      			workGoalTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			var workPeopleTags = [];
+			{% for tag in auto_work_people %}
+      			workPeopleTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+
+			var personalProjectTags = [];
+			{% for tag in auto_personal_projects %}
+      			personalProjectTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			var personalGoalTags = [];
+			{% for tag in auto_personal_goals %}
+      			personalGoalTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			var personalPeopleTags = [];
+			{% for tag in auto_personal_people %}
+      			personalPeopleTags.push(`{{ tag|safe }}`);
+    		{% endfor %}
+			
+			function setWorkAutocomplete () {
+				$("input#project_name").autocomplete({
+				source: workProjectTags,
+				appendTo: "#search-wrp-project_name",
+				open: function( event, ui ) {
+					$('#search-wrp-project_name').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp-project_name').removeClass('open');
+				}
+				});
+				$("input#goal_name").autocomplete({
+					source: workGoalTags,
+					appendTo: "#search-wrp-goal_name",
+					open: function( event, ui ) {
+						$('#search-wrp-goal_name').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-goal_name').removeClass('open');
+					}
+				});
+				$("input#task_owner").autocomplete({
+					source: workPeopleTags,
+					appendTo: "#search-wrp-task_owner",
+					open: function( event, ui ) {
+						$('#search-wrp-task_owner').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-task_owner').removeClass('open');
+					}
+				});
+			}
+
+			function setPersonalAutocomplete () {
+				$("input#project_name").autocomplete({
+				source: personalProjectTags,
+				appendTo: "#search-wrp-project_name",
+				open: function( event, ui ) {
+					$('#search-wrp-project_name').addClass('open');
+				},
+				close: function( event, ui ) {
+					$('#search-wrp-project_name').removeClass('open');
+				}
+				});
+				$("input#goal_name").autocomplete({
+					source: personalGoalTags,
+					appendTo: "#search-wrp-goal_name",
+					open: function( event, ui ) {
+						$('#search-wrp-goal_name').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-goal_name').removeClass('open');
+					}
+				});
+				$("input#task_owner").autocomplete({
+					source: personalPeopleTags,
+					appendTo: "#search-wrp-task_owner",
+					open: function( event, ui ) {
+						$('#search-wrp-task_owner').addClass('open');
+					},
+					close: function( event, ui ) {
+						$('#search-wrp-task_owner').removeClass('open');
+					}
+				});
+			}
+			
+			setWorkAutocomplete();
+
+			var parent = document.getElementById('hide-scroll');
+			var child = document.getElementById('main-container');
+			child.style.paddingRight = child.offsetWidth - child.clientWidth + "px";
+
+
+			$('.basic-multiple').select2({
+				dropdownParent: $('#basic-multiple-wrp1'),
+				minimumResultsForSearch: Infinity,
+				placeholder: "Project",
+				// tags: true,
+				selectionCssClass: 'custom-standard-select',
+				dropdownAutoWidth: true,
+				width: "100%",
+				sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+			});
+			$('.basic-multiple-2').select2({
+				dropdownParent: $('#basic-multiple-wrp2'),
+				minimumResultsForSearch: Infinity,
+				placeholder: "Goal",
+				tags: true,
+				selectionCssClass: 'custom-standard-select',
+				dropdownAutoWidth: true,
+				width: "100%",
+				sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+			});
+			$('.basic-multiple-3').select2({
+				dropdownParent: $('#basic-multiple-wrp3'),
+				minimumResultsForSearch: Infinity,
+				placeholder: "Project",
+				tags: true,
+				selectionCssClass: 'custom-standard-select',
+				dropdownAutoWidth: true,
+				width: "100%",
+				sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+			});
+			$('.basic-multiple-4').select2({
+				dropdownParent: $('#basic-multiple-wrp4'),
+				minimumResultsForSearch: Infinity,
+				placeholder: "Goal",
+				tags: true,
+				selectionCssClass: 'custom-standard-select',
+				dropdownAutoWidth: true,
+				width: "100%",
+				sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+			});
+
+			$('#toggle').on('click', function (e) {
+				if(e.target.checked) {
+					console.log("Personal")
+					$('#task_type').val(2);
+					setPersonalAutocomplete();
+				}
+				else {
+					console.log("Work")
+					$('#task_type').val(1);
+					setWorkAutocomplete();
+				}
+			})
+
+			$('.tasks-panel-work .nav-tabs').find('a').on('shown.bs.tab', function () {
+				console.log("Work")
+				$('#task_type').val(1);
+				setWorkAutocomplete();
+			});
+			$('.tasks-panel-personal .nav-tabs').find('a').on('shown.bs.tab', function () {
+				console.log("Personal")
+				$('#task_type').val(2);
+				setPersonalAutocomplete();
+			});
+
+		});
+	</script>
+
+</body>
+
+</html>

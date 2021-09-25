@@ -2,7 +2,7 @@
 @import "vars"
 
 html.js .loader
-	background: none repeat scroll 0 0 #ffffff
+	background: none repeat scroll 0 0 $dark-blue-color
 	bottom: 0
 	height: 100%
 	left: 0
@@ -16,18 +16,18 @@ html.js .loader
 		background-size: cover
 		background-repeat: no-repeat
 		background-position: center center
-		background-color: #fff
-		height: 60px
-		width: 60px
+		background-color: transparent
+		height: 150px
+		width: 150px
 		margin-top: -30px
 		margin-left: -30px
-		left: 50%
-		top: 50%
+		left: calc(50% - 75px)
+		top: calc(50% - 75px)
 		position: absolute
 
 html
-	height: 100%
-	min-height: 100%
+	//height: 100%
+	//min-height: 100%
 
 body
 	font-family: 'Montserrat', sans-serif
@@ -53,9 +53,21 @@ body textarea:required:valid
 	display: flex
 	flex-direction: row
 	justify-content: flex-end
-	align-items: center
+	align-items: flex-start
 	transition: background .15s linear
-	min-height: 100vh
+	min-height: 100%
+	height: 100%
+	//login page
+	&.login
+		flex-direction: column
+		justify-content: center
+		background-color: $dark-blue-color
+		height: 100vh
+		.hero-title
+			color: $white-color
+			margin-bottom: 70px
+		.button-wrapper
+			margin-top: 10px
 	&.black-theme
 		transition: background .15s linear
 		background: #a5d0cf
@@ -87,53 +99,55 @@ body textarea:required:valid
 						border-bottom: 1px solid $gray-black-color
 				&.active
 					border: 0
-
-
+	#side-bar
 		.hero-content
-			.hero-form
-				.form-block-wrapper
-					.followWrap
-						background-color: transparent
-						.followMeBar2
-							&.fixed
-								background-color: #a5d0cf
-				.form-block
-					.form-check-input[type=checkbox] + label.form-check-label
-						border: 1px solid $black-color
-					.form-check-input[type=checkbox]:checked + label.form-check-label
-						border: 1px solid $black-color
-						&:after
-							background-color: $black-color
-				.standard-form-input
-					border: 1px solid $gray-black-color
-					color: $black-color
-					&::-webkit-input-placeholder
-						color: $black-color
-					&:-moz-placeholder
-						color: $black-color
-					&::-moz-placeholder
-						color: $black-color
-					&:-ms-input-placeholder
-						color: $black-color
-					&::placeholder
-						color: $black-color
-				.standard-form-textarea
-					border: 1px solid $gray-black-color
-					&::-webkit-input-placeholder
-						color: $black-color
-					&:-moz-placeholder
-						color: $black-color
-					&::-moz-placeholder
-						color: $black-color
-					&:-ms-input-placeholder
-						color: $black-color
-					&::placeholder
-						color: $black-color
 		.width-wrapper
 			.control-width
 				&.tasks-panel
 					transition: all .15s linear
 					background-color: #a5d0cf
+	.hero-form .standard-form-input,
+	.hero-form .standard-form-textarea
+		margin-bottom: 20px
+.hero-form
+	.form-block-wrapper
+		.followWrap
+			background-color: transparent
+			.followMeBar2
+				&.fixed
+					background-color: #a5d0cf
+	.form-block
+		.form-check-input[type=checkbox] + label.form-check-label
+			border: 1px solid $black-color
+		.form-check-input[type=checkbox]:checked + label.form-check-label
+			border: 1px solid $black-color
+			&:after
+				background-color: $black-color
+	.standard-form-input
+		border: 1px solid $gray-black-color
+		color: $black-color
+		&::-webkit-input-placeholder
+			color: $black-color
+		&:-moz-placeholder
+			color: $black-color
+		&::-moz-placeholder
+			color: $black-color
+		&:-ms-input-placeholder
+			color: $black-color
+		&::placeholder
+			color: $black-color
+	.standard-form-textarea
+		border: 1px solid $gray-black-color
+		&::-webkit-input-placeholder
+			color: $black-color
+		&:-moz-placeholder
+			color: $black-color
+		&::-moz-placeholder
+			color: $black-color
+		&:-ms-input-placeholder
+			color: $black-color
+		&::placeholder
+			color: $black-color
 
 
 		//.hero-content .hero-form
@@ -149,8 +163,8 @@ body textarea:required:valid
 				width: 100%
 .side-bar-wrapper
 	position: relative
-	width: 100%
-	max-width: 350px
+	//width: 100%
+	min-width: 475px
 	z-index: 1000
 	align-self: flex-start
 #side-bar
@@ -158,24 +172,64 @@ body textarea:required:valid
 	display: flex
 	flex-direction: column
 	justify-content: space-between
-	padding: 70px 40px 50px
+	align-items: center
+	padding: 70px 15px 40px
 	width: 100%
 	left: 0
-	max-width: 350px
+	max-width: 475px
 	height: 100vh
-	border-right: 1px solid rgba(47, 53, 66, 0.2)
-	background-color: $white-color
+	background-color: $dark-blue-color
 	transition: background .15s linear
 	&.with-indent
 		.hero-title
 			margin-bottom: 55px
+
 		.bottom-block
 			.button
 				margin-bottom: 80px
+
+.common-list-body,
+.side-bar-block
+	.top-block,
+	.bottom-block
+		width: 100%
+		max-width: 385px
+	.standard-text
+		font-weight: 500
+		font-size: 16px
+		letter-spacing: .4px
+		&.active
+			font-weight: 600
+	.switch-wrapper
+		display: flex
+		flex-direction: row
+		justify-content: center
+		align-items: center
+		margin: 25px 0
+	.common-menu
+		li
+			display: flex
+			padding: 20px 0
+			&:last-of-type
+				border-bottom: none!important
+				padding-bottom: 0
+			a
+				display: flex
+				flex-direction: row
+				align-items: center
+				justify-content: flex-start
+				.icon
+					display: inline-flex
+					justify-content: center
+					align-items: center
+					width: 30px
+					margin-right: 5px
 	.hero-title
 		display: block
 		text-align: center
-		//margin-bottom: 55px
+		color: $white-color
+		margin-bottom: 70px
+		letter-spacing: .7px
 	.nav-menu
 		display: flex
 		flex-direction: column
@@ -201,44 +255,454 @@ body textarea:required:valid
 			font-weight: 600
 			color: $black-color
 
-.nav-tabs
+#main-container
+	&.dark-theme
+		#side-bar
+			.standard-text
+				color: rgba(255,255,255,.5)
+				&.active
+					color: $white-color
+			.common-menu
+				li
+					border-bottom: 1px solid rgba(255,255,255,.3)
+					a
+						.icon
+							svg
+								path,
+								circle
+									stroke: rgba(255,255,255,.5)
+		.hero-form
+			.standard-form-input
+				border: 1px solid $white-color
+				color: rgba(255,255,255,1)
+				&::-webkit-input-placeholder
+					color: rgba(255,255,255,1)
+				&:-moz-placeholder
+					color: rgba(255,255,255,1)
+				&::-moz-placeholder
+					color: rgba(255,255,255,1)
+				&:-ms-input-placeholder
+					color: rgba(255,255,255,1)
+				&::placeholder
+					color: rgba(255,255,255,1)
+			.standard-form-textarea
+				border: 1px solid $white-color
+				color: rgba(255,255,255,1)
+				&::-webkit-input-placeholder
+					font-size: 16px
+					color: rgba(255,255,255,1)
+				&:-moz-placeholder
+					font-size: 16px
+					color: rgba(255,255,255,1)
+				&::-moz-placeholder
+					font-size: 16px
+					color: rgba(255,255,255,1)
+				&:-ms-input-placeholder
+					font-size: 16px
+					color: rgba(255,255,255,1)
+				&::placeholder
+					font-size: 16px
+					color: rgba(255,255,255,1)
+			.standard-form-search
+				&.open
+					input[type="search"]
+						border-bottom: none
+						border-bottom-right-radius: 0
+						border-bottom-left-radius: 0
+
+				input[type="search"]::-webkit-search-cancel-button
+					-webkit-appearance: none
+					height: 1em
+					width: 1em
+					border-radius: 50em
+					background-img: none
+					//background-color: $white-color
+					background-size: contain
+					opacity: 0
+					pointer-events: none
+				//background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%
+
+				input[type="search"]:focus::-webkit-search-cancel-button
+					opacity: 0
+					pointer-events: all
+
+				.ui-menu
+					position: absolute!important
+					//width: 100%!important
+					background-color: $white-color
+					border: 1px solid $white-color
+					border-bottom-left-radius: 8px
+					border-bottom-right-radius: 8px
+					li
+						padding: 13px 20px 14px 18px
+						font-family: 'Montserrat', sans-serif
+						font-size: 16px
+						font-weight: 500
+						transition: all .2s linear
+						&:last-of-type
+							border-bottom-left-radius: 6px
+							border-bottom-right-radius: 6px
+						&:hover
+							background-color: $dark-blue-color
+							color: $white-color
+							transition: all .2s linear
+							cursor: pointer
+	&.light-theme
+		#side-bar
+			background-color: #F1FAFE
+			.hero-title
+				color: rgba(4, 33, 47, 1)
+			.standard-text
+				color: rgba(4, 33, 47, .6)
+				&.active
+					color: rgba(4, 33, 47, 1)
+		.hero-form
+			.standard-form-input
+				border: 1px solid rgba(4, 33, 47, 1)
+				color: rgba(4, 33, 47, 1)
+				&::-webkit-input-placeholder
+					color: rgba(4, 33, 47, 1)
+				&:-moz-placeholder
+					color: rgba(4, 33, 47, 1)
+				&::-moz-placeholder
+					color: rgba(4, 33, 47, 1)
+				&:-ms-input-placeholder
+					color: rgba(4, 33, 47, 1)
+				&::placeholder
+					color: rgba(4, 33, 47, 1)
+			.standard-form-textarea
+				border: 1px solid rgba(4, 33, 47, 1)
+				color: rgba(4, 33, 47, 1)
+				&::-webkit-input-placeholder
+					color: rgba(4, 33, 47, 1)
+				&:-moz-placeholder
+					color: rgba(4, 33, 47, 1)
+				&::-moz-placeholder
+					color: rgba(4, 33, 47, 1)
+				&:-ms-input-placeholder
+					color: rgba(4, 33, 47, 1)
+				&::placeholder
+					color: rgba(4, 33, 47, 1)
+		.common-menu
+			li
+				border-bottom: 1px solid rgba(4, 33, 47, .3)
+				a
+					&.standard-text
+						color: rgba(4, 33, 47, .7)
+					.icon
+						svg
+							path,
+							circle
+								stroke: rgba(4, 33, 47, .7)
+		.common-list-body
+			.common-list-title
+				background-color: rgba(196, 232, 250, .5)
+				color: $dark-blue-color
+
+
+.wrapper-tasks-panel
 	display: flex
 	flex-direction: row
-	border-radius: 8px
-	margin: 0
-	border: none
-	.nav-item
-		width: 50%
-		margin-bottom: 0
-		&:first-of-type
-			.nav-link
-				border-top-left-radius: 8px
-				border-bottom-left-radius: 8px
-				border-top: 1px solid rgba(47, 53, 66, 0.2)
-				border-left: 1px solid rgba(47, 53, 66, 0.2)
-				border-bottom: 1px solid rgba(47, 53, 66, 0.2)
+	justify-content: space-between
+	padding: 80px 0
+	.tasks-panel
+		display: flex
+		flex-direction: column
+		flex-grow: 1
 		&:last-of-type
-			.nav-link
-				border-left: 0
-				border-top-right-radius: 8px
-				border-bottom-right-radius: 8px
-				border-top: 1px solid rgba(47, 53, 66, 0.2)
-				border-right: 1px solid rgba(47, 53, 66, 0.2)
-				border-bottom: 1px solid rgba(47, 53, 66, 0.2)
+			display: flex
+			flex-grow: 0
+			.nav
+				display: flex
+				flex-direction: row
+				justify-content: flex-end
+	.tasks-panel-title
+		font-size: 20px
+		margin-bottom: 10px
+		color: rgba(4, 33, 47, .4)
 		&.active
-			border: 0
-		.nav-link
-			border-radius: 0
-			background-color: #ffffff
-			height: 46px
-			padding: 0
-			&.active
-				background-color: #282828
-				color: $white-color
+			color: #04212F
+	.nav
+		margin-bottom: 0!important
+		border-top: 1px solid rgba(4, 33, 47, .5)
+		border-bottom: none
+		.nav-item
+			padding-top: 10px
+			margin-right: 35px
+			&:last-of-type
+				margin-right: 0
+			.nav-link
+				border: none
+				padding: 0
+				font-size: 16px
+				color: rgba(4, 33, 47, .4)
+				font-weight: 500
+				&.active
+					color: #04212F
+					font-weight: 600
+
+.common-list-body
+	.common-list-title
+		font-weight: 600
+		font-size: 28px
+		padding: 12px 24px
+		background-color: $blue-color
+		color: $white-color
+		border-radius: 6px
+		position: relative
+		width: calc(100% + 24px)
+		left: -24px
+		margin-bottom: 23px
+	.common-list-subtitle
+		font-size: 22px
+		font-weight: 600
+		color: #04212F
+		padding-top: 20px
+		padding-bottom: 20px
+		border-top: 1px solid rgba(10, 32, 53, .2)
+		border-bottom: 1px solid rgba(10, 32, 53, .2)
+	.common-list-small-subtitle
+		font-size: 14px
+		line-height: 21px
+		font-weight: 600
+		margin-bottom: 8px
+		color: rgba(0, 0, 0, .5)
+	.common-list-description
+		font-size: 18px
+		line-height: 27px
+		font-weight: 500
+		color: #04212F
+		margin-bottom: 0
+	.bottom-small-description
+		font-size: 16px
+		font-weight: 500
+		color: rgba(4, 33, 47, .6)
+		margin-bottom: 0
+	.date-snippet
+		background-color: #C4E8FA
+		padding: 6px 14px
+		border-radius: 6px
+		opacity: .5
+		font-weight: 500
+		font-size: 13px
+		line-height: 15px
+		margin-bottom: 0
+		margin-right: 20px
+	.text-snippet
+		font-size: 11px
+		line-height: 13px
+		font-weight: 600
+		letter-spacing: .5px
+		color: rgba(10, 32, 53, .5)
+		margin-bottom: 0
+		padding: 5px 12px 6px
+		margin-right: 25px
+		border: 1px solid rgba(10, 32, 53, .5)
+		border-radius: 6px
+		margin-left: 0
+	.common-list-description+.bottom-block
+		margin-top: 5px
+	.item-block
+		display: flex
+		flex-direction: column
+		padding-right: 10px
+		margin-bottom: 22px
+		&:first-of-type
+			.common-list-subtitle
+				border-top: none!important
+				padding-top: 0
+		.slider-button
+			height: 100%
+			display: flex
+			flex-direction: row
+			align-items: center
+			justify-content: center
+			padding: 0 24px
+			font-size: 20px
+			font-weight: 600
+		.swiper-wrapper
+			display: flex
+			.list-item
+				margin-bottom: 0
+		.swiper-slide
+			height: initial
+			.form-check-input[type=checkbox] + label.form-check-label
+				width: 13px
+				height: 13px
+			.form-check-input[type=checkbox]:checked + label.form-check-label
+				&::before
+					width: 3px
+					height: 8px
+				&::after
+					width: 13px
+					height: 13px
+	.list-item
+		display: flex
+		flex-direction: column
+		margin-top: 20px
+		&.control-arrow
+			.content-side
+				justify-content: space-between
+			.control-side
+				.control-block
+					align-items: flex-end
+					.control-top-block
+						display: flex
+						flex-direction: row
+						align-items: center
+						margin-bottom: 20px
+
+		&.wrapper-notice-snippet
+			margin-top: 0
+		.notice-snippet
+			display: flex
+			flex-direction: row
+			align-items: center
+			margin-top: 0
+			padding-top: 12px
+			padding-bottom: 14px
+		.simple-text-snippet
+			display: inline-flex
+			font-size: 14px
+			font-weight: 600
+			padding: 7px 16px 8px
+			border-radius: 6px
+			letter-spacing: .5px
+			margin-bottom: 0
+			margin-right: 15px
+		.triangle-text-snippet
+			position: relative
+			display: inline-flex
+			font-size: 14px
+			font-weight: 600
+			padding: 7px 16px 8px
+			border-top-left-radius: 6px
+			border-bottom-left-radius: 6px
+			margin-bottom: 0
+			letter-spacing: .5px
+			margin-right: 30px
+			&::after,
+			&::before
+				content: ""
+				position: absolute
+				top: 50%
+				margin-top: -19px
+				border-top: 19px solid transparent
+				border-bottom: 18px solid transparent
+				border-left: 15px solid
+				right: -15px
+				border-radius: -10px
+		.notice-text
+			font-size: 14px
+			font-weight: 500
+			color: rgba(255, 255, 255, .5)
+			margin-bottom: 0
+		&.bigger-top-indent
+			margin-top: 35px
+			flex-direction: column
+			&:first-of-type
+				margin-top: 0
+			&:last-of-type
+				margin-bottom: 45px
+		//&:last-of-type
+		//	margin-bottom: 35px
+		.top-block
+			display: flex
+			flex-direction: row
+			align-items: flex-start
+			max-width: 100%
+		.bottom-block
+			display: flex
+			flex-direction: row
+			justify-content: flex-start
+			flex-wrap: wrap
+			align-items: center
+			padding-left: 10px
+			max-width: 100%
+			.bottom-small-description
+				margin-right: 25px
+			.date-snippet
+				//&:first-of-type
+				//	margin-left: 25px
+			.date-wrapper
+				display: flex
+				flex-direction: row
+			.text-snippet
+				display: none
+		.content-side
+			width: 100%
+			display: flex
+			flex-direction: column
+			align-items: flex-start
+			padding-right: 30px
+		.control-side
+			display: flex
+			flex-direction: row
+			justify-content: flex-end
+			align-items: flex-start
+			.control-block
+				padding-top: 4px
+				display: flex
+				flex-direction: row
+				align-items: center
+			.icon
+				display: flex
+				width: 20px
+				height: 20px
+				flex-direction: row
+				align-items: center
+				justify-content: center
+
+				svg
+					path
+						stroke: #8C9196
+			a
+				margin-left: 30px
+	.line-block
+		display: flex
+		flex-direction: row
+		align-items: flex-start
+
+
+//.nav-tabs
+//	display: flex
+//	flex-direction: row
+//	border-radius: 8px
+//	margin: 0
+//	border: none
+//	.nav-item
+//		width: 50%
+//		margin-bottom: 0
+//		&:first-of-type
+//			.nav-link
+//				border-top-left-radius: 8px
+//				border-bottom-left-radius: 8px
+//				border-top: 1px solid rgba(47, 53, 66, 0.2)
+//				border-left: 1px solid rgba(47, 53, 66, 0.2)
+//				border-bottom: 1px solid rgba(47, 53, 66, 0.2)
+//		&:last-of-type
+//			.nav-link
+//				border-left: 0
+//				border-top-right-radius: 8px
+//				border-bottom-right-radius: 8px
+//				border-top: 1px solid rgba(47, 53, 66, 0.2)
+//				border-right: 1px solid rgba(47, 53, 66, 0.2)
+//				border-bottom: 1px solid rgba(47, 53, 66, 0.2)
+//		&.active
+//			border: 0
+//		.nav-link
+//			border-radius: 0
+//			background-color: #ffffff
+//			height: 46px
+//			padding: 0
+//			&.active
+//				background-color: #282828
+//				color: $white-color
 
 
 .hero-content
 	width: 100%
+
 	.width-wrapper
 		display: flex
 		flex-direction: column
@@ -247,14 +711,17 @@ body textarea:required:valid
 		.control-width
 			width: 100%
 			max-width: 380px
+			.sign-up
+				color: $blue-color
+				display: inline-block
 			.signUp
 				display: flex
 				flex-direction: row
 				justify-content: center
-				margin-top: 25px
-				a
-					font-weight: 600
-					//color: $gray-black-color
+				margin-top: 20px
+				//a
+				//	font-weight: 600
+                //color: $gray-black-color
 			&.wider
 				max-width: 600px
 			&.checkboxes-wrapper
@@ -263,347 +730,61 @@ body textarea:required:valid
 				align-items: flex-end
 	.nav-tabs
 		margin-bottom: 50px
-	.hero-form
-		input
-			border: none
-			&:focus
-				border: 1px solid $light-gray-color
-				outline: none
-				box-shadow: none
-		textarea
-			border: none
-			&:focus
-				outline: none
-				border: 1px solid $light-gray-color
-				box-shadow: none
-		.form-block-wrapper
-			width: 100%
-			display: flex
-			flex-direction: column
-			justify-content: center
-			align-items: flex-end
-			.followWrap
-				position: relative
-				display: flex
-				width: 100%
-			.followMeBar,
-			.followMeBar2
-				padding: 10px 0 10px 0
-				&.fixed
-					position: fixed
-					padding-left: 15px
-					padding-right: 15px
-					top: 0
-					width: calc(100% - 350px)
-					right: 0
-					background-color: $white-color
-					justify-content: center
-					z-index: 150
-					border-bottom: 1px solid #6b6b6b57
-					&.absolute
-						position: absolute
-						width: 100%
-						top: 0!important
-			.followMeBar2
-				&.fixed
-					z-index: 200
-			.form-block-head
-				display: flex
-				flex-direction: row
-				justify-content: space-between
-				width: 100%
-				max-width: 600px
-			&.first-line
-				margin-bottom: 35px
-				>.form-block
-					margin-bottom: 20px
-			&.second-line
-				max-width: 570px
-				margin-top: 5px
-				margin-bottom: 10px
-				.form-block
-					margin-bottom: 15px
-				.title
-					&.hero
-						font-weight: 600
-						font-size: 32px
-						line-height: 36px
-			&.third-line
-				max-width: 530px
-				.form-block
-					align-items: flex-start
-					margin-bottom: 10px
-				.title
-					width: 100%
-					max-width: 70%
-					&.hero
-						font-weight: 400
-						font-size: 18px
-						line-height: 26px
-				.date
-					font-weight: 300
-					font-size: 12px
-					line-height: 16px
-					margin-right: 10px
-		.form-block
-			width: 100%
+
+	.mobile-nav
+		padding: 45px 0 22px
+		display: flex
+		flex-direction: row
+		justify-content: center
+		.buttons-wrapper
 			display: flex
 			flex-direction: row
-			justify-content: space-between
 			align-items: center
-			align-content: center
-			margin-bottom: 10px
-			&.line-through
-				.title
-					text-decoration: line-through
-			.title
-				&.hero
-					font-size: 40px
-					line-height: 44px
-					color: $black-color
-					font-weight: 700
-			.checkbox-block
-				display: flex
-				flex-direction: row
-				justify-content: center
-				align-items: center
-			.form-check-input[type=checkbox]
-				display: none
-			.form-check-input[type=checkbox]+label.form-check-label
-				position: relative
-				display: inline-flex
-				width: 24px
-				height: 24px
-				border: 1px solid $gray-black-color
-			.form-check-input[type=checkbox]:checked+label.form-check-label
-				&:after
-					content: ''
-					position: absolute
-					width: 100%
-					height: 100%
-					background-color: $gray-black-color
-				&::before
-					content: ''
-					position: absolute
-					z-index: 100
-					left: 7px
-					top: 1px
-					width: 8px
-					height: 15px
-					border: solid #ffffff
-					border-width: 0 2px 2px 0
-					-webkit-transform: rotate(45deg)
-					-ms-transform: rotate(45deg)
-					transform: rotate(45deg)
-
-		.standard-form-input
-			font-family: 'Montserrat', sans-serif
-			display: flex
-			width: 100%
-			font-size: 18px
-			font-weight: 500
-			padding: 8px 16px
-			border: 1px solid $gray-black-color
-			background-color: $white-color
-			border-radius: 8px
-			box-shadow: none
-			outline: none
-			-webkit-appearance: none
-			-moz-appearance: none
-			&::-webkit-input-placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-			&:-moz-placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-			&::-moz-placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-			&:-ms-input-placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-			&::placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-		.standard-form-textarea
-			font-family: 'Montserrat', sans-serif
-			display: flex
-			width: 100%
-			min-height: 150px
-			font-size: 18px
-			font-weight: 500
-			padding: 8px 16px
-			border: 1px solid $gray-black-color
-			background-color: $white-color
-			border-radius: 8px
-			outline: none
-			-webkit-appearance: none
-			-moz-appearance: none
-			&::-webkit-input-placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-			&:-moz-placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-			&::-moz-placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-			&:-ms-input-placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-			&::placeholder
-				font-size: 18px
-				color: $black-color
-				outline: none
-				-webkit-appearance: none
-				-moz-appearance: none
-		.standard-form-input,
-		.standard-form-textarea
-			margin-bottom: 25px
-		.button
-			margin-top: 40px
-		//standard-select
-		.standard-select-wrapper
-			position: relative
-			margin-bottom: 25px
-			.select2-container--default
-				&.select2-container--open
-					.select2-selection--single
-						.select2-selection__arrow
-							b
-								border-width: 0 6px 8px 6px
-								border-color: transparent transparent $black-color
-			.select2-container
-				//position: relative!important
-				left: 0!important
-				//top: 0!important
-				.select2-dropdown
-					border-top-left-radius: 0
-					border-top-right-radius: 0
-					border-bottom-left-radius: 8px
-					border-bottom-right-radius: 8px
-				.select2-results
-					.select2-results__options
-						display: flex
-						flex-direction: row
-						flex-wrap: wrap
-						border-bottom-left-radius: 6px
-						border-bottom-right-radius: 6px
-						.select2-results__option
-							min-width: 33.33%
-							font-size: 16px
-							font-family: 'Montserrat', sans-serif
-							font-weight: 500
-							padding: 8px 16px
-							&.select2-results__option--highlighted
-								background-color: $black-color
-
-		.custom-standard-select
-			border: 1px solid $gray-black-color
-			height: initial
-			border-radius: 8px
-			padding: 0
-			outline: none
-			&.select2-selection--multiple
-				.select2-selection__rendered
-					padding-top: 10px
-					padding-bottom: 0
-					.select2-selection__choice
-						margin-bottom: 8px
-			.select2-selection__rendered
-				display: flex
-				flex-direction: row
-				flex-wrap: wrap
-				font-size: 18px
-				font-family: 'Montserrat', sans-serif
+			max-width: 240px
+			.button
+				padding: 8px 26px 9px
+				font-size: 16px
 				font-weight: 500
-				color: $black-color
-				padding: 8px 16px
-				.select2-selection__choice
-					margin: 0 10px 0 0
-			.select2-search--inline
-				display: none
-			.select2-selection__arrow
-				height: 100%
-				top: 0
-				width: 40px
-				b
-					border-width: 8px 6px 0 6px
-					border-color: $black-color transparent transparent
-			.select2-selection__placeholder
-				color: $black-color
-		.standard-form-search
-			&.open
-				input[type="search"]
-					border-bottom: none
-					border-bottom-right-radius: 0
-					border-bottom-left-radius: 0
-
-			input[type="search"]::-webkit-search-cancel-button
-				-webkit-appearance: none
-				height: 1em
-				width: 1em
-				border-radius: 50em
-				background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%
-				background-size: contain
-				opacity: 0
-				pointer-events: none
-			input[type="search"]:focus::-webkit-search-cancel-button
-				opacity: .3
-				pointer-events: all
-
-			.ui-menu
-				position: absolute!important
-				//width: 100%!important
-				background-color: $white-color
-				border: 1px solid $gray-black-color
-				border-bottom-left-radius: 8px
-				border-bottom-right-radius: 8px
-				li
-					padding: 8px 16px
-					font-family: 'Montserrat', sans-serif
-					font-size: 16px
-					font-weight: 500
-					transition: all .2s linear
-					&:last-of-type
-						border-bottom-left-radius: 6px
-						border-bottom-right-radius: 6px
-					&:hover
-						background-color: $gray-black-color
-						color: $white-color
-						transition: all .2s linear
-						cursor: pointer
+				width: 50%
+				border-radius: initial
+				border: 1px solid $white-color
+				color: $white-color
+				&:first-of-type
+					border-top-left-radius: 23px
+					border-bottom-left-radius: 23px
+				&:last-of-type
+					border-top-right-radius: 23px
+					border-bottom-right-radius: 23px
+				&.active
+					background-color: $white-color
+					color: #04212F
 .footer-menu
 	position: fixed
 	bottom: 0
 	width: 100%
+	.wrapper-tasks-panel
+		padding: 0
+		.tasks-panel
+			margin-bottom: 0
+			.nav
+				border-top: none
+			.nav-tabs
+				.nav-item
+					width: 20%
+					margin-right: 0
+					padding: 0
+					.nav-link
+						padding-top: 17px
+						padding-bottom: 23px
+						background: transparent
+						.icon
+							&.full-color
+								display: none
+						&.active
+							.icon
+								display: none
+								&.full-color
+									display: block
 	&.top-block
 		top: 0
 		bottom: initial
@@ -617,13 +798,9 @@ body textarea:required:valid
 	ul
 		display: flex
 		flex-direction: row
-		border-top: 1px solid rgba(47, 53, 66, 0.2)
-		background-color: $white-color
 		transition: all .15s linear
 		li
 			width: 100%
-			max-width: 25%
-			border-right: 1px solid rgba(47, 53, 66, 0.2)
 			&:last-of-type
 				border-right: none
 			a
@@ -652,10 +829,12 @@ body textarea:required:valid
 					margin-bottom: 5px
 				.text
 					font-weight: 600
-					font-size: 18px
-					line-height: 19px
+					font-size: 13px
+					line-height: 16px
 
 .hidden
 	display: none
+
+
 
 @import "media"

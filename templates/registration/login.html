@@ -39,13 +39,13 @@
 </head>
 
 <body>
-	<div id="main-container" class="">
+	<div id="main-container" class="login dark-theme">
 		<div class="container hero-content">
 			<div class="row">
 				<div class="col-12">
 					<div class="width-wrapper">
 						<div class="control-width d-flex flex-column align-items-center justify-content-center">
-							<a href="{% url 'home' %}" class="hero-title black-color fw-700">doBase</a>
+							<a href="{% url 'home' %}" class="hero-title fw-700">doBase</a>
 						</div>
 					</div>
 				</div>
@@ -64,8 +64,8 @@
 											<input type="password" class="standard-form-input" placeholder="Password" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
 										{% endif %}
 									{% endfor %}
-									<div class="button-wrapper d-flex w-100 mt-0">
-										<button type="submit" class="mt-0 w-100 fw-500 standard-description button black-button high">Login</button>
+									<div class="button-wrapper d-flex w-100">
+										<button type="submit" class="mt-0 w-100 fw-500 standard-description button blue-button">Login</button>
 									</div>
 									<input type="hidden" name="next" value="{{ next }}" />
 									<div class="signUp">
@@ -103,3 +103,5 @@
 	
 </body>
 </html>
+
+
