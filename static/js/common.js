@@ -262,10 +262,12 @@ $(document).ready(function () {
 		if($(this).is(':checked')){
 			actionLine(state, 'add');
 			complete_task(this.value, true);
+			$(`.form-check-input[value="${this.value}"]`).prop('checked', true);
 		}
 		if(!$(this).is(':checked')){
 			actionLine(state, 'remove');
 			complete_task(this.value, false);
+			$(`.form-check-input[value="${this.value}"]`).prop('checked', false);
 		}
 
 		var totalAllActiveCheck = allCheckSecondLine.not(':checked').length;
