@@ -628,8 +628,20 @@ $(document).ready(function () {
 
 	// end setting for swiper
 
+// Switch to personal tasks if it is the weekend or time is before 8am or after 5pm
+date = new Date();
+dayOfWeek = date.getDay()
+hourOfDay = date.getHours()
+var linkToClick = $('#me-tab-personal');
 
-
-
+if (dayOfWeek == 0 || dayOfWeek == 6) {
+	console.log("Weekend - personal")
+	linkToClick.click()
+} else if (hourOfDay < 8 || hourOfDay > 17) {
+	console.log("early or late - personal")
+	linkToClick.click()
+} else {
+	console.log("Work")
+}
 
 })
