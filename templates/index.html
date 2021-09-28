@@ -499,8 +499,8 @@
 								aria-labelledby="new-tab-form">
 								<div class="common-list-body mobile">
 									<div class="top-block">
-										<a href="{% url 'home' %}" class="hero-title fw-800">doBase</a>
-										<form method="POST" class="hero-form control-width">
+										<!-- <a href="{% url 'home' %}" class="hero-title fw-800">doBase</a> -->
+										<form method="POST" class="hero-form control-width mt-3">
 											{% csrf_token %}
 											{% for field in form.visible_fields %}
 												{% if field.errors %}
@@ -541,8 +541,8 @@
 								aria-labelledby="new-tab-form-personal">
 								<div class="common-list-body mobile">
 									<div class="top-block">
-										<a href="index.html" class="hero-title fw-800">doBase</a>
-										<form method="POST" class="hero-form control-width">
+										<!-- <a href="index.html" class="hero-title fw-800">doBase</a> -->
+										<form method="POST" class="hero-form control-width mt-3">
 											{% csrf_token %}
 											{% for field in form.visible_fields %}
 												{% if field.errors %}

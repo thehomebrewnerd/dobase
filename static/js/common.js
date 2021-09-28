@@ -623,7 +623,7 @@ $(document).ready(function () {
 	// end setting for swiper
 
 // Switch to personal tasks if it is the weekend or time is before 8am or after 5pm
-date = new Date("September 24, 2021 20:30:00");
+date = new Date();
 dayOfWeek = date.getDay()
 hourOfDay = date.getHours()
 var linkToClick = $('#me-tab-personal');
